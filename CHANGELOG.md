@@ -14,3 +14,7 @@ After accidentally deleting all my files, I decided to restart from the start to
 ## 09/12/21, 00:11
 * Done more work on a very basic prototype of the ground tile sheet
 * Setup terrain correctly for the tilesheet
+
+## 09/12/21 17:55
+* Another attempt at getting pip install -e. to work 
+* Added prototype turret designs
