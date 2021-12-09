@@ -1,0 +1,610 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "tile sheets/the_project_prototype_ground_tilesheet.json",
+    "expandedProjectPaths": [
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content"
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/New Crossing Large (10p) - 3 Nov 2021.tmx": {
+            "scale": 2,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 314.75,
+                "y": 1698.75
+            }
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/New Crossing Large (10p) - 3 Nov 2021.tmx#Deep Water": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/New Crossing Large (10p) - 3 Nov 2021.tmx#Ice": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/New Crossing Large (10p) - 3 Nov 2021.tmx#Ice Ice - Flat": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/New Crossing Large (10p) - 3 Nov 2021.tmx#Ice ShallowWater - Broken": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/New Crossing Large (10p) - 3 Nov 2021.tmx#Ice ShallowWater - Ridge": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/New Crossing Large (10p) - 3 Nov 2021.tmx#Mountain": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/New Crossing Large (10p) - 3 Nov 2021.tmx#Sand": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/New Crossing Large (10p) - 3 Nov 2021.tmx#Shallow Water": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/New Crossing Large (10p) - 3 Nov 2021.tmx#ShallowWater Water - Flat": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/New Crossing Large (10p) - 3 Nov 2021.tmx#Snow": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/New Crossing Large (10p) - 3 Nov 2021.tmx#Water": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/New Crossing Large (10p) - 3 Nov 2021.tmx#misc": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/New Crossing Large (10p) - 3 Nov 2021.tmx#units": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Dirt ShalowWater - Ridge.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/LongGrass Dirt - Flat.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/LongGrass LongGrass - Ridge.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/LongGrass ShallowWater - Flat.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/LongGrass ShallowWater - Ridge.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Mountain LongGrass - Flat.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Mountain Mountain - Hill.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Mountain Sand - Flat.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Mountain ShallowWater - Flat.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Mountain ShallowWater - Ridge.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Mountain Snow - Flat.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Mountain Stone - Flat.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Sand LandGrass - Flat.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Sand ShallowWater - Flat.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Sand ShallowWater - Ridge.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Snow Ice - Ridge.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Snow Snow - ridge.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Stone Lava - Ridge.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Stone Sand - Flat.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Stone ShallowWater - ridge.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/ridges/Water DeepWater - Flat.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/terrain/Dirt.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/terrain/Lava.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/terrain/Long Grass.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/terrain/Sand.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/Rusted.Warfare.RTS.v1.13.3/mods/maps/terrain/Stone.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Arcade Programs/Other/Tiled/Portable Download/Test Maps/Test Map 3 (Object Layers and Coding)/tmw_desert_spacing.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Arcade Programs/PyCharm Projects/Coloured Bullet Prototype/venv/Lib/site-packages/arcade/resources/tiled_maps/map.json": {
+            "scale": 0.125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3280,
+                "y": -56
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Arcade Programs/PyCharm Projects/Coloured Bullet Prototype/venv/Lib/site-packages/arcade/resources/tiled_maps/map.json#my_tileset": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Arcade Programs/PyCharm Projects/Screwing with Tiled v2/tiled_test/test_map_3.json": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 707.3333333333333,
+                "y": 586
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Arcade Programs/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/test_map_3.json": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1290,
+                "y": 628
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Arcade Programs/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Arcade Programs/test maps/testmap.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 4884,
+                "y": 219616
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Basic 3.9 Python/Lib/site-packages/arcade/resources/tiled_maps/dirt.json": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Basic 3.9 Python/Lib/site-packages/arcade/resources/tiled_maps/grass.json": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Basic 3.9 Python/Lib/site-packages/arcade/resources/tiled_maps/items.json": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Basic 3.9 Python/Lib/site-packages/arcade/resources/tiled_maps/map.json": {
+            "scale": 0.16565625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3205.432937181664,
+                "y": 452.7447651386533
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Basic 3.9 Python/Lib/site-packages/arcade/resources/tiled_maps/map.json#my_tileset": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Basic 3.9 Python/Lib/site-packages/arcade/resources/tiled_maps/map_with_ladders.json": {
+            "scale": 0.33,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 775.7575757575759,
+                "y": 1706.060606060606
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Basic 3.9 Python/Lib/site-packages/arcade/resources/tiled_maps/more_tiles.json": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/AdventureGuild.tbin": {
+            "scale": 2.8025,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 112.22123104371096,
+                "y": 209.27743086529884
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/AdventureGuild.tbin#untitled tile sheet": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/AnimalShop.tbin": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 280.66666666666663,
+                "y": 159.33333333333331
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/AnimalShop.tbin#1": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/AnimalShop.tbin#Paths": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/Beach-Jellies.tbin": {
+            "scale": 0.7992788461538461,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 831.3744360902256,
+                "y": 572.390977443609
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/Beach-Jellies.tbin#Paths": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/Beach-Jellies.tbin#characters": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/Beach-Jellies.tbin#fest": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/Beach-Jellies.tbin#untitled tile sheet": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/Beach.tbin": {
+            "scale": 3,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 743.3333333333333,
+                "y": 402.33333333333337
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/Beach.tbin#Paths": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/Beach.tbin#untitled tile sheet": {
+            "scaleInDock": 1.5
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/Blacksmith.tbin": {
+            "scale": 1.63875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.51868802440885,
+                "y": 160.1830663615561
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/Blacksmith.tbin#1": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content/Blacksmith.tbin#Paths": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1 (Basics, Animation, Terrain)/AnimationTileset1.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1 (Basics, Animation, Terrain)/cool shape.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1 (Basics, Animation, Terrain)/ground.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1 (Basics, Animation, Terrain)/test_map_1.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 782,
+                "y": 798
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1 (Basics, Animation, Terrain)/tmw_desert_spacing.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1/AnimationTileset1.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1/Test Map 1 (Basics, Animation, Terrain)/AnimationTileset1.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1/Test Map 1 (Basics, Animation, Terrain)/cool shape.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1/Test Map 1 (Basics, Animation, Terrain)/ground.tsx": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1/Test Map 1 (Basics, Animation, Terrain)/tmw_desert_spacing.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1/cool shape.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1/ground.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 2
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1/test_map_1.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 331.33333333333326,
+                "y": 610
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1/test_map_1_tileset_grass.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1/test_map_2 (AutoMap).tmx": {
+            "scale": 0.24157475490196076,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 784.4362714013951,
+                "y": 796.854787571338
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 1/tmw_desert_spacing.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 2 (AutoMap)/rule_1.tmx": {
+            "scale": 4,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 158.625,
+                "y": 81.75
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 2 (AutoMap)/rule_2.tmx": {
+            "scale": 3.503125,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 148.58162355040145,
+                "y": 127.88581623550402
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 2 (AutoMap)/rule_3.tmx": {
+            "scale": 3.503125,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 148.29616413916148,
+                "y": 88.20695807314898
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 2 (AutoMap)/rule_4.tmx": {
+            "scale": 3.503125,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 40.107047279214996,
+                "y": 128.171275646744
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 2 (AutoMap)/sewer_tileset.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 2
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 2 (AutoMap)/test_map_2.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 879,
+                "y": 1050
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 2 (AutoMap)/tmw_desert_spacing.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 3 (Object Layers and Coding)/test_map_3.json": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 969.3333333333333,
+                "y": 587.3333333333333
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/Test Map 3 (Object Layers and Coding)/tmw_desert_spacing.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Test Maps/test_map_1.tmx": {
+            "scale": 0.34853125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 764.6373173137273,
+                "y": 790.4599659284497
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Win Python 2.5.7- do not change/WPy64-3940/python-3.9.4.amd64/Lib/site-packages/arcade/resources/tiled_maps/dirt.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Win Python 2.5.7- do not change/WPy64-3940/python-3.9.4.amd64/Lib/site-packages/arcade/resources/tiled_maps/grass.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Win Python 2.5.7- do not change/WPy64-3940/python-3.9.4.amd64/Lib/site-packages/arcade/resources/tiled_maps/items.json": {
+            "scaleInDock": 1
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Win Python 2.5.7- do not change/WPy64-3940/python-3.9.4.amd64/Lib/site-packages/arcade/resources/tiled_maps/map_with_ladders.json": {
+            "scale": 0.5,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 1164,
+                "y": 1700
+            }
+        },
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Win Python 2.5.7- do not change/WPy64-3940/python-3.9.4.amd64/Lib/site-packages/arcade/resources/tiled_maps/more_tiles.json": {
+            "scaleInDock": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/cactus_tileset.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 16
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/custom_tileset_2.json": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/test.json": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 393.99999999999994,
+                "y": 94.66666666666666
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/test_map_3.json": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1066,
+                "y": 564
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/test_map_4.json": {
+            "scale": 0.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 956,
+                "y": 412
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/test_map_4.json#custom_tileset_1": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 3
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing.json": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 3
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing_margin.json": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1.5,
+            "scaleInEditor": 3
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/dirt.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/grass.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/items.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 0.33,
+            "scaleInEditor": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/level_1.json": {
+            "scale": 0.2070703125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2557.1024335031125,
+                "y": 1282.1731748726656
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/map.json": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3198,
+                "y": 450
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/map.json#my_tileset": {
+            "scaleInDock": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/map_with_ladders.json": {
+            "scale": 0.75,
+            "selectedLayer": 5,
+            "viewCenter": {
+                "x": 1278.6666666666665,
+                "y": 1086.6666666666665
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/more_tiles.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/standard_tileset.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "the_project_prototype_ground_tilesheet.json": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 3
+        },
+        "the_project_prototype_map_1.json": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 682,
+                "y": 414
+            }
+        },
+        "tile sheets/the_project_prototype_ground_tilesheet.json": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3
+        }
+    },
+    "frame.defaultDuration": 300,
+    "last.exportedFilePath": "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps",
+    "last.externalTilesetPath": "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps",
+    "last.imagePath": "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/maps/map_assets",
+    "map.fixedSize": true,
+    "map.height": 32,
+    "map.lastUsedExportFilter": "JSON map files (*.json)",
+    "map.lastUsedFormat": "json",
+    "map.layerDataFormat": null,
+    "map.width": 64,
+    "openFiles": [
+        "the_project_prototype_map_1.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing_margin.json",
+        "tile sheets/the_project_prototype_ground_tilesheet.json"
+    ],
+    "project": "the_project_prototype.tiled-project",
+    "property.type": "int",
+    "recentFiles": [
+        "the_project_prototype_map_1.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing_margin.json",
+        "tile sheets/the_project_prototype_ground_tilesheet.json",
+        "the_project_prototype_ground_tilesheet.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/cactus_tileset.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/test_map_4.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/items.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/map_with_ladders.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/custom_tileset_2.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/grass.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/dirt.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/level_1.json"
+    ],
+    "tileset.embedInMap": false,
+    "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
+    "tileset.lastUsedFormat": "json",
+    "tileset.margin": 0,
+    "tileset.spacing": 0,
+    "tileset.tileSize": {
+        "height": 32,
+        "width": 32
+    },
+    "tileset.type": 0
+}
