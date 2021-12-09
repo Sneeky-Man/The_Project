@@ -20,5 +20,6 @@ After accidentally deleting all my files, I decided to restart from the start to
 * Added prototype turret designs
 
 ## 09/12/21 23:20
+* Installing the repo should now work
 * Added BUGS.md
 * Added directions to download the repo
