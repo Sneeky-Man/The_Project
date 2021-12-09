@@ -18,3 +18,7 @@ After accidentally deleting all my files, I decided to restart from the start to
 ## 09/12/21 17:55
 * Another attempt at getting pip install -e. to work 
 * Added prototype turret designs
+
+## 09/12/21 23:20
+* Added BUGS.md
+* Added directions to download the repo
