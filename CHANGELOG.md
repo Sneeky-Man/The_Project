@@ -23,3 +23,6 @@ After accidentally deleting all my files, I decided to restart from the start to
 * Installing the repo should now work
 * Added BUGS.md
 * Added directions to download the repo
+
+## 10/12/21 12:48 
+* Moved BUGS.md
