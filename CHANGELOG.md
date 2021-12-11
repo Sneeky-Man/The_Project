@@ -26,3 +26,13 @@ After accidentally deleting all my files, I decided to restart from the start to
 
 ## 10/12/21 12:48 
 * Moved BUGS.md
+
+## 11/12/21 23:25
+* Added an Entity Sprite Class
+* Added a Player Class using Entity
+* Added a Paths.py script that auto creates paths, and logs errors if the path wasn't found
+* Added a constants.py file
+* Added a bunch of prototype sprites
+* Added sprites that now work
+* Added basic physics engine
+* Implemented a naming convention for sprites. Examples (turret_tier_2_blue)(base_red)

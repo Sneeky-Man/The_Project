@@ -1,5 +1,14 @@
 # Imports the necessary packages
 import arcade, logging
+from the_project.constants import *
+from the_project.special_scripts.paths import PathMaker
+from the_project.entities.player import Player
+"""
+Map Layers
+game_objects: This is the object layer, for example a player spawn
+foreground: This is where buildings will be placed
+background: This is ground (dirt, grass) ect.
+"""
 
 
 class Game_Window(arcade.Window):
@@ -26,7 +35,6 @@ class Game_Window(arcade.Window):
 
         # Player
         self.player_sprite = None
-        self.player_list = None
 
         # Track state of movement (this will be used to move)
         self.left_pressed = None
@@ -50,6 +58,12 @@ class Game_Window(arcade.Window):
         self.right_pressed = False
         self.up_pressed = False
         self.down_pressed = False
+
+        self.setup_map("the_project_prototype_map_1")
+        # Physics Engine
+        self.physics_engine = arcade.PhysicsEngineSimple(
+            player_sprite=self.player_sprite, walls=self.scene[LAYER_NAME_FOREGROUND])
+
         logging.info(f"Game_Window.setup() Finished")
 
     def setup_map(self, map_name):
@@ -59,8 +73,15 @@ class Game_Window(arcade.Window):
         # This loads our tile map. Layer_options can be added, but il deal with that later
         logging.info(f"Game_Window.setup_map() Called")
         logging.info(f"Map {map_name} Setup Initiated")
-        self.tiled_map = arcade.load_tilemap(map_name, scaling=1)
+        self.tiled_map = arcade.load_tilemap(f"assets/maps/{map_name}.json", scaling=1)
         self.scene = arcade.Scene.from_tilemap(self.tiled_map)
+        logging.info(f"Player Sprite Being Created")
+        self.player_sprite = Player(team="blue", x=200, y=200, path=(PathMaker("player", 0, "blue")), speed=2)
+        logging.info(f"Adding Player Sprite To Scene")
+        self.scene.add_sprite("Player", self.player_sprite)
+        #for cur_object in self.tiled_map.object_lists[LAYER_NAME_OBJECTS]:
+        #for cur_tile in self.tiled_map.sprite_lists[LAYER_NAME_FOREGROUND]:
+        #PathMaker("turret", 2, "blue")
         logging.info(f"Map {map_name} Setup Complete")
         logging.info(f"Game_Window.setup_map() Finished")
 
@@ -68,20 +89,50 @@ class Game_Window(arcade.Window):
         """
         This runs every frame to draw stuff to the window
         """
-        logging.debug(f"Game_Window.on_draw() Called")
         # This starts drawing, never call finish_render()!
         arcade.start_render()
-
-        logging.debug(f"Game_Window.on_draw() Finished")
+        self.scene.draw()
+        self.physics_engine.update()
 
     def on_update(self, delta_time: float):
         """
         This runs every frame. This is where all the game logic goes
         :param delta_time: This is essentially a clock
         """
-        logging.debug(f"Game_Window.on_update() Called")
-        logging.debug(f"Game_Window.on_update() Finished")
+        # Reset change_x, change_y
+        self.player_sprite.change_x = 0
+        self.player_sprite.change_y = 0
+        # Check Button States, and move accordingly
+        if self.left_pressed and not self.right_pressed:
+            self.player_sprite.change_x = -self.player_sprite.speed
+        elif self.right_pressed and not self.left_pressed:
+            self.player_sprite.change_x = self.player_sprite.speed
+        if self.up_pressed and not self.down_pressed:
+            self.player_sprite.change_y = self.player_sprite.speed
+        elif self.down_pressed and not self.up_pressed:
+            self.player_sprite.change_y = -self.player_sprite.speed
 
+    def on_key_press(self, key, modifiers):
+        """ Called when a key is pressed """
+        if key == arcade.key.W or key == arcade.key.UP:
+            self.up_pressed = True
+        elif key == arcade.key.S or key == arcade.key.DOWN:
+            self.down_pressed = True
+        elif key == arcade.key.A or key == arcade.key.LEFT:
+            self.left_pressed = True
+        elif key == arcade.key.D or key == arcade.key.RIGHT:
+            self.right_pressed = True
+
+    def on_key_release(self, key, modifiers):
+        """ Called when a key is released"""
+        if key == arcade.key.W or key == arcade.key.UP:
+            self.up_pressed = False
+        elif key == arcade.key.S or key == arcade.key.DOWN:
+            self.down_pressed = False
+        elif key == arcade.key.A or key == arcade.key.LEFT:
+            self.left_pressed = False
+        elif key == arcade.key.D or key == arcade.key.RIGHT:
+            self.right_pressed = False
 
 """
 Logging Levels
@@ -96,11 +147,12 @@ WARNING: An indication that something is unexpected happened, or indicative of s
 ERROR: Due to a more serious problem, the software has not been able to perform some function
 
 CRITICAL: A serious error, indicating that the program itself may be unable to continue running
+
+I would make a custom level and put all my draws and updates there, but i idk how to add a custom log level, 
+found nothing online.
 """
 
-
-# This setups up the Arcade Window, and the logging system,
-# helping me know when errors come up, instead of using print statements
+# This setups up the Arcade Window, as well a logging system
 def main():
     level = logging.INFO  # This level and above will be logged
     fmt = "[%(levelname)s] %(asctime)s - %(message)s"
