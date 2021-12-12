@@ -36,3 +36,8 @@ After accidentally deleting all my files, I decided to restart from the start to
 * Added sprites that now work
 * Added basic physics engine
 * Implemented a naming convention for sprites. Examples (turret_tier_2_blue)(base_red)
+
+## 12/12/21 20:05
+* Added a lot of comments in Entity
+* Added new tile sets with correct naming conventions 
+* A logging bug fix

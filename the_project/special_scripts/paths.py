@@ -21,8 +21,8 @@ def FileExists(file_path=str):
     :param file_path: The path to the file
     """
     if path.exists(file_path) == False:
-        logging.error(f"File to Path {path} has not been found")
+        logging.error(f"File to Path {file_path!r} has not been found")
         return False
     else:
-        logging.debug(f"File {file_path} has been found")
+        logging.debug(f"File {file_path!r} has been found")
 
