@@ -1,33 +1,21 @@
 # Roadmap for The_Project
+######I want at least version 1.0 done by the start of April, as that around the time my project is due. It also allows me to do the documents surrounding the project in time
 
-## Prototype
-##### Est Date (20/12/21) Must be completed before holidays
+## Prototyping Stage
+##### Est Date (31/1/22)
 ###### Version 0.1
-This is a very basic prototype of the game using placeholder assets. 
-Once this is reached, try to get as many people as possible to play it. 
-(At least 3) This must be fun to play, if it's not, change it and make it again
+This is the stage where I test out different game ideas, and stick to one i find fun.
+This is a crucial stage, and cannot be passed under any circumstances until I am appositely sure on the game i want to make
 
 It should include:
-* Starting to complete the Pre-Production Documents
-* Importing and interacting with JSON files
-* Collisions 
-* Basic Combat
-* Basic Building
-* Very Basic AI
+* A fully functioning prototype, with at least one map, and enemies
+* Completed the Pre-Production Documents
+* .gantt chart for the future of development
 * Fill out rest of roadmap
-
-## Advanced Prototype
-##### Est Date (6/1/22) (Or whenever we come back for Christmas holidays)
-###### Version 0.3
-This is an improved version of the prototype 
-
-It should include:
-* All Pre-Production Documents MUST be completed
-* Get a proper name for the game
-
+* Pick a name
 
 ## Alpha
-##### Est Date (1/2/22)
+##### Est Date (13/2/22)
 ###### Version 0.6
 This is a much more advanced version, where most major features are 
 implemented, aside from assets
@@ -36,7 +24,7 @@ implemented, aside from assets
 
 
 ## Beta
-##### Est Date (1/3/22)
+##### Est Date (2/3/22)
 ###### Version 0.8
 Beta is a feature and asset complete version of the game. 
 
@@ -47,7 +35,7 @@ It should include:
 
 
 ## Full Release
-##### Est Date (14/3/22)
+##### Est Date (16/3/22)
 ###### Version 1.0
 This is the fully released version, ironing out the bugs found it Beta. 
 The game is still fully single player at this point. This point must be reached by the end of the course.
@@ -55,10 +43,12 @@ The game is still fully single player at this point. This point must be reached 
 * ?
 
 ## Multiplayer Update
-##### Est Date (1/5/22)
+##### Est Date (2/4/22) 
 ###### Version 1.1
 This is attempting to allow the game to be played in multiplayer on LAN. 
-This is not necessary, but something I want to achieve
-* ?
+This is not necessary, but something I want to achieve. If not achieved within the project timeframe, 
+I can always do it after i submit the project 
+* LAN Multiplayer
+* Button Remapping, and other accessibility stuff
 
 

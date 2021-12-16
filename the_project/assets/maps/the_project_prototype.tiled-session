@@ -554,11 +554,11 @@
             "scaleInEditor": 3
         },
         "the_project_prototype_map_1.json": {
-            "scale": 4,
-            "selectedLayer": 2,
+            "scale": 0.125,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 1557.125,
-                "y": 550.5
+                "x": 1524,
+                "y": 40
             }
         },
         "tile sheets/building_tileset.json": {
@@ -566,10 +566,15 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "tile sheets/building_tileset_blue.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 3
+        },
         "tile sheets/building_tileset_red.json": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
-            "scaleInEditor": 1
+            "scaleInEditor": 3
         },
         "tile sheets/the_project_prototype_ground_tilesheet.json": {
             "dynamicWrapping": false,
@@ -589,23 +594,25 @@
     "map.width": 64,
     "openFiles": [
         "the_project_prototype_map_1.json",
-        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing_margin.json"
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing_margin.json",
+        "tile sheets/building_tileset_blue.json",
+        "tile sheets/building_tileset_red.json"
     ],
     "project": "the_project_prototype.tiled-project",
     "property.type": "string",
     "recentFiles": [
         "tile sheets/building_tileset_red.json",
-        "tile sheets/building_tileset.json",
+        "tile sheets/building_tileset_blue.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing_margin.json",
         "the_project_prototype_map_1.json",
+        "tile sheets/building_tileset.json",
         "tile sheets/the_project_prototype_ground_tilesheet.json",
         "the_project_prototype_ground_tilesheet.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/cactus_tileset.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/test_map_4.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/items.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/map_with_ladders.json",
-        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/custom_tileset_2.json",
-        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/grass.json"
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/custom_tileset_2.json"
     ],
     "tileset.embedInMap": false,
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",

@@ -2,7 +2,7 @@
 
 
 ## 07/12/21
-After accidentally deleting all my files, I decided to restart from the start to make sure i do this right.
+After accidentally deleting all my files, I decided to restart from the start to make sure I do this right.
 * The Initial Commit of most of my files
 * Attempted to get pip install -e. to work, but failed. Will try again tomorrow
 
@@ -13,7 +13,7 @@ After accidentally deleting all my files, I decided to restart from the start to
 
 ## 09/12/21, 00:11
 * Done more work on a very basic prototype of the ground tile sheet
-* Setup terrain correctly for the tilesheet
+* Setup terrain correctly for the tile sheet
 
 ## 09/12/21 17:55
 * Another attempt at getting pip install -e. to work 
@@ -41,3 +41,11 @@ After accidentally deleting all my files, I decided to restart from the start to
 * Added a lot of comments in Entity
 * Added new tile sets with correct naming conventions 
 * A logging bug fix
+
+## 16/12/21 00:40
+* Relative lack of progress is due to not knowing what kind of game I want to make. 
+I'm still pretty unsure, but I think it's best to make some prototypes, and find out what's fun that way.
+* Due to this, I have switched up a lot of the ROADMAP.md
+* Added building.py
+* Updated how file paths are found
+* Updated the tile sets
