@@ -80,14 +80,19 @@ class Game_Window(arcade.Window):
         logging.info(f"Game_Window.setup_map() Called")
         logging.info(f"Map {map_name} Setup Initiated")
 
-        layer_options = {}
+        layer_options = {
+            "background": {
+                "is_static": True
+            }
+        }
+
         self.tiled_map = arcade.load_tilemap(f"assets/maps/{map_name}.json", layer_options=layer_options, scaling=1)
         self.scene = arcade.Scene.from_tilemap(self.tiled_map)
 
         logging.info(f"Player Sprite Being Created")
-        self.player_sprite = Player(team="Blue", x=200, y=200, path=(ALL_ASSETS_PATHS["Player"][1]["Blue"]), speed=3)
+        self.player_sprite = Player(team="Red", x=200, y=200, path=(ALL_ASSETS_PATHS["Player"][1]["Red"]), speed=3)
         logging.info(f"Adding Player Sprite To Scene")
-        self.scene.add_sprite("Player", self.player_sprite)
+        self.scene.add_sprite(LAYER_NAME_PLAYER, self.player_sprite)
 
         # This converts all tiles on the foreground to a Building
         x = 0
@@ -101,7 +106,7 @@ class Game_Window(arcade.Window):
                                                                 x=cur_tile.center_x,
                                                                 y=cur_tile.center_y,
                                                                 path=file_path,
-                                                                radius=0
+                                                                radius=cur_tile.properties["radius"]
                                                                 )
             except KeyError:  # If not in the dict
                 logging.error(f"Tile could not be imported as the file does not exist! "
@@ -122,6 +127,11 @@ class Game_Window(arcade.Window):
 
         self.scene.draw()
         self.scene.draw_hit_boxes(names=[LAYER_NAME_FOREGROUND])
+
+        for sprite in self.scene.sprite_lists[1]:
+            sprite.draw_range_detector()
+            sprite.update(self)
+
         self.physics_engine.update()
 
     def on_update(self, delta_time: float):

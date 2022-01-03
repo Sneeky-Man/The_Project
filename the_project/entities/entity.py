@@ -64,9 +64,21 @@ class Entity(Sprite):
 
     def get_team(self):
         """
-        :return: The teams of the sprite
+        :return: The team of the sprite
         """
         return self.__team
+
+    def same_team(self, entity):
+        """
+        Check if the sprite is the same team as another sprite
+
+        :param entity: The other sprite you want to compare
+        :return: True if same team, False if on other team
+        """
+        if self.get_team() == entity.get_team():
+            return True
+        else:
+            return False
 
     def kill(self):
         """

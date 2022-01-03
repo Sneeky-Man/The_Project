@@ -1,11 +1,11 @@
 # Roadmap for The_Project
-######I want at least version 1.0 done by the start of April, as that around the time my project is due. It also allows me to do the documents surrounding the project in time
+######I want at least version 1.0 done by the start of April, as the project must be fully finished and sent by Tuesday 26th April. It also allows me to do the documents surrounding the project in time
 
 ## Prototyping Stage
 ##### Est Date (31/1/22)
 ###### Version 0.1
-This is the stage where I test out different game ideas, and stick to one i find fun.
-This is a crucial stage, and cannot be passed under any circumstances until I am appositely sure on the game i want to make
+This is the stage where I test out different game ideas, and stick to one I find fun.
+This is a crucial stage, and cannot be passed under any circumstances until I am appositely sure on the game I want to make
 
 It should include:
 * A fully functioning prototype, with at least one map, and enemies
@@ -47,7 +47,7 @@ The game is still fully single player at this point. This point must be reached 
 ###### Version 1.1
 This is attempting to allow the game to be played in multiplayer on LAN. 
 This is not necessary, but something I want to achieve. If not achieved within the project timeframe, 
-I can always do it after i submit the project 
+I can always do it after I submit the project 
 * LAN Multiplayer
 * Button Remapping, and other accessibility stuff
 

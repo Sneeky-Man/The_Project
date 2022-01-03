@@ -2,6 +2,7 @@
 LAYER_NAME_BACKGROUND = "background"
 LAYER_NAME_FOREGROUND = "foreground"
 LAYER_NAME_OBJECTS = "game_objects"
+LAYER_NAME_PLAYER = "player"
 
 
 ALL_ASSETS_PATHS = {
@@ -9,7 +10,9 @@ ALL_ASSETS_PATHS = {
 
         1: {
             "Blue": "assets/maps/map_assets/building/turret/turret_tier_1_blue.png",
-            "Red": "assets/maps/map_assets/building/turret/turret_tier_1_red.png"
+            "Red": "assets/maps/map_assets/building/turret/turret_tier_1_red.png",
+            "Radius": 100,
+            "Damage": 10
         },
 
         2: {

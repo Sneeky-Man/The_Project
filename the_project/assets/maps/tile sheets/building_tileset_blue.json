@@ -24,6 +24,11 @@
                  "value":"Base"
                 }, 
                 {
+                 "name":"radius",
+                 "type":"int",
+                 "value":0
+                }, 
+                {
                  "name":"team",
                  "type":"string",
                  "value":"Blue"
@@ -44,6 +49,11 @@
                  "name":"object",
                  "type":"string",
                  "value":"Turret"
+                }, 
+                {
+                 "name":"radius",
+                 "type":"int",
+                 "value":100
                 }, 
                 {
                  "name":"team",
@@ -68,6 +78,11 @@
                  "value":"Turret"
                 }, 
                 {
+                 "name":"radius",
+                 "type":"int",
+                 "value":150
+                }, 
+                {
                  "name":"team",
                  "type":"string",
                  "value":"Blue"
@@ -88,6 +103,11 @@
                  "name":"object",
                  "type":"string",
                  "value":"Turret"
+                }, 
+                {
+                 "name":"radius",
+                 "type":"int",
+                 "value":200
                 }, 
                 {
                  "name":"team",

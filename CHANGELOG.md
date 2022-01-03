@@ -49,3 +49,15 @@ I'm still pretty unsure, but I think it's best to make some prototypes, and find
 * Added building.py
 * Updated how file paths are found
 * Updated the tile sets
+
+## 21/12/21 11:13
+* Lack of progress is due to procrastination, will try to do actual work over the holidays
+
+## 03/01/22 23:07
+* Procrastination has continued as i have gotten very invested in foxhole, to the detriment of other things. Will force myself to start doing work.
+
+## 03/01/22 23:13
+* Added Bullet.py
+* Updated tile sets
+* Added same_team to entity
+* Other minor improvement
