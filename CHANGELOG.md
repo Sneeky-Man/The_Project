@@ -61,3 +61,7 @@ I'm still pretty unsure, but I think it's best to make some prototypes, and find
 * Updated tile sets
 * Added same_team to entity
 * Other minor improvement
+
+## 05/01/22 04:57
+* Created branch database_dev to store future commits
+* Started work on replacing the triple dict in constants.py with a SQLite database

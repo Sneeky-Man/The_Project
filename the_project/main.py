@@ -4,6 +4,7 @@ from the_project.constants import *
 from the_project.special_scripts.paths import file_exists
 from the_project.entities.player import Player
 from the_project.entities.building import Building
+from the_project.database.setup_database import Setup_database
 
 """
 Map Layers
@@ -218,10 +219,11 @@ def main():
 
     logging.info("All the paths in ALL_ASSET_PATHS Checked")
 
-    window = Game_Window(1000, 1000, "The Project")
+    setup_database()
+    """window = Game_Window(1000, 1000, "The Project")
     window.setup()
     logging.info("Arcade Run Initiated")
-    arcade.run()
+    arcade.run()"""
 
 
 # This runs the program when the file is run
