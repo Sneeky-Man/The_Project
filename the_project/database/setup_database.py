@@ -5,7 +5,7 @@ This will be easier than a triple dictionary, and will satisfy SQA critera for t
 import logging
 import sqlite3
 from dataclasses import dataclass
-
+from os import path
 
 
 def Basic_Setup():
@@ -17,7 +17,8 @@ def Basic_Setup():
     Setup_Database(conn)
     entry_list = Setup_Entries()
     Add_Entry(conn, entry_list)
-    Close_Database(conn)
+    # Close_Database(conn)
+
 
 @dataclass
 class Entry:
@@ -28,6 +29,7 @@ class Entry:
     radius: int
     damage: int
 
+
 def Connect_To_Database():
     """
     Connect to the database.
@@ -37,6 +39,7 @@ def Connect_To_Database():
     conn = sqlite3.connect("database/database.db")
     logging.info("Connected to Database")
     return conn
+
 
 def Setup_Database(conn):
     """
@@ -58,6 +61,7 @@ def Setup_Database(conn):
     logging.info("Setup the data Database")
     conn.commit()
 
+
 def Delete_Database(conn):
     """
     Delete the database.
@@ -67,6 +71,7 @@ def Delete_Database(conn):
     cursor = conn.cursor()
     cursor.execute("""DROP TABLE IF EXISTS data""")
     conn.commit()
+
 
 def Add_Entry(conn, entry_list):
     """
@@ -88,6 +93,7 @@ def Add_Entry(conn, entry_list):
                  'damage': entry.damage})
             logging.info(f"Added Entry to Database. {entry}")
         logging.info(f"Added the Entry list to the database. Length: {len(entry_list)}")
+
 
 def Setup_Entries():
     """
@@ -124,7 +130,43 @@ def Setup_Entries():
                             red_path="assets/maps/map_assets/building/base/base_red.png",
                             radius=None,
                             damage=None))
+
+    entry_list.append(Entry(name="Player",
+                            tier=1,
+                            blue_path="assets/maps/map_assets/non_building/player/player_blue.png",
+                            red_path="assets/maps/map_assets/non_building/player/player_red.png",
+                            radius=None,
+                            damage=None))
+
+    # This checks to see if the paths exists.
+    no_path_list = []
+    for entry in entry_list:
+        if file_exists(entry.blue_path) == False:
+            no_path_list.append([entry.blue_path, entry.name, entry.tier, "blue_path"])
+
+        if file_exists(entry.red_path) == False:
+            no_path_list.append([entry.red_path, entry.name, entry.tier, "red_path"])
+
+    if no_path_list:
+        logging.warning(f"One or more paths do not exist! Length: {len(no_path_list)}, List: {no_path_list!r}")
+
+    else:
+        logging.info(f"All Paths Exists!")
     return entry_list
+
+
+def file_exists(file_path=str) -> bool:
+    """"
+    This checks if a file exists
+
+    :param file_path: The path to the file
+    :return: A True or False, depending on if the file exists
+    """
+
+    if not path.exists(file_path):
+        return False
+    else:
+        return True
 
 def Close_Database(conn):
     """

@@ -557,8 +557,8 @@
             "scale": 1.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 391.33333333333337,
-                "y": 584.6666666666666
+                "x": 1023.6666666666666,
+                "y": 511.66666666666663
             }
         },
         "tile sheets/building_tileset.json": {

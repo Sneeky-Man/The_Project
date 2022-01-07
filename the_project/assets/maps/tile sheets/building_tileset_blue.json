@@ -9,7 +9,7 @@
  "name":"building_tileset_blue",
  "spacing":0,
  "tilecount":4,
- "tiledversion":"1.7.2",
+ "tiledversion":"2021.03.23",
  "tileheight":32,
  "tiles":[
         {
@@ -22,11 +22,6 @@
                  "name":"object",
                  "type":"string",
                  "value":"Base"
-                }, 
-                {
-                 "name":"radius",
-                 "type":"int",
-                 "value":0
                 }, 
                 {
                  "name":"team",
@@ -51,11 +46,6 @@
                  "value":"Turret"
                 }, 
                 {
-                 "name":"radius",
-                 "type":"int",
-                 "value":100
-                }, 
-                {
                  "name":"team",
                  "type":"string",
                  "value":"Blue"
@@ -76,11 +66,6 @@
                  "name":"object",
                  "type":"string",
                  "value":"Turret"
-                }, 
-                {
-                 "name":"radius",
-                 "type":"int",
-                 "value":150
                 }, 
                 {
                  "name":"team",
@@ -105,11 +90,6 @@
                  "value":"Turret"
                 }, 
                 {
-                 "name":"radius",
-                 "type":"int",
-                 "value":200
-                }, 
-                {
                  "name":"team",
                  "type":"string",
                  "value":"Blue"
@@ -122,5 +102,5 @@
         }],
  "tilewidth":32,
  "type":"tileset",
- "version":"1.6"
+ "version":1.5
 }

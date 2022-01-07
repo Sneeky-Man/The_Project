@@ -68,3 +68,7 @@ I'm still pretty unsure, but I think it's best to make some prototypes, and find
 
 ## 07/01/22 01:44
 * Finished initially setting up the database. Work still needs to be done on integrating the map and database
+
+07/01/22 02:44
+* Added an automatic check if the paths exists
+* Commented out paths.py. Will likely delete soon

@@ -1,7 +1,7 @@
 # Imports the necessary packages
 import arcade, logging
 from the_project.constants import *
-from the_project.special_scripts.paths import file_exists
+# from the_project.special_scripts.paths import file_exists
 from the_project.entities.player import Player
 from the_project.entities.building import Building
 from the_project.database.setup_database import *
@@ -210,21 +210,21 @@ def main():
     logging.basicConfig(filename="log_file.txt", level=level, format=fmt, filemode="w")
     logging.info("Logging Setup Complete")
 
-    """# Check if the DICT in constants.py is accurate
-    logging.info("Checking all the paths in ALL_ASSET_PATHS")
-    for key_1, value_1 in ALL_ASSETS_PATHS.items():
-        for key_2, value_2 in value_1.items():
-            for key_3, value_3 in value_2.items():
-                file_exists(value_3)"""
+    # # Check if the DICT in constants.py is accurate
+    # logging.info("Checking all the paths in ALL_ASSET_PATHS")
+    # for key_1, value_1 in ALL_ASSETS_PATHS.items():
+    #     for key_2, value_2 in value_1.items():
+    #         for key_3, value_3 in value_2.items():
+    #             file_exists(value_3)
 
     logging.info("All the paths in ALL_ASSET_PATHS Checked")
 
     # Runs the basic setup of the database
     Basic_Setup()
-    """window = Game_Window(1000, 1000, "The Project")
-    window.setup()
-    logging.info("Arcade Run Initiated")
-    arcade.run()"""
+    # window = Game_Window(1000, 1000, "The Project")
+    # window.setup()
+    # logging.info("Arcade Run Initiated")
+    # arcade.run()
 
 
 # This runs the program when the file is run
