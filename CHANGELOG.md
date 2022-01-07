@@ -65,3 +65,6 @@ I'm still pretty unsure, but I think it's best to make some prototypes, and find
 ## 05/01/22 04:57
 * Created branch database_dev to store future commits
 * Started work on replacing the triple dict in constants.py with a SQLite database
+
+## 07/01/22 01:44
+* Finished initially setting up the database. Work still needs to be done on integrating the map and database
