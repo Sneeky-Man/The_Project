@@ -21,8 +21,6 @@ This is a much more advanced version, where most major features are
 implemented, aside from assets
 * Placeholder assets should start being replaced
 
-
-
 ## Beta
 ##### Est Date (2/3/22)
 ###### Version 0.8

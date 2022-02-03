@@ -72,3 +72,7 @@ I'm still pretty unsure, but I think it's best to make some prototypes, and find
 ## 07/01/22 02:44
 * Added an automatic check if the paths exists
 * Commented out paths.py. Will likely delete soon
+
+## 03/02/22 01:11
+* Due to massive amounts of procrastination, and a sprinkling of prelims and database stuff, little work has been done.
+* To compensate, a GANTT chart has been made and the roadmap will be updated soon
