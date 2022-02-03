@@ -8,6 +8,7 @@ from dataclasses import dataclass
 from os import path
 
 
+
 def Basic_Setup():
     """
     This is the basic setup of the database.
@@ -95,6 +96,43 @@ def Add_Entry(conn, entry_list):
         logging.info(f"Added the Entry list to the database. Length: {len(entry_list)}")
 
 
+def Search_Database(name, tier):
+    """
+
+    :param name:
+    :param tier:
+    :return:
+    """
+    with conn:
+        cursor.execute(
+            ""
+        )
+
+
+
+def File_Exists(file_path=str) -> bool:
+    """"
+    This checks if a file exists
+
+    :param file_path: The path to the file
+    :return: A True or False, depending on if the file exists
+    """
+
+    if not path.exists(file_path):
+        return False
+    else:
+        return True
+
+
+def Close_Database(conn):
+    """
+    Closes the database. This probably shouldn't be called
+
+    :param conn: The connection object
+    """
+    conn.close()
+
+
 def Setup_Entries():
     """
     Setup the list of entries to be added to the database.
@@ -141,11 +179,11 @@ def Setup_Entries():
     # This checks to see if the paths exists.
     no_path_list = []
     for entry in entry_list:
-        if file_exists(entry.blue_path) == False:
+        if File_Exists(entry.blue_path) == False:
             no_path_list.append([entry.blue_path, entry.name, entry.tier, "blue_path"])
 
-        if file_exists(entry.red_path) == False:
-            no_path_list.append([entry.red_path, entry.name, entry.tier, "red_path"])
+            if File_Exists(entry.red_path) == False:
+                no_path_list.append([entry.red_path, entry.name, entry.tier, "red_path"])
 
     if no_path_list:
         logging.warning(f"One or more paths do not exist! Length: {len(no_path_list)}, List: {no_path_list!r}")
@@ -153,25 +191,3 @@ def Setup_Entries():
     else:
         logging.info(f"All Paths Exists!")
     return entry_list
-
-
-def file_exists(file_path=str) -> bool:
-    """"
-    This checks if a file exists
-
-    :param file_path: The path to the file
-    :return: A True or False, depending on if the file exists
-    """
-
-    if not path.exists(file_path):
-        return False
-    else:
-        return True
-
-def Close_Database(conn):
-    """
-    Closes the database. This probably shouldn't be called
-
-    :param conn: The connection object
-    """
-    conn.close()

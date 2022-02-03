@@ -3,16 +3,19 @@ from arcade import Sprite, load_texture
 
 
 class Entity(Sprite):
-    def __init__(self, team: str, x: int, y: int, path: str):
+    def __init__(self, name: str, tier: int, team: str, x: int, y: int, path: str):
         """
         This Entity is what all sprites will be based off.
 
+        :param name: The name of the entity. Will be used to find the building in the database
+        :param tier: The tier of the entity. Will be used to find the building in the database
         :param team: What team the entity is on
         :param x: Center_X Coord
         :param y: Center_Y Coord
         :param path: Path to the texture of the sprite
         """
         super().__init__()
+        self.__key = (name, tier)
         self.center_x = x
         self.center_y = y
         self.__team = team
@@ -79,6 +82,9 @@ class Entity(Sprite):
             return True
         else:
             return False
+
+    def get_key(self):
+        return self.__key
 
     def kill(self):
         """

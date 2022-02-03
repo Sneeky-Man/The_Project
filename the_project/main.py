@@ -100,20 +100,21 @@ class Game_Window(arcade.Window):
         for cur_tile in self.scene[LAYER_NAME_FOREGROUND]:
             # This checks to see if any of the data is wrong
             try:
-                file_path = ALL_ASSETS_PATHS[cur_tile.properties["object"]][cur_tile.properties["tier"]][
-                    cur_tile.properties["team"]]
 
-                self.scene[LAYER_NAME_FOREGROUND][x] = Building(team=cur_tile.properties["team"],
-                                                                x=cur_tile.center_x,
-                                                                y=cur_tile.center_y,
-                                                                path=file_path,
-                                                                radius=cur_tile.properties["radius"]
-                                                                )
-            except KeyError:  # If not in the dict
-                logging.error(f"Tile could not be imported as the file does not exist! "
-                              f"Object: {cur_tile.properties['object']}, "
-                              f"Tier: {cur_tile.properties['tier']}, "
-                              f"Team:  {cur_tile.properties['team']}")
+                # file_path = ALL_ASSETS_PATHS[cur_tile.properties["object"]][cur_tile.properties["tier"]][
+                #     cur_tile.properties["team"]]
+                #
+                # self.scene[LAYER_NAME_FOREGROUND][x] = Building(team=cur_tile.properties["team"],
+                #                                                 x=cur_tile.center_x,
+                #                                                 y=cur_tile.center_y,
+                #                                                 path=file_path,
+                #                                                 radius=cur_tile.properties["radius"]
+                #                                                 )
+            # except KeyError:  # If not in the dict
+            #     logging.error(f"Tile could not be imported as the file does not exist! "
+            #                   f"Object: {cur_tile.properties['object']}, "
+            #                   f"Tier: {cur_tile.properties['tier']}, "
+            #                   f"Team:  {cur_tile.properties['team']}")
             x += 1
         logging.info(f"Map {map_name} Setup Complete")
         logging.info(f"Game_Window.setup_map() Finished")

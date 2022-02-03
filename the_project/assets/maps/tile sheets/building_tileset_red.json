@@ -19,7 +19,7 @@
          "imagewidth":32,
          "properties":[
                 {
-                 "name":"object",
+                 "name":"name",
                  "type":"string",
                  "value":"Base"
                 }, 
@@ -41,7 +41,7 @@
          "imagewidth":32,
          "properties":[
                 {
-                 "name":"object",
+                 "name":"name",
                  "type":"string",
                  "value":"Turret"
                 }, 
@@ -63,7 +63,7 @@
          "imagewidth":32,
          "properties":[
                 {
-                 "name":"object",
+                 "name":"name",
                  "type":"string",
                  "value":"Turret"
                 }, 
@@ -85,7 +85,7 @@
          "imagewidth":32,
          "properties":[
                 {
-                 "name":"object",
+                 "name":"name",
                  "type":"string",
                  "value":"Turret"
                 }, 
