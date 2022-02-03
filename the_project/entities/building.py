@@ -5,25 +5,27 @@ from the_project.constants import *
 
 
 class Building(Entity):
-    def __init__(self, team: str, x: int, y: int, path: str, radius: int = 0):
+    def __init__(self, name: str, tier: int, team: str, x: int, y: int, path: str):
         """
         This is the class that all buildings will be.
 
+        :param name: The name of the building. Will be used to find the building in the database
+        :param tier: The tier of the building. Will be used to find the building in the database
         :param team: What team the entity is on
         :param x: Center_X Coord
         :param y: Center_Y Coord
         :param path: Path to the texture of the sprite
-        :param radius: The radius of the building. If left empty. a range_detector will not be created
         """
-        super().__init__(team, x, y, path)
-        self.__range_detector = None
-        self.__radius = radius
-        if self.__radius > 0:
-            self.create_range_detector(self.__radius)
-        elif self.__radius < 0:
-            logging.error(f"A Negative has been inputted into a building. Reverting __radius back to 0")
-            self.__radius = 0
-        logging.info(f"Building Created. Radius: {self.__radius}. {self}")
+        # :param radius: The radius of the building. If left empty. a range_detector will not be created
+        super().__init__(name, tier, team, x, y, path)
+        # self.__range_detector = None
+        # self.__radius = radius
+        # if self.__radius > 0:
+        #     self.create_range_detector(self.__radius)
+        # elif self.__radius < 0:
+        #     logging.error(f"A Negative has been inputted into a building. Reverting __radius back to 0")
+        #     self.__radius = 0
+        # logging.info(f"Building Created. Radius: {self.__radius}. {self}")
 
     def create_range_detector(self, radius):
         """
@@ -83,4 +85,3 @@ class Building(Entity):
         :param window: The Game_Window
         """
         self.check_for_enemies(window)
-
