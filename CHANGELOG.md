@@ -76,3 +76,8 @@ I'm still pretty unsure, but I think it's best to make some prototypes, and find
 ## 03/02/22 01:11
 * Due to massive amounts of procrastination, and a sprinkling of prelims and database stuff, little work has been done.
 * To compensate, a GANTT chart has been made and the roadmap will be updated soon
+
+## 04/02/22 23:40
+* The database has been replaced and implemented. It still needs to be integrated with the tiled map.
+* Logging on the database has been changed to be more helpful.
+* GANTT chart updated.

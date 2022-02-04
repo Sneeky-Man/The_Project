@@ -4,7 +4,7 @@ from the_project.constants import *
 # from the_project.special_scripts.paths import file_exists
 from the_project.entities.player import Player
 from the_project.entities.building import Building
-from the_project.database.setup_database import *
+from the_project.database import setup_database
 
 """
 Map Layers
@@ -98,8 +98,8 @@ class Game_Window(arcade.Window):
         # This converts all tiles on the foreground to a Building
         x = 0
         for cur_tile in self.scene[LAYER_NAME_FOREGROUND]:
+            pass
             # This checks to see if any of the data is wrong
-            try:
 
                 # file_path = ALL_ASSETS_PATHS[cur_tile.properties["object"]][cur_tile.properties["tier"]][
                 #     cur_tile.properties["team"]]
@@ -115,7 +115,7 @@ class Game_Window(arcade.Window):
             #                   f"Object: {cur_tile.properties['object']}, "
             #                   f"Tier: {cur_tile.properties['tier']}, "
             #                   f"Team:  {cur_tile.properties['team']}")
-            x += 1
+        x += 1
         logging.info(f"Map {map_name} Setup Complete")
         logging.info(f"Game_Window.setup_map() Finished")
 
@@ -218,10 +218,9 @@ def main():
     #         for key_3, value_3 in value_2.items():
     #             file_exists(value_3)
 
-    logging.info("All the paths in ALL_ASSET_PATHS Checked")
-
+    # logging.info("All the paths in ALL_ASSET_PATHS Checked")
+    conn = setup_database.database_start()
     # Runs the basic setup of the database
-    Basic_Setup()
     # window = Game_Window(1000, 1000, "The Project")
     # window.setup()
     # logging.info("Arcade Run Initiated")
