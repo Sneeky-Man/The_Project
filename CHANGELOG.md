@@ -90,3 +90,6 @@ I'm still pretty unsure, but I think it's best to make some prototypes, and find
 * Work still needs to be done on firing at the closest target and turning slower.
 * GANTT chart updated
 * Will attempt to merge database_dev to the main branch
+
+## 09/02/22 11:30
+* Test to make sure merge worked
