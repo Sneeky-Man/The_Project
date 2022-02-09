@@ -1,26 +1,30 @@
-import logging
 from arcade import Sprite, load_texture
+import logging
+from os import path
 
 
 class Entity(Sprite):
-    def __init__(self, name: str, tier: int, team: str, x: int, y: int, path: str):
+    def __init__(self, name: str, tier: int, team: str, path: str, x: int, y: int):
         """
-        This Entity is what all sprites will be based off.
+        This is the class that will be the building block for the rest of the special entities.
+        __variables are not to be altered outside the class
 
-        :param name: The name of the entity. Will be used to find the building in the database
-        :param tier: The tier of the entity. Will be used to find the building in the database
+        :param name: The name of the entity.
+        :param tier: The tier of the entity.
         :param team: What team the entity is on
+        :param path: Path to the texture of the sprite
         :param x: Center_X Coord
         :param y: Center_Y Coord
-        :param path: Path to the texture of the sprite
         """
         super().__init__()
-        self.__key = (name, tier)
+        self.__name = name
+        self.__tier = tier
+        self.__team = team
+        self.__path_to_texture = path
         self.center_x = x
         self.center_y = y
-        self.__team = team
+
         self.texture = load_texture(path)
-        self.__path = path
 
     def __str__(self):
         """
@@ -28,63 +32,55 @@ class Entity(Sprite):
 
         :return: A detailed report of the sprite
         """
-        return (
-            f"Sprite. Texture Path: {self.get_texture_path()}, Team: {self.get_team()}, Co-ords: {self.get_coords()}")
+        return f"If your seeing this, i forgot to add a __str__ to the sub class"
+        # return (
+        #     f"Name={self.__name!r}, Tier={self.__tier!r}, Team={self.__team!r}, Center_X{self.center_x!r}, "
+        #     f"Center_Y={self.center_y!r}, Path={self.__path_to_texture!r}")
 
-    def set_texture(self, path, team=None):
-        """
-        This sets a new texture for the sprite
+    def check_exists(self, file_path: str):
+        """"
+        This checks if a file exists.
 
-        :param path: Path to the texture
-        :param team: The team of the texture. If no team is inputted, it is assumed to be the same team
+        :param file_path: The path to the file
         """
-        if team != None:
-            self.__team = team
-        self.texture = load_texture(path)
-        self.__path = path
+        if not path.exists(file_path):
+            logging.error(f"File Path does not exist! Setting path {file_path!r} - {self!r}")
 
-    def get_texture_path(self):
+    def get_name(self):
         """
-        :return: Path to the sprite texture
+        :return: The name of the entity
         """
-        return (self.__path)
+        return self.__name
 
-    def get_coords(self):
+    def get_tier(self):
         """
-        :return: The center_x and center_y co-ordinates of the sprite
+        :return: The tier of the entity
         """
-        return self.center_x, self.center_y
-
-    def set_coords(self, x, y):
-        """
-        Sets the center_x and center_y co-ordinates of the sprite
-
-        :param x: Center_X Co-ordinate
-        :param y: Center_y Co-ordinate
-        """
-        self.center_x = x
-        self.center_y = y
+        return self.__tier
 
     def get_team(self):
         """
-        :return: The team of the sprite
+        :return: The team of the entity
         """
         return self.__team
 
-    def same_team(self, entity):
+    def get_path(self):
+        """
+        :return: The path of the entity
+        """
+        return self.__path_to_texture
+
+    def same_team(self, entity: object):
         """
         Check if the sprite is the same team as another sprite
 
         :param entity: The other sprite you want to compare
         :return: True if same team, False if on other team
         """
-        if self.get_team() == entity.get_team():
+        if self.__team == entity.get_team():
             return True
         else:
             return False
-
-    def get_key(self):
-        return self.__key
 
     def kill(self):
         """

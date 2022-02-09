@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "tile sheets/building_tileset_red.json",
+    "activeFile": "the_project_prototype_map_1.json",
     "expandedProjectPaths": [
         "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content"
     ],
@@ -557,8 +557,8 @@
             "scale": 1,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 535,
-                "y": 709
+                "x": 380,
+                "y": 526
             }
         },
         "tile sheets/building_tileset.json": {
@@ -601,10 +601,10 @@
     "project": "the_project_prototype.tiled-project",
     "property.type": "int",
     "recentFiles": [
-        "the_project_prototype_map_1.json",
-        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing_margin.json",
-        "tile sheets/building_tileset_blue.json",
         "tile sheets/building_tileset_red.json",
+        "tile sheets/building_tileset_blue.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing_margin.json",
+        "the_project_prototype_map_1.json",
         "tile sheets/building_tileset.json",
         "tile sheets/the_project_prototype_ground_tilesheet.json",
         "the_project_prototype_ground_tilesheet.json",

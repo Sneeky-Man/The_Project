@@ -81,3 +81,12 @@ I'm still pretty unsure, but I think it's best to make some prototypes, and find
 * The database has been replaced and implemented. It still needs to be integrated with the tiled map.
 * Logging on the database has been changed to be more helpful.
 * GANTT chart updated.
+
+## 09/02/22 11:00
+* Database has been fully integrated with the tiled map. All tiles in the foreground are now converted to be a Building.
+* Redone the Entity and Building classes to be more simplified and readable
+* Re-added Range Detectors for buildings. They are now colored.
+* Buildings with enemies in their range detectors will snap to face them. 
+* Work still needs to be done on firing at the closest target and turning slower.
+* GANTT chart updated
+* Will attempt to merge database_dev to the main branch
