@@ -8,7 +8,7 @@ class Entity(Sprite):
         """
         This is the class that will be the building block for the rest of the special entities.
         __variables are not to be altered outside the class
-
+        
         :param name: The name of the entity.
         :param tier: The tier of the entity.
         :param team: What team the entity is on
@@ -81,6 +81,9 @@ class Entity(Sprite):
             return True
         else:
             return False
+
+    def get_key(self):
+        return self.__key
 
     def kill(self):
         """

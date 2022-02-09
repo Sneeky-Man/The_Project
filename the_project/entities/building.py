@@ -15,10 +15,13 @@ class Building(Entity):
 
         :param name: The name of the entity
         :param tier: The tier of the entity
-        :param team: What team the entity is on
-        :param path: Path to the texture
-        :param x: Center_X Coord
-        :param y: Center_Y Coord
+=======
+    def __init__(self, name: str, tier: int, team: str, x: int, y: int, path: str):
+        """
+        This is the class that all buildings will be.
+
+        :param name: The name of the building. Will be used to find the building in the database
+        :param tier: The tier of the building. Will be used to find the building in the database
         :param radius: The radius of the building
         :param damage: The damage of the building
         """
