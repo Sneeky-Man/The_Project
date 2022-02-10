@@ -93,3 +93,8 @@ I'm still pretty unsure, but I think it's best to make some prototypes, and find
 
 ## 09/02/22 11:30
 * Test to make sure merge worked
+
+# 10/02/22 09:50
+* Implemented the collision detection system (aside from one bug).
+* It now continues to target one enemy until its no longer in range, 
+then finds the nearest target and attacks them.

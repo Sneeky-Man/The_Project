@@ -77,7 +77,7 @@ class Entity(Sprite):
         :param entity: The other sprite you want to compare
         :return: True if same team, False if on other team
         """
-        if self.__team == entity.get_team():
+        if self.get_team() == entity.get_team():
             return True
         else:
             return False

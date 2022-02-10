@@ -15,6 +15,12 @@ class Player(Entity):
         :param speed: The Speed of the Player
         """
         super().__init__(name=name, tier=tier, team=team, path=path, x=x, y=y)
+        self.__name = name
+        self.__tier = tier
+        self.__team = team
+        self.__path_to_texture = path
+        self.center_x = x
+        self.center_y = y
         self.__speed = speed
 
     def get_speed(self):
