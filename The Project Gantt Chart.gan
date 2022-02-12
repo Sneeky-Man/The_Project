@@ -42,10 +42,12 @@
         <task id="0" name="Basic Database" color="#8cb6ce" meeting="false" project="true" start="2022-02-06" duration="2" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" priority="4" expand="false">
             <task id="12" name="Transfer database from SQL testing" color="#8cb6ce" meeting="false" start="2022-02-06" duration="2" complete="0" thirdDate="2022-01-28" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="24" name="Basic Building AI" color="#8cb6ce" meeting="false" start="2022-02-08" duration="5" complete="0" thirdDate="2022-01-31" thirdDate-constraint="0" expand="true">
-            <task id="28" name="Range Detector Implementation" color="#8cb6ce" meeting="false" start="2022-02-08" duration="2" complete="0" thirdDate="2022-02-01" thirdDate-constraint="0" expand="true"/>
-            <task id="32" name="Add Basic Shooting" color="#8cb6ce" meeting="false" start="2022-02-09" duration="2" complete="0" thirdDate="2022-02-01" thirdDate-constraint="0" expand="true"/>
-            <task id="34" name="Change Sprites to allow for turning" color="#8cb6ce" meeting="false" start="2022-02-10" duration="3" complete="0" thirdDate="2022-01-30" thirdDate-constraint="0" expand="true"/>
+        <task id="24" name="Basic Building AI" color="#8cb6ce" meeting="false" start="2022-02-08" duration="13" complete="0" thirdDate="2022-01-31" thirdDate-constraint="0" expand="true">
+            <task id="28" name="Range Detector Implementation" color="#8cb6ce" meeting="false" start="2022-02-08" duration="2" complete="0" thirdDate="2022-02-01" thirdDate-constraint="0" expand="true">
+                <depend id="32" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="32" name="Add Basic Shooting" color="#8cb6ce" meeting="false" start="2022-02-10" duration="3" complete="0" thirdDate="2022-02-01" thirdDate-constraint="0" expand="true"/>
+            <task id="34" name="Change Sprites to allow for turning" color="#8cb6ce" meeting="false" start="2022-02-10" duration="11" complete="0" thirdDate="2022-01-30" thirdDate-constraint="0" expand="true"/>
         </task>
         <task id="17" name="Future Planning" color="#66ffff" shape="1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0" meeting="false" project="true" start="2022-02-08" duration="3" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" priority="2" expand="false">
             <task id="1" name="Fill out Gantt Chart" color="#8cb6ce" meeting="false" start="2022-02-08" duration="2" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" expand="true">

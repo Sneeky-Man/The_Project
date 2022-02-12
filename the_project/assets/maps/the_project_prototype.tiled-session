@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "the_project_prototype_map_1.json",
+    "activeFile": "the_project_prototype_test_map_battle.json",
     "expandedProjectPaths": [
         "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content"
     ],
@@ -557,8 +557,24 @@
             "scale": 1,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 380,
-                "y": 526
+                "x": 1022.5,
+                "y": 510.5
+            }
+        },
+        "the_project_prototype_test_map_battle.json": {
+            "scale": 0.51767578125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1025.7385398981326,
+                "y": 513.8351254480287
+            }
+        },
+        "the_project_prototype_test_map_sparse.json": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1023.3333333333333,
+                "y": 511.33333333333337
             }
         },
         "tile sheets/building_tileset.json": {
@@ -593,26 +609,27 @@
     "map.layerDataFormat": null,
     "map.width": 64,
     "openFiles": [
-        "the_project_prototype_map_1.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing_margin.json",
         "tile sheets/building_tileset_blue.json",
-        "tile sheets/building_tileset_red.json"
+        "tile sheets/building_tileset_red.json",
+        "the_project_prototype_test_map_sparse.json",
+        "the_project_prototype_test_map_battle.json"
     ],
     "project": "the_project_prototype.tiled-project",
     "property.type": "int",
     "recentFiles": [
-        "tile sheets/building_tileset_red.json",
-        "tile sheets/building_tileset_blue.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing_margin.json",
+        "tile sheets/building_tileset_blue.json",
+        "tile sheets/building_tileset_red.json",
+        "the_project_prototype_test_map_sparse.json",
+        "the_project_prototype_test_map_battle.json",
         "the_project_prototype_map_1.json",
         "tile sheets/building_tileset.json",
         "tile sheets/the_project_prototype_ground_tilesheet.json",
         "the_project_prototype_ground_tilesheet.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/cactus_tileset.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/test_map_4.json",
-        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/items.json",
-        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/map_with_ladders.json",
-        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/custom_tileset_2.json"
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/venv/Lib/site-packages/arcade/resources/tiled_maps/items.json"
     ],
     "tileset.embedInMap": false,
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",

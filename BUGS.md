@@ -10,7 +10,8 @@
 
 ### Minor
 ##### This bug is a minor problem, due to its lack of severity or extreme rarity
-* .
+* When the building is set to turn towards a target (not snap), if the target comes at a certain angle, 
+the building will do a 360 instead of turning to the target
 
 ### Non-Lethal
 ##### A Bug that really shouldn't happen, but pose very-little to no threat

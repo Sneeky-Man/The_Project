@@ -203,6 +203,13 @@ def database_setup_entries():
                             radius=None,
                             damage=None))
 
+    entry_list.append(Entry(name="Bullet",
+                            tier=1,
+                            path_to_blue="assets/maps/map_assets/non_building/bullet/bullet.png",
+                            path_to_red="assets/maps/map_assets/non_building/bullet/bullet.png",
+                            radius=None,
+                            damage=None))
+
     logging.info("'database_setup_entries' - End - 'setup_database'. Database entries have been set up.")
     return entry_list
 

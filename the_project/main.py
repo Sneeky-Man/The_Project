@@ -46,6 +46,9 @@ class GameWindow(arcade.Window):
         self.up_pressed = None
         self.down_pressed = None
 
+        # Time
+        self.time = None
+
         # Score
         self.score = None
 
@@ -69,8 +72,11 @@ class GameWindow(arcade.Window):
         self.up_pressed = False
         self.down_pressed = False
 
+        # Time
+        self.time = 0
+
         # Load the first map
-        self.setup_map("the_project_prototype_map_1")
+        self.setup_map("the_project_prototype_test_map_battle")
 
         # Physics Engine
         self.physics_engine = arcade.PhysicsEngineSimple(
@@ -136,7 +142,7 @@ class GameWindow(arcade.Window):
         self.scene.draw_hit_boxes(names=[LAYER_NAME_FOREGROUND])
 
         for sprite in self.scene.sprite_lists[1]:
-            sprite.update(self)
+            sprite.draw()
 
         self.physics_engine.update()
 
@@ -146,6 +152,8 @@ class GameWindow(arcade.Window):
 
         :param delta_time: This is essentially a clock
         """
+        for sprite in self.scene.sprite_lists[1]:
+            sprite.update(self, delta_time)
 
         # Reset change_x, change_y
         self.player_sprite.change_x = 0

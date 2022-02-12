@@ -1,9 +1,11 @@
 import arcade
 
 from the_project.entities.entity import Entity
+from the_project.entities.bullet import Bullet
 import logging
 from the_project.constants import *
 import math
+from the_project.database.setup_database import database_search
 
 
 class Building(Entity):
@@ -33,9 +35,9 @@ class Building(Entity):
         if self.__radius is not None:
             if self.__radius > 0:
                 if self.get_team() == "Blue":
-                    color = (0, 0, 255, 50)
+                    color = (0, 0, 255, 20)
                 elif self.get_team() == "Red":
-                    color = (255, 0, 0, 50)
+                    color = (255, 0, 0, 20)
                 else:
                     logging.error(
                         f"'Building.__init__() - In - 'Building'. Team is not red or blue! {self.get_team()!r}")
@@ -43,10 +45,15 @@ class Building(Entity):
                 self.__range_detector.center_x = self.center_x
                 self.__range_detector.center_y = self.center_y
                 self.__target = None
+                self.__bullet_list = arcade.SpriteList()
+                self.cooldown_len = 0.5
+                self.cooldown_time = 0
             else:
                 self.__range_detector = None
+                self.__bullet_list = None
         else:
             self.__range_detector = None
+            self.__bullet_list = None
 
     def __str__(self):
         """
@@ -97,7 +104,14 @@ class Building(Entity):
                 if arcade.check_for_collision(self.__range_detector, self.__target) is False:
                     self.__target = None
 
-    def shoot(self):
+    def check_for_bullets(self):
+        if len(self.__bullet_list) >= 1:
+            collision_list = arcade.check_for_collision_with_list(self.__range_detector, self.__bullet_list)
+            for bullet in self.__bullet_list:
+                if bullet not in collision_list:
+                    bullet.kill()
+
+    def shoot(self, window, delta_time):
         if self.__range_detector is not None:
             if self.__target is not None:
                 # Math code stolen from sprite_bullets_enemy_aims.py
@@ -116,22 +130,39 @@ class Building(Entity):
 
                 # Set the enemy to face the player.
                 angle = math.degrees(angle) - 90
-                print(f"Current Angle: {self.angle}. New Angle: {angle}.")
-                if self.angle > angle:
-                    self.angle -= 3
-                elif self.angle < angle:
-                    self.angle += 3
-                else:
-                    self.angle = angle
+                self.angle = angle
+                # print(f"Current Angle: {self.angle}. New Angle: {angle}.")
+                # if self.angle > angle:
+                #     self.angle -= 3
+                # elif self.angle < angle:
+                #     self.angle += 3
+                # else:
+                #     self.angle = angle
 
-    def update(self, window):
+                if delta_time > self.cooldown_time:
+                    result = database_search(window.conn, "Bullet", 1)
+                    bullet = Bullet(name=result.name, tier=result.tier, path=result.path_to_blue, speed=2, parent=self)
+                    self.__bullet_list.append(bullet)
+                    self.cooldown_time = self.cooldown_len + delta_time
+
+    def update(self, window, delta_time):
         """
         Updates the building logic every frame.
 
         :param window: The GameWindow Window
         """
+        if self.__bullet_list is not None:
+            self.check_for_bullets()
+            for bullet in self.__bullet_list:
+                bullet.update(window)
+            self.cooldown_time -= delta_time
+
+        self.check_for_enemies(window=window)
+        self.shoot(window=window, delta_time=delta_time)
+
+    def draw(self):
         if self.__range_detector is not None:
             self.__range_detector.draw()
 
-        self.check_for_enemies(window=window)
-        self.shoot()
+        if self.__bullet_list is not None:
+            self.__bullet_list.draw()

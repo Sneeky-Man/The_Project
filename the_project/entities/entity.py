@@ -82,6 +82,7 @@ class Entity(Sprite):
         else:
             return False
 
+
     def kill(self):
         """
         This deletes the sprite from all sprite lists

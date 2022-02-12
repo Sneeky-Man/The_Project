@@ -98,3 +98,11 @@ I'm still pretty unsure, but I think it's best to make some prototypes, and find
 * Implemented the collision detection system (aside from one bug).
 * It now continues to target one enemy until its no longer in range, 
 then finds the nearest target and attacks them.
+
+# 12/02/22 18:10
+* Reverted the target system due a bug. Now buildings snap to the next target.
+* Added and implemented bullets
+* Changed map_1 to test_map_sparse
+* Added test_map_battle
+* Still an issue with buildings not realising their targets have died
+* Updated GANTT Chart
