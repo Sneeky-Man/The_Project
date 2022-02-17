@@ -23,8 +23,33 @@ class Player(Entity):
         self.center_y = y
         self.__speed = speed
 
+    def __repr__(self):
+        """
+        Runs when the entire class is called (e.g. printed)
+
+        :return: A basic report of the sprite
+        :rtype: str
+        """
+        return f"Player. {self.__name!r}, {self.__tier!r}, {self.__team!r}. ({self.center_x!r},{self.center_y!r})."
+
+    def longer_report(self):
+        """
+        Gives a details report of the Building.
+
+        :return: A detailed report of the Building
+        :rtype: str
+        """
+        return_string = (f"Player. {self.__name}, {self.__tier}, {self.__team}. ({self.center_x},{self.center_y}), "
+                         f"{self.__path_to_texture}, {self.__speed}")
+
+        return_string += f"Currently Targetted By: \n{self.get_targetted_by()!r}"
+        return return_string
+
     def get_speed(self):
         return self.__speed
 
     def set_speed(self, speed):
         self.__speed = speed
+
+    def kill(self):
+        super().kill()

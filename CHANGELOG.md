@@ -106,3 +106,25 @@ then finds the nearest target and attacks them.
 * Added test_map_battle
 * Still an issue with buildings not realising their targets have died
 * Updated GANTT Chart
+
+# 17/02/22 14:20
+* Changed how the building targeting system works.
+This was for performance. The previous way was cripplingly slow.
+* Changed the Entity, Building, and Player __str__ to __repr__
+* __repr__ now show a very basic overview (name, tier, team, coords)
+* Entity, Building, and Player now has longer_report() which gives a more detailed report (eg. path, targets, targetted_by)
+* Split the foreground list in scene into four categories: Red Player, Blue Player, Red Building, Blue Building.
+This is partially for performance reasons, and because it makes it alot easier logic wise.
+* Added 2 more maps, bring it up to four.
+* Sparse_1 is a 1v1 with a red turret and a blue base. This is for testing a single turret, a non turret, and a player
+* Sparse_2 is a 3v1 with 3 red turrets and a blue base. This is for testing how multiple turrets handle each other, and if they stop firing correctly.
+* Sparse 3 is a 3v3 with 3 red turrets and 3 blue turrets. This is for making sure both teams of turrets work.
+* Battle is a mock battle between 25 blue turrets and 25 red turrets. This is for performance testing.
+* Added self.__targetted_by to all entities (although bullet doesn't use em). This is a list of all buildings targeting the building/player.
+This is needed, as when that player/building dies, it uses that list to tell the buildings shooting it to remove their target.
+This means I don't need to keep checking if the target is still their every frame, saving a ton of performance.
+* Updated BUGS.md
+* Added debug mode. This is enabled by setting self.debug to True. 
+* When debug mode is active, if you click over a Building or Player (not bullet), it will print the longer_report of that sprite.
+* Additionally, buildings will not start firing until the space bar is pressed.
+* Improved documentation

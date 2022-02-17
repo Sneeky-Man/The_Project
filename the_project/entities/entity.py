@@ -1,3 +1,4 @@
+import arcade
 from arcade import Sprite, load_texture
 import logging
 from os import path
@@ -25,17 +26,29 @@ class Entity(Sprite):
         self.center_y = y
 
         self.texture = load_texture(path)
+        self.__targetted_by = []
 
-    def __str__(self):
+    def __repr__(self):
         """
         Runs when the entire class is called (e.g. printed)
 
-        :return: A detailed report of the sprite
+        :return: A basic report of the sprite
+        :rtype: str
         """
-        return f"If your seeing this, i forgot to add a __str__ to the sub class"
-        # return (
-        #     f"Name={self.__name!r}, Tier={self.__tier!r}, Team={self.__team!r}, Center_X{self.center_x!r}, "
-        #     f"Center_Y={self.center_y!r}, Path={self.__path_to_texture!r}")
+        return f"Entity. {self.__name!r}, {self.__tier!r}, {self.__team!r}. ({self.center_x!r},{self.center_y!r})."
+
+    def longer_report(self):
+        """
+        Gives a details report of the Building.
+
+        :return: A detailed report of the Building
+        :rtype: str
+        """
+        return_string = (f"Entity. {self.__name}, {self.__tier}, {self.__team}. ({self.center_x},{self.center_y}), "
+                         f"{self.__path_to_texture}")
+
+        return_string += f"Currently Targetted By: \n{self.get_targetted_by()!r}"
+        return return_string
 
     def check_exists(self, file_path: str):
         """"
@@ -49,26 +62,55 @@ class Entity(Sprite):
     def get_name(self):
         """
         :return: The name of the entity
+        :rtype: str
         """
         return self.__name
 
     def get_tier(self):
         """
         :return: The tier of the entity
+        :rtype: int
         """
         return self.__tier
 
     def get_team(self):
         """
         :return: The team of the entity
+        :rtype: str
         """
         return self.__team
 
     def get_path(self):
         """
         :return: The path of the entity
+        :rtype: str
         """
         return self.__path_to_texture
+
+    def add_targetted_by(self, target: arcade.Sprite):
+        """
+        Adds a sprite to the targetted_by list
+
+        :param target: The sprite that needs added
+        """
+        self.__targetted_by.append(target)
+
+    def remove_targetted_by(self, target):
+        """
+        Removes a sprite from the targetted_by list
+        :param target: The sprite that needs removed
+        """
+        while target in self.__targetted_by:
+            self.__targetted_by.remove(target)
+
+    def get_targetted_by(self):
+        """
+        Used for debugging purposes.
+
+        :return: The Targetted_By List
+        :rtype: list
+        """
+        return self.__targetted_by
 
     def same_team(self, entity: object):
         """
@@ -76,16 +118,18 @@ class Entity(Sprite):
 
         :param entity: The other sprite you want to compare
         :return: True if same team, False if on other team
+        :rtype: bool
         """
         if self.get_team() == entity.get_team():
             return True
         else:
             return False
 
-
     def kill(self):
         """
         This deletes the sprite from all sprite lists
         """
+        # For all the people targeting me, make their target None
+        for target in self.__targetted_by:
+            target.remove_target()
         super().kill()
-        logging.info(f"Deleted: {self}")

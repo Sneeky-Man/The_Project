@@ -52,6 +52,10 @@ class GameWindow(arcade.Window):
         # Score
         self.score = None
 
+        # Debug
+        self.debug = None
+        self.debug_start = None
+
         # Connection Variable
         self.conn = conn
 
@@ -75,12 +79,21 @@ class GameWindow(arcade.Window):
         # Time
         self.time = 0
 
+        # Debug
+        self.debug = True
+
+        if self.debug is True:
+            self.debug_start = False
+
         # Load the first map
         self.setup_map("the_project_prototype_test_map_battle")
 
         # Physics Engine
         self.physics_engine = arcade.PhysicsEngineSimple(
-            player_sprite=self.player_sprite, walls=self.scene[LAYER_NAME_FOREGROUND])
+            player_sprite=self.player_sprite, walls=[self.scene[SCENE_NAME_BLUE_BUILDING], self.scene[SCENE_NAME_RED_BUILDING]])
+
+        # FPS Counter
+        arcade.enable_timings()
 
         logging.info(f"'Game_Window.setup() - End - 'main'. Game window has been set up")
 
@@ -94,39 +107,61 @@ class GameWindow(arcade.Window):
 
         layer_options = {
             "background": {
-                "is_static": True
+                "is_static": True,
+                "use_spatial_hashing": True
+            },
+            "foreground": {
+                "use_spatial_hashing": True
             }
         }
-
         self.tiled_map = arcade.load_tilemap(f"assets/maps/{map_name}.json", layer_options=layer_options, scaling=1)
         self.scene = arcade.Scene.from_tilemap(self.tiled_map)
 
+        blue_player_list = arcade.SpriteList()
+        #red_player_list = arcade.SpriteList()
+        blue_building_list = arcade.SpriteList()
+        red_building_list = arcade.SpriteList()
+
         result = (setup_database.database_search(self.conn, "Player", 1))
         self.player_sprite = Player(name=result.name, tier=result.tier, team="Blue", x=200, y=200, path=result.path_to_blue, speed=3)
-        self.scene.add_sprite(LAYER_NAME_PLAYER, self.player_sprite)
+        blue_player_list.append(self.player_sprite)
 
         # This converts all tiles on the foreground to a Building
-        x = 0
         for cur_tile in self.scene[LAYER_NAME_FOREGROUND]:
             result = setup_database.database_search(self.conn, cur_tile.properties["name"], cur_tile.properties["tier"])
             if cur_tile.properties["team"] == "Blue":
-                path = result.path_to_blue
+                building = Building(name=result.name,
+                                    tier=result.tier,
+                                    team=cur_tile.properties["team"],
+                                    x=cur_tile.center_x,
+                                    y=cur_tile.center_y,
+                                    path=result.path_to_blue,
+                                    radius=result.radius,
+                                    damage=result.damage
+                                    )
+                blue_building_list.append(building)
+
             elif cur_tile.properties["team"] == "Red":
-                path = result.path_to_red
+                building = Building(name=result.name,
+                                    tier=result.tier,
+                                    team=cur_tile.properties["team"],
+                                    x=cur_tile.center_x,
+                                    y=cur_tile.center_y,
+                                    path=result.path_to_red,
+                                    radius=result.radius,
+                                    damage=result.damage
+                                    )
+                red_building_list.append(building)
             else:
                 logging.error(f"'Game_Window.setup_map()' - In - 'main'. Team of a tile is incorrect (Not Red or Blue)."
                               f"{cur_tile.properties['team']!r}, {cur_tile!r}")
 
-            self.scene[LAYER_NAME_FOREGROUND][x] = Building(name=result.name,
-                                                            tier=result.tier,
-                                                            team=cur_tile.properties["team"],
-                                                            x=cur_tile.center_x,
-                                                            y=cur_tile.center_y,
-                                                            path=path,
-                                                            radius=result.radius,
-                                                            damage=result.damage
-                                                            )
-            x += 1
+        self.scene.add_sprite_list(SCENE_NAME_BLUE_PLAYER, False, blue_player_list)
+        #self.scene.add_sprite_list(SCENE_NAME_RED_PLAYER, False, red_player_list)
+        self.scene.add_sprite_list(SCENE_NAME_BLUE_BUILDING, False, blue_building_list)
+        self.scene.add_sprite_list(SCENE_NAME_RED_BUILDING, False, red_building_list)
+        self.scene.remove_sprite_list_by_name(LAYER_NAME_FOREGROUND)
+
         logging.info(f"'Game_Window.setup_map() - End - 'main'. Set up the map: {map_name!r}")
         logging.info(" - - - - - ")
 
@@ -138,13 +173,20 @@ class GameWindow(arcade.Window):
         # This starts drawing, never call finish_render()!
         arcade.start_render()
 
-        self.scene.draw()
-        self.scene.draw_hit_boxes(names=[LAYER_NAME_FOREGROUND])
-
-        for sprite in self.scene.sprite_lists[1]:
+        self.scene[LAYER_NAME_BACKGROUND].draw()
+        for sprite in self.scene[SCENE_NAME_BLUE_BUILDING]:
             sprite.draw()
+        for sprite in self.scene[SCENE_NAME_RED_BUILDING]:
+            sprite.draw()
+        for sprite in self.scene[SCENE_NAME_BLUE_PLAYER]:
+            sprite.draw()
+        # for sprite in self.scene[SCENE_NAME_RED_PLAYER]:
+        #     sprite.draw()
 
-        self.physics_engine.update()
+        fps = arcade.get_fps()
+        arcade.draw_text(f"FPS: {fps:.0f}", 900, 950, arcade.color.BLUE, 18)
+        length = (len(self.scene[SCENE_NAME_BLUE_BUILDING]) + len(self.scene[SCENE_NAME_RED_BUILDING]))
+        arcade.draw_text(f"Length of Lists: {length}", 850, 900, arcade.color.BLUE, 12)
 
     def on_update(self, delta_time: float):
         """
@@ -152,8 +194,25 @@ class GameWindow(arcade.Window):
 
         :param delta_time: This is essentially a clock
         """
-        for sprite in self.scene.sprite_lists[1]:
-            sprite.update(self, delta_time)
+        if self.debug is True:
+            if self.debug_start is True:
+                for sprite in self.scene[SCENE_NAME_BLUE_BUILDING]:
+                    sprite.update(window=self, delta_time=delta_time)
+
+                for sprite in self.scene[SCENE_NAME_RED_BUILDING]:
+                    sprite.update(window=self, delta_time=delta_time)
+        else:
+            for sprite in self.scene[SCENE_NAME_BLUE_BUILDING]:
+                sprite.update(window=self, delta_time=delta_time)
+
+            for sprite in self.scene[SCENE_NAME_RED_BUILDING]:
+                sprite.update(window=self, delta_time=delta_time)
+
+
+        # for sprite in self.scene.sprite_lists[1]:
+        #     sprite.update(self, delta_time)
+
+        self.physics_engine.update()
 
         # Reset change_x, change_y
         self.player_sprite.change_x = 0
@@ -195,6 +254,27 @@ class GameWindow(arcade.Window):
             self.left_pressed = False
         elif key == arcade.key.D or key == arcade.key.RIGHT:
             self.right_pressed = False
+        elif key == arcade.key.SPACE and self.debug is True:
+            self.debug_start = True
+
+    def on_mouse_press(self, x: float, y: float, button: int, modifiers: int):
+        if self.debug is True:
+            list_1 = (arcade.get_sprites_at_point((x, y), self.scene[SCENE_NAME_RED_BUILDING]))
+            list_2 = (arcade.get_sprites_at_point((x, y), self.scene[SCENE_NAME_BLUE_BUILDING]))
+            list_3 = (arcade.get_sprites_at_point((x, y), self.scene[SCENE_NAME_BLUE_PLAYER]))
+
+            print(f"\n")
+            if list_1:
+                for sprite in list_1:
+                    print(sprite.longer_report())
+
+            if list_2:
+                for sprite in list_2:
+                    print(sprite.longer_report())
+
+            if list_3:
+                for sprite in list_3:
+                    print(sprite.longer_report())
 
 
 """

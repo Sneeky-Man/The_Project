@@ -1,7 +1,7 @@
 import arcade
 
+
 from the_project.entities.entity import Entity
-from arcade import check_for_collision_with_lists
 from the_project.constants import *
 import math
 
@@ -31,22 +31,38 @@ class Bullet(Entity):
             -math.sin(math.radians(self.angle)) \
             * self.__speed
 
+    def __str__(self):
+        return f"Bullet. Parent {self.__parent}"
+
     def check_for_collision(self, window):
         """
         This runs every frame to check for a collision
 
         :param window: The Game_Window
         """
-        collision_list = check_for_collision_with_lists(self,
-                                                       [window.scene[LAYER_NAME_PLAYER],
-                                                        window.scene[LAYER_NAME_FOREGROUND]
-                                                        ])
-
+        if self.get_team() == "Blue":
+            collision_list = arcade.check_for_collision_with_lists(self,
+                                                           [
+                                                            window.scene[SCENE_NAME_RED_BUILDING]
+                                                            ])
+        else:
+            collision_list = arcade.check_for_collision_with_lists(self,
+                                                                   [window.scene[SCENE_NAME_BLUE_PLAYER],
+                                                                    window.scene[SCENE_NAME_BLUE_BUILDING]
+                                                                    ])
         for collision in collision_list:
             if isinstance(collision, Entity):
                 if not self.same_team(collision):
+                    # Have to do it here, or it throws a circular import error
+                    # from the_project.entities.building import Building
+                    # if isinstance(collision, Building):
+                    #     self.__parent.set_target_to_none()`
                     collision.kill()
+                    self.__parent.remove_target()
                     self.kill()
+
+    def get_parent(self):
+        return self.__parent
 
     def update(self, window):
         """
