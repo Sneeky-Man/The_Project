@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="The_Project Gantt Chart" company="" webLink="http://" view-date="2022-02-10" view-index="0" gantt-divider-location="392" resource-divider-location="300" version="3.1.3100" locale="en_GB">
+<?xml version="1.0" encoding="UTF-8"?><project name="The_Project Gantt Chart" company="" webLink="http://" view-date="2022-02-13" view-index="0" gantt-divider-location="392" resource-divider-location="300" version="3.1.3100" locale="en_GB">
     <description/>
-    <view zooming-state="default:0" id="gantt-chart">
+    <view zooming-state="default:2" id="gantt-chart">
         <field id="tpd3" name="Name" width="252" order="0"/>
         <field id="tpd4" name="Begin date" width="36" order="1"/>
         <field id="tpd5" name="End date" width="100" order="2"/>
@@ -39,23 +39,40 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="0" name="Basic Database" color="#8cb6ce" meeting="false" project="true" start="2022-02-06" duration="2" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" priority="4" expand="false">
-            <task id="12" name="Transfer database from SQL testing" color="#8cb6ce" meeting="false" start="2022-02-06" duration="2" complete="0" thirdDate="2022-01-28" thirdDate-constraint="0" expand="true"/>
+        <task id="0" name="Basic Database" color="#8cb6ce" meeting="false" project="true" start="2022-02-06" duration="2" complete="100" thirdDate="2022-02-03" thirdDate-constraint="0" priority="4" expand="false">
+            <depend id="24" type="2" difference="0" hardness="Strong"/>
+            <task id="12" name="Transfer database from SQL testing" color="#8cb6ce" meeting="false" start="2022-02-06" duration="2" complete="100" thirdDate="2022-01-28" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="24" name="Basic Building AI" color="#8cb6ce" meeting="false" start="2022-02-08" duration="16" complete="0" thirdDate="2022-01-31" thirdDate-constraint="0" expand="true">
-            <task id="28" name="Range Detector Implementation" color="#8cb6ce" meeting="false" start="2022-02-08" duration="2" complete="0" thirdDate="2022-02-01" thirdDate-constraint="0" expand="true">
+        <task id="24" name="Basic Building AI" color="#8cb6ce" meeting="false" start="2022-02-08" duration="10" complete="100" thirdDate="2022-01-31" thirdDate-constraint="0" expand="false">
+            <depend id="38" type="2" difference="0" hardness="Strong"/>
+            <task id="28" name="Range Detector Implementation" color="#8cb6ce" meeting="false" start="2022-02-08" duration="2" complete="100" thirdDate="2022-02-01" thirdDate-constraint="0" expand="true">
                 <depend id="32" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="32" name="Add Basic Shooting" color="#8cb6ce" meeting="false" start="2022-02-10" duration="3" complete="0" thirdDate="2022-02-01" thirdDate-constraint="0" expand="true">
-                <depend id="34" type="2" difference="0" hardness="Strong"/>
+            <task id="32" name="Add Basic Shooting" color="#8cb6ce" meeting="false" start="2022-02-10" duration="3" complete="100" thirdDate="2022-02-01" thirdDate-constraint="0" expand="true">
+                <depend id="37" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="34" name="Change Sprites to allow for turning" color="#8cb6ce" meeting="false" start="2022-02-13" duration="11" complete="0" thirdDate="2022-01-30" thirdDate-constraint="0" expand="true"/>
+            <task id="37" name="Reprogram the Buildings to Increase Performance" color="#8cb6ce" meeting="false" start="2022-02-13" duration="5" complete="100" thirdDate="2022-02-10" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="17" name="Future Planning" color="#66ffff" shape="1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0" meeting="false" project="true" start="2022-02-08" duration="3" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" priority="2" expand="false">
-            <task id="1" name="Fill out Gantt Chart" color="#8cb6ce" meeting="false" start="2022-02-08" duration="2" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" expand="true">
-                <depend id="5" type="2" difference="0" hardness="Strong"/>
+        <task id="38" name="Asset Design" meeting="false" start="2022-02-18" duration="24" complete="0" expand="false">
+            <task id="34" name="Replace placeholder sprites" color="#8cb6ce" meeting="false" start="2022-02-18" duration="24" complete="0" thirdDate="2022-01-30" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="40" name="Damage and Health" meeting="false" start="2022-02-19" duration="3" complete="0" expand="false">
+            <task id="41" name="Implement HP System" color="#8cb6ce" meeting="false" start="2022-02-19" duration="1" complete="0" thirdDate="2022-02-09" thirdDate-constraint="0" expand="true">
+                <depend id="45" type="2" difference="0" hardness="Strong"/>
+                <depend id="48" type="2" difference="0" hardness="Strong"/>
+                <depend id="53" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="5" name="Fill out Roadmap" color="#8cb6ce" meeting="false" start="2022-02-10" duration="1" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" expand="true"/>
+            <task id="45" name="Show HP System as a Bar" meeting="false" start="2022-02-20" duration="1" complete="0" expand="true"/>
+            <task id="48" name="Implement Damage System" color="#8cb6ce" meeting="false" start="2022-02-20" duration="1" complete="0" thirdDate="2022-02-18" thirdDate-constraint="0" expand="true"/>
+            <task id="53" name="Show Addition or Removal of HP as Numbers" meeting="false" start="2022-02-20" duration="2" complete="0" expand="true"/>
+        </task>
+        <task id="59" name="Advanced Player" meeting="false" start="2022-02-21" duration="3" complete="0" expand="true">
+            <task id="60" name="Implement a Hotbar system" color="#8cb6ce" meeting="false" start="2022-02-21" duration="2" complete="0" thirdDate="2022-02-16" thirdDate-constraint="0" expand="true"/>
+            <task id="67" name="Add building buildings!" meeting="false" start="2022-02-22" duration="2" complete="0" expand="true"/>
+        </task>
+        <task id="17" name="Future Planning" color="#66ffff" shape="1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0" meeting="false" project="true" start="2022-02-08" duration="21" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" priority="2" expand="false">
+            <task id="1" name="Fill out Gantt Chart" color="#8cb6ce" meeting="false" start="2022-02-08" duration="20" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" expand="true"/>
+            <task id="5" name="Fill out Roadmap" color="#8cb6ce" meeting="false" start="2022-02-08" duration="21" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" expand="true"/>
         </task>
     </tasks>
     <resources/>

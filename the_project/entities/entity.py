@@ -1,10 +1,8 @@
 import arcade
-from arcade import Sprite, load_texture
 import logging
-from os import path
 
 
-class Entity(Sprite):
+class Entity(arcade.Sprite):
     def __init__(self, name: str, tier: int, team: str, path: str, x: int, y: int):
         """
         This is the class that will be the building block for the rest of the special entities.
@@ -25,7 +23,7 @@ class Entity(Sprite):
         self.center_x = x
         self.center_y = y
 
-        self.texture = load_texture(path)
+        self.texture = arcade.load_texture(path)
         self.__targetted_by = []
 
     def __repr__(self):
@@ -50,14 +48,6 @@ class Entity(Sprite):
         return_string += f"Currently Targetted By: \n{self.get_targetted_by()!r}"
         return return_string
 
-    def check_exists(self, file_path: str):
-        """"
-        This checks if a file exists.
-
-        :param file_path: The path to the file
-        """
-        if not path.exists(file_path):
-            logging.error(f"File Path does not exist! Setting path {file_path!r} - {self!r}")
 
     def get_name(self):
         """

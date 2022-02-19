@@ -152,8 +152,9 @@ class Building(Entity):
             angle = math.degrees(angle) - 90
             self.angle = angle
 
-            bullet = Bullet(name="Bullet", tier=1, path="assets/maps/map_assets/non_building/bullet/bullet.png",
+            bullet = Bullet(path="assets/maps/map_assets/non_building/bullet/bullet.png",
                             speed=2,
+                            damage=3,
                             parent=self)
             self.__bullet_list.append(bullet)
 

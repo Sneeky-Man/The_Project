@@ -127,4 +127,9 @@ This means I don't need to keep checking if the target is still their every fram
 * Added debug mode. This is enabled by setting self.debug to True. 
 * When debug mode is active, if you click over a Building or Player (not bullet), it will print the longer_report of that sprite.
 * Additionally, buildings will not start firing until the space bar is pressed.
+* Added a FPS counter, and a counter counting the amount of Buildings on the map (excluding Bullets)
 * Improved documentation
+
+# 19/02/22
+* Dramatically Updated GANTT Chart
+* Bullet is now a subclass of arcade.Sprite, instead of Entity.

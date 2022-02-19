@@ -86,7 +86,7 @@ class GameWindow(arcade.Window):
             self.debug_start = False
 
         # Load the first map
-        self.setup_map("the_project_prototype_test_map_battle")
+        self.setup_map("the_project_prototype_test_map_sparse_3")
 
         # Physics Engine
         self.physics_engine = arcade.PhysicsEngineSimple(
