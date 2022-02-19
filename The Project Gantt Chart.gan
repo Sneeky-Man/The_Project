@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="The_Project Gantt Chart" company="" webLink="http://" view-date="2022-02-13" view-index="0" gantt-divider-location="392" resource-divider-location="300" version="3.1.3100" locale="en_GB">
+<?xml version="1.0" encoding="UTF-8"?><project name="The_Project Gantt Chart" company="" webLink="http://" view-date="2022-02-11" view-index="0" gantt-divider-location="392" resource-divider-location="300" version="3.1.3100" locale="en_GB">
     <description/>
     <view zooming-state="default:2" id="gantt-chart">
         <field id="tpd3" name="Name" width="252" order="0"/>
@@ -56,14 +56,14 @@
         <task id="38" name="Asset Design" meeting="false" start="2022-02-18" duration="24" complete="0" expand="false">
             <task id="34" name="Replace placeholder sprites" color="#8cb6ce" meeting="false" start="2022-02-18" duration="24" complete="0" thirdDate="2022-01-30" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="40" name="Damage and Health" meeting="false" start="2022-02-19" duration="3" complete="0" expand="false">
-            <task id="41" name="Implement HP System" color="#8cb6ce" meeting="false" start="2022-02-19" duration="1" complete="0" thirdDate="2022-02-09" thirdDate-constraint="0" expand="true">
+        <task id="40" name="Damage and Health" meeting="false" start="2022-02-19" duration="3" complete="40" expand="true">
+            <task id="41" name="Implement HP System" color="#8cb6ce" meeting="false" start="2022-02-19" duration="1" complete="100" thirdDate="2022-02-09" thirdDate-constraint="0" expand="true">
                 <depend id="45" type="2" difference="0" hardness="Strong"/>
                 <depend id="48" type="2" difference="0" hardness="Strong"/>
                 <depend id="53" type="2" difference="0" hardness="Strong"/>
             </task>
             <task id="45" name="Show HP System as a Bar" meeting="false" start="2022-02-20" duration="1" complete="0" expand="true"/>
-            <task id="48" name="Implement Damage System" color="#8cb6ce" meeting="false" start="2022-02-20" duration="1" complete="0" thirdDate="2022-02-18" thirdDate-constraint="0" expand="true"/>
+            <task id="48" name="Implement Damage System" color="#8cb6ce" meeting="false" start="2022-02-20" duration="1" complete="100" thirdDate="2022-02-18" thirdDate-constraint="0" expand="true"/>
             <task id="53" name="Show Addition or Removal of HP as Numbers" meeting="false" start="2022-02-20" duration="2" complete="0" expand="true"/>
         </task>
         <task id="59" name="Advanced Player" meeting="false" start="2022-02-21" duration="3" complete="0" expand="true">

@@ -62,8 +62,9 @@ class Bullet(arcade.Sprite):
                     # from the_project.entities.building import Building
                     # if isinstance(collision, Building):
                     #     self.__parent.set_target_to_none()`
-                    collision.kill()
-                    self.__parent.remove_target()
+                    hit = collision.change_current_health(-self.__damage)
+                    if hit is True:
+                        self.__parent.remove_target()
                     self.kill()
 
     def get_parent(self):

@@ -2,7 +2,7 @@ from the_project.entities.entity import Entity
 
 
 class Player(Entity):
-    def __init__(self, name: str, tier: int, team: str, x: int, y: int, path: str, speed: float):
+    def __init__(self, name: str, tier: int, team: str, x: int, y: int, path: str, max_health: int, starting_health: int, speed: float):
         """
         This is the class that all players will be.
 
@@ -12,15 +12,11 @@ class Player(Entity):
         :param path: Path to the texture of the sprite
         :param x: Center_X Coord
         :param y: Center_Y Coord
+        :param max_health: Maximum health of the Entity.
+        :param starting_health: The starting health of the building.
         :param speed: The Speed of the Player
         """
-        super().__init__(name=name, tier=tier, team=team, path=path, x=x, y=y)
-        self.__name = name
-        self.__tier = tier
-        self.__team = team
-        self.__path_to_texture = path
-        self.center_x = x
-        self.center_y = y
+        super().__init__(name=name, tier=tier, team=team, path=path, x=x, y=y, max_health=max_health, starting_health=starting_health)
         self.__speed = speed
 
     def __repr__(self):

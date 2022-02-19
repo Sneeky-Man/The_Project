@@ -8,6 +8,7 @@ import dataclasses
 import logging
 from os import path
 
+import arcade
 
 @dataclasses.dataclass
 class Entry:
@@ -15,8 +16,11 @@ class Entry:
     tier: int
     path_to_blue: str
     path_to_red: str
+    max_health: int
+    starting_health: int
     radius: int
-    damage: int
+    bullet_damage: int
+    bullet_speed: float
 
     # If you len() the class
     def __len__(self):
@@ -125,7 +129,7 @@ def database_search(conn, name, tier):
         logging.error(f"Too many results. There should only be 1! {result}")
 
     # Convert to Entry
-    result = Entry(result[0][0], result[0][1], result[0][2], result[0][3], result[0][4], result[0][5])
+    result = Entry(result[0][0], result[0][1], result[0][2], result[0][3], result[0][4], result[0][5], result[0][6], result[0][7], result[0][8])
     logging.info(f"'database_search' - End - 'setup_database'. Searched the database for: {name!r} - {tier!r}. "
                  f"Found {result!r}")
     return result
@@ -149,8 +153,11 @@ def database_connect():
                         tier int NOT NULL,
                         path_to_blue text NOT NULL,
                         path_to_red text NOT NULL,
+                        max_health int NOT NULL,
+                        starting_health int NOT NULL,
                         radius int,
-                        damage int,
+                        bullet_damage int,
+                        bullet_speed float,
                         PRIMARY KEY (name, tier)
                         );""")
 
@@ -172,36 +179,51 @@ def database_setup_entries():
                             tier=1,
                             path_to_blue="assets/maps/map_assets/building/turret/turret_tier_1_blue.png",
                             path_to_red="assets/maps/map_assets/building/turret/turret_tier_1_red.png",
+                            max_health=50,
+                            starting_health=50,
                             radius=100,
-                            damage=10))
+                            bullet_damage=10,
+                            bullet_speed=2.0))
 
     entry_list.append(Entry(name="Turret",
                             tier=2,
                             path_to_blue="assets/maps/map_assets/building/turret/turret_tier_2_blue.png",
                             path_to_red="assets/maps/map_assets/building/turret/turret_tier_2_red.png",
+                            max_health=100,
+                            starting_health=100,
                             radius=250,
-                            damage=15))
+                            bullet_damage=25,
+                            bullet_speed=4.0))
 
     entry_list.append(Entry(name="Turret",
                             tier=3,
                             path_to_blue="assets/maps/map_assets/building/turret/turret_tier_3_blue.png",
                             path_to_red="assets/maps/map_assets/building/turret/turret_tier_3_red.png",
+                            max_health=250,
+                            starting_health=250,
                             radius=500,
-                            damage=20))
+                            bullet_damage=50,
+                            bullet_speed=6.0))
 
     entry_list.append(Entry(name="Base",
                             tier=1,
                             path_to_blue="assets/maps/map_assets/building/base/base_blue.png",
                             path_to_red="assets/maps/map_assets/building/base/base_red.png",
+                            max_health=500,
+                            starting_health=500,
                             radius=None,
-                            damage=None))
+                            bullet_damage=None,
+                            bullet_speed=None))
 
     entry_list.append(Entry(name="Player",
                             tier=1,
                             path_to_blue="assets/maps/map_assets/non_building/player/player_blue.png",
                             path_to_red="assets/maps/map_assets/non_building/player/player_red.png",
+                            max_health=200,
+                            starting_health=200,
                             radius=None,
-                            damage=None))
+                            bullet_damage=None,
+                            bullet_speed=None))
     #
     # entry_list.append(Entry(name="Bullet",
     #                         tier=1,

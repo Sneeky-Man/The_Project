@@ -130,6 +130,13 @@ This means I don't need to keep checking if the target is still their every fram
 * Added a FPS counter, and a counter counting the amount of Buildings on the map (excluding Bullets)
 * Improved documentation
 
-# 19/02/22
+# 19/02/22 17:00
 * Dramatically Updated GANTT Chart
 * Bullet is now a subclass of arcade.Sprite, instead of Entity.
+
+# 19/02/22
+* Added the health system
+* Added the damage system
+* Updated the database to handle the new variables
+* Got rid of setting variables in Player and Building that should only be set in Entity
+* Updated the GANTT Chart

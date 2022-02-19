@@ -123,7 +123,7 @@ class GameWindow(arcade.Window):
         red_building_list = arcade.SpriteList()
 
         result = (setup_database.database_search(self.conn, "Player", 1))
-        self.player_sprite = Player(name=result.name, tier=result.tier, team="Blue", x=200, y=200, path=result.path_to_blue, speed=3)
+        self.player_sprite = Player(name=result.name, tier=result.tier, team="Blue", x=200, y=200, path=result.path_to_blue, max_health=result.max_health, starting_health=result.starting_health, speed=3)
         blue_player_list.append(self.player_sprite)
 
         # This converts all tiles on the foreground to a Building
@@ -136,8 +136,11 @@ class GameWindow(arcade.Window):
                                     x=cur_tile.center_x,
                                     y=cur_tile.center_y,
                                     path=result.path_to_blue,
+                                    max_health=result.max_health,
+                                    starting_health=result.starting_health,
                                     radius=result.radius,
-                                    damage=result.damage
+                                    bullet_damage=result.bullet_damage,
+                                    bullet_speed=result.bullet_speed
                                     )
                 blue_building_list.append(building)
 
@@ -148,8 +151,11 @@ class GameWindow(arcade.Window):
                                     x=cur_tile.center_x,
                                     y=cur_tile.center_y,
                                     path=result.path_to_red,
+                                    max_health=result.max_health,
+                                    starting_health=result.starting_health,
                                     radius=result.radius,
-                                    damage=result.damage
+                                    bullet_damage=result.bullet_damage,
+                                    bullet_speed=result.bullet_speed
                                     )
                 red_building_list.append(building)
             else:

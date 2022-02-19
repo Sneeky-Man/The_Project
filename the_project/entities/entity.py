@@ -3,7 +3,7 @@ import logging
 
 
 class Entity(arcade.Sprite):
-    def __init__(self, name: str, tier: int, team: str, path: str, x: int, y: int):
+    def __init__(self, name: str, tier: int, team: str, path: str, x: int, y: int, max_health: int, starting_health: int):
         """
         This is the class that will be the building block for the rest of the special entities.
         __variables are not to be altered outside the class
@@ -14,6 +14,8 @@ class Entity(arcade.Sprite):
         :param path: Path to the texture of the sprite
         :param x: Center_X Coord
         :param y: Center_Y Coord
+        :param max_health: Maximum health of the Entity.
+        :param starting_health: The starting health of the entity.
         """
         super().__init__()
         self.__name = name
@@ -22,6 +24,18 @@ class Entity(arcade.Sprite):
         self.__path_to_texture = path
         self.center_x = x
         self.center_y = y
+
+        if starting_health > max_health:
+            logging.error(
+                f"'Entity.__init__ - In - 'Entity'. Starting health was larger than max health! {starting_health} > {max_health}."
+                f" Setting max health to starting health.")
+            self.__max_health = starting_health
+            self.__current_health = starting_health
+        else:
+            self.__max_health = max_health
+            self.__current_health = starting_health
+
+
 
         self.texture = arcade.load_texture(path)
         self.__targetted_by = []
@@ -76,6 +90,73 @@ class Entity(arcade.Sprite):
         :rtype: str
         """
         return self.__path_to_texture
+
+    def get_current_health(self):
+        """
+        :return: The health of the Entity.
+        :rtype: int
+        """
+        return self.__current_health
+
+    def set_current_health(self, new_health: int):
+        """
+        Sets the health of the entity to a value.
+
+        :param new_health: The new health of the entity
+        """
+        if new_health > self.__max_health:
+            logging.error(
+                f"'Entity.set_current_health - In - 'Entity'. New health was larger than max health! {new_health} > {self.__max_health}."
+                f" Setting the health to max health.")
+        elif new_health <= 0:
+            self.kill()
+        else:
+            self.__current_health = new_health
+
+    def change_current_health(self, amount: int):
+        """
+        Change the current health of the entity.
+        :param amount: The amount to change it by. Can be positive or negative
+        :returns: True if the Entity has been killed, False if its still alive
+        :rtype: bool
+        """
+        if self.__current_health + amount >= self.__max_health:
+            self.__current_health = self.__max_health
+            return False
+        elif self.__current_health + amount <= 0:
+            self.kill()
+            return True
+        else:
+            self.__current_health += amount
+            return False
+
+    def get_max_health(self):
+        """
+        :return: The maximum health the entity can have.
+        :rtype: int
+        """
+        return self.__max_health
+
+    def set_max_health(self, new_health: int):
+        """
+        Sets the max health of the entity to a value.
+
+        :param new_health: The new max health of the entity
+        """
+        if new_health <= 0:
+            self.kill()
+        else:
+            self.__max_health = new_health
+
+    def change_max_health(self, amount: int):
+        """
+        Change the max health of the entity.
+        :param amount: The amount to change it by. Can be positive or negative
+        """
+        if self.__max_health - amount <= 0:
+            self.kill()
+        else:
+            self.__max_health += amount
 
     def add_targetted_by(self, target: arcade.Sprite):
         """

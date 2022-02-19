@@ -8,7 +8,7 @@ import math
 
 
 class Building(Entity):
-    def __init__(self, name: str, tier: int, team: str, path: str, x: int, y: int, radius: int, damage: int):
+    def __init__(self, name: str, tier: int, team: str, path: str, x: int, y: int, max_health: int, starting_health: int, radius: int, bullet_damage: int, bullet_speed: float):
         """
         This is the class that all buildings will be.
 
@@ -18,18 +18,16 @@ class Building(Entity):
         :param path: Path to the texture
         :param x: Center_X Coord
         :param y: Center_Y Coord
+        :param max_health: Maximum health of the Entity.
+        :param starting_health: The starting health of the building.
         :param radius: The radius of the building
-        :param damage: The damage of the building
+        :param bullet_damage: The damage of the bullets fired from the building.
+        :param bullet_speed: The speed of the bullets fired from the building.
         """
-        super().__init__(name=name, tier=tier, team=team, path=path, x=x, y=y)
-        self.__name = name
-        self.__tier = tier
-        self.__team = team
-        self.__path_to_texture = path
-        self.center_x = x
-        self.center_y = y
+        super().__init__(name=name, tier=tier, team=team, path=path, x=x, y=y, max_health=max_health, starting_health=starting_health)
         self.__radius = radius
-        self.__damage = damage
+        self.__bullet_damage = bullet_damage
+        self.__bullet_speed = bullet_speed
 
         if self.__radius is not None:
             self.__attack_enabled = True
@@ -153,8 +151,8 @@ class Building(Entity):
             self.angle = angle
 
             bullet = Bullet(path="assets/maps/map_assets/non_building/bullet/bullet.png",
-                            speed=2,
-                            damage=3,
+                            speed=self.get_bullet_speed(),
+                            damage=self.get_bullet_damage(),
                             parent=self)
             self.__bullet_list.append(bullet)
 
@@ -194,7 +192,7 @@ class Building(Entity):
         """
         if self.__attack_enabled is True:
             if self.__target is None:
-                if self.__team == "Blue":
+                if self.get_team() == "Blue":
                     pass
                     # collision_list = arcade.check_for_collision_with_list(self.__range_detector,
                     #                                                       window.scene[SCENE_NAME_RED_PLAYER])
@@ -253,6 +251,20 @@ class Building(Entity):
         :rtype: object or None
         """
         return self.__target
+
+    def get_bullet_damage(self):
+        """
+        :return: The damage of the bullets
+        :rtype: int
+        """
+        return self.__bullet_damage
+
+    def get_bullet_speed(self):
+        """
+        :return: The speed of the bullets
+        :rtype: float
+        """
+        return self.__bullet_speed
 
     def update(self, window, delta_time):
         """
