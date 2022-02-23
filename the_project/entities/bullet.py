@@ -49,19 +49,17 @@ class Bullet(arcade.Sprite):
             collision_list = arcade.check_for_collision_with_lists(self,
                                                            [
                                                             window.scene[SCENE_NAME_RED_BUILDING]
-                                                            ])
+                                                            ],
+                                                            3)
         else:
             collision_list = arcade.check_for_collision_with_lists(self,
                                                                    [window.scene[SCENE_NAME_BLUE_PLAYER],
                                                                     window.scene[SCENE_NAME_BLUE_BUILDING]
-                                                                    ])
+                                                                    ],
+                                                                   3)
         for collision in collision_list:
             if isinstance(collision, Entity):
                 if not collision.same_team(self):
-                    # Have to do it here, or it throws a circular import error
-                    # from the_project.entities.building import Building
-                    # if isinstance(collision, Building):
-                    #     self.__parent.set_target_to_none()`
                     hit = collision.change_current_health(-self.__damage)
                     if hit is True:
                         self.__parent.remove_target()

@@ -1,5 +1,6 @@
 import arcade
 import logging
+from the_project.special_scripts.fading_text import FadingText
 
 
 class Entity(arcade.Sprite):
@@ -39,6 +40,7 @@ class Entity(arcade.Sprite):
 
         self.texture = arcade.load_texture(path)
         self.__targetted_by = []
+        # self.__text_list = []
 
     def __repr__(self):
         """
@@ -122,12 +124,14 @@ class Entity(arcade.Sprite):
         """
         if self.__current_health + amount >= self.__max_health:
             self.__current_health = self.__max_health
+            # self.__text_list.append(FadingText(amount=amount, x=self.center_x, y=self.center_y, is_damage=False))
             return False
         elif self.__current_health + amount <= 0:
             self.kill()
             return True
         else:
             self.__current_health += amount
+            # self.__text_list.append(FadingText(amount=amount, x=self.center_x, y=self.center_y, is_damage=True))
             return False
 
     def get_max_health(self):
@@ -196,6 +200,20 @@ class Entity(arcade.Sprite):
         else:
             return False
 
+    def draw(self):
+        # Health bar code stolen from sprite_health.py
+        health_width = 32 * (self.__current_health / self.__max_health)
+        arcade.draw_rectangle_filled(center_x=self.center_x,
+                                     center_y=self.center_y - 25,
+                                     width=health_width,
+                                     height=5,
+                                     color=arcade.color.RED)
+        # for text in self.__text_list:
+        #     delete = text.draw(self.center_x, self.center_y)
+        #     if delete is True:
+        #         self.__text_list.remove(text)
+        super().draw()
+
     def kill(self):
         """
         This deletes the sprite from all sprite lists
@@ -203,4 +221,5 @@ class Entity(arcade.Sprite):
         # For all the people targeting me, make their target None
         for target in self.__targetted_by:
             target.remove_target()
+        # self.__text_list = None
         super().kill()

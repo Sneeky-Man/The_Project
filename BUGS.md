@@ -7,6 +7,7 @@
 ### Major
 ##### This bug is a big problem but is either not game breaking, or happens very irregularly
 * Grabbing the screen and moving it will cause the game to slow to about 30fps, causing bullets to fire faster
+* Using arcade.Text to draw text sometimes causes big red lines to appear. This is likely a bug within arcade.
 
 ### Minor
 ##### This bug is a minor problem, due to its lack of severity or extreme rarity
@@ -17,3 +18,4 @@ the building will do a 360 instead of turning to the target
 ### Non-Lethal
 ##### A Bug that really shouldn't happen, but pose very-little to no threat
 * When downloading the packages, The_Project-(whatever the version is) is downloaded.
+* When two bullets hit the same target at the same time, both bullets will be lost, even if the target was killed by the first bullet

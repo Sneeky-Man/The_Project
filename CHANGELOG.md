@@ -140,3 +140,11 @@ This means I don't need to keep checking if the target is still their every fram
 * Updated the database to handle the new variables
 * Got rid of setting variables in Player and Building that should only be set in Entity
 * Updated the GANTT Chart
+
+# 23/02/22 15:00
+* Updated to arcade 2.6.10. This gave serious fps improvements due to the changes with the collision_with_lists.
+* Added hotbar and hotbar selected images 1-5.
+* Added damage and healing text (although its temp disabled due to a bug with arcade)
+* Added fading_text.py (this is for the damage text)
+* Updated BUGS.MD
+* Updated GANTT chart

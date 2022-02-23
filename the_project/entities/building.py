@@ -59,7 +59,7 @@ class Building(Entity):
         :return: A basic report of the sprite
         :rtype: str
         """
-        return f"Building. {self.__name!r}, {self.__tier!r}, {self.__team!r}. ({self.center_x!r},{self.center_y!r})."
+        return f"Building. {self.get_name()}, {self.get_tier()}, {self.get_team()}. ({self.center_x},{self.center_y})."
 
     def longer_report(self):
         """
@@ -68,8 +68,8 @@ class Building(Entity):
         :return: A detailed report of the Building
         :rtype: str
         """
-        return_string = (f"Building. {self.__name}, {self.__tier}, {self.__team}. ({self.center_x},{self.center_y}), "
-                         f"{self.__path_to_texture}")
+        return_string = (f"Building. {self.get_name()}, {self.get_tier()}, {self.get_team()}. ({self.center_x},{self.center_y}), "
+                         f"{self.get_path()}")
 
         if self.__attack_enabled is True:
             return_string += f"\n Current Target is: {self.__target}\n"
@@ -166,10 +166,12 @@ class Building(Entity):
             if self.__target is None:
                 if self.get_team() == "Blue":
                     collision_list = arcade.check_for_collision_with_list(self.__range_detector,
-                                                                          window.scene[SCENE_NAME_RED_BUILDING])
+                                                                          window.scene[SCENE_NAME_RED_BUILDING],
+                                                                          3)
                 else:
                     collision_list = arcade.check_for_collision_with_list(self.__range_detector,
-                                                                          window.scene[SCENE_NAME_BLUE_BUILDING])
+                                                                          window.scene[SCENE_NAME_BLUE_BUILDING],
+                                                                          3)
                 # Find the smallest distance in collision list
                 if len(collision_list) >= 1:
                     smallest_length = arcade.get_distance_between_sprites(self, collision_list[0])
@@ -198,7 +200,8 @@ class Building(Entity):
                     #                                                       window.scene[SCENE_NAME_RED_PLAYER])
                 else:
                     collision_list = arcade.check_for_collision_with_list(self.__range_detector,
-                                                                          window.scene[SCENE_NAME_BLUE_PLAYER])
+                                                                          window.scene[SCENE_NAME_BLUE_PLAYER],
+                                                                          3)
                     # Find the smallest distance in collision list
                     if len(collision_list) >= 1:
                         self.add_target(collision_list[0])  # It fails without the [0]!
