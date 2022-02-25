@@ -37,7 +37,4 @@ git clone https://github.com/Sneeky-Man/The_Project
 pip install -e.
 ```
 # Important Note
-* This was coded in Arcade 2.6.6 and Python 3.9.
-* As of writing this, 2.6.6 is the latest version, and Python 3.10 doesn't work due to Shapely not being updated to 3.10
-yet.
-* Its possible it may work in the future, but if all else fails just revert the version.
+* This was coded in Arcade 2.6.10 and Python 3.9. Beware of using updated versions of Arcade or Python

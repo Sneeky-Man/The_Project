@@ -56,7 +56,7 @@
         <task id="38" name="Asset Design" meeting="false" start="2022-02-18" duration="24" complete="0" expand="true">
             <task id="34" name="Replace placeholder sprites" color="#8cb6ce" meeting="false" start="2022-02-18" duration="24" complete="0" thirdDate="2022-01-30" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="40" name="Damage and Health" meeting="false" start="2022-02-19" duration="3" complete="100" expand="true">
+        <task id="40" name="Damage and Health" meeting="false" start="2022-02-19" duration="3" complete="100" expand="false">
             <task id="41" name="Implement HP System" color="#8cb6ce" meeting="false" start="2022-02-19" duration="1" complete="100" thirdDate="2022-02-09" thirdDate-constraint="0" expand="true">
                 <depend id="45" type="2" difference="0" hardness="Strong"/>
                 <depend id="48" type="2" difference="0" hardness="Strong"/>
@@ -66,15 +66,19 @@
             <task id="48" name="Implement Damage System" color="#8cb6ce" meeting="false" start="2022-02-20" duration="1" complete="100" thirdDate="2022-02-18" thirdDate-constraint="0" expand="true"/>
             <task id="53" name="Show Addition or Removal of HP as Numbers" meeting="false" start="2022-02-20" duration="2" complete="100" expand="true"/>
         </task>
-        <task id="59" name="Advanced Player" meeting="false" start="2022-02-21" duration="21" complete="18" expand="true">
+        <task id="59" name="Advanced Player" meeting="false" start="2022-02-21" duration="23" complete="18" expand="true">
             <task id="60" name="Implement a Hotbar system" color="#8cb6ce" meeting="false" start="2022-02-21" duration="5" complete="80" thirdDate="2022-02-16" thirdDate-constraint="0" expand="true"/>
-            <task id="67" name="Add building buildings!" meeting="false" start="2022-02-25" duration="2" complete="0" expand="true"/>
-            <task id="71" name="Add Other Hotbar Items" color="#8cb6ce" meeting="false" start="2022-02-27" duration="15" complete="0" thirdDate="2022-01-24" thirdDate-constraint="0" expand="true"/>
+            <task id="67" name="Add building buildings!" meeting="false" start="2022-02-25" duration="2" complete="0" expand="true">
+                <depend id="71" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="71" name="Add Other Hotbar Items" color="#8cb6ce" meeting="false" start="2022-03-01" duration="15" complete="0" thirdDate="2022-01-24" thirdDate-constraint="0" expand="true"/>
         </task>
         <task id="68" name="Other" meeting="false" start="2022-02-26" duration="3" complete="0" expand="true">
+            <depend id="71" type="2" difference="0" hardness="Strong"/>
             <task id="69" name="Organise the Asset Folders" color="#8cb6ce" meeting="false" start="2022-02-26" duration="3" complete="0" thirdDate="2022-02-07" thirdDate-constraint="0" expand="true"/>
+            <task id="75" name="Organise and Remake Performance Maps" color="#8cb6ce" meeting="false" start="2022-02-26" duration="3" complete="0" thirdDate="2022-01-24" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="17" name="Future Planning" color="#66ffff" shape="1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0" meeting="false" project="true" start="2022-02-08" duration="34" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" priority="2" expand="true">
+        <task id="17" name="Future Planning" color="#66ffff" shape="1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0" meeting="false" project="true" start="2022-02-08" duration="34" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" priority="2" expand="false">
             <task id="1" name="Fill out Gantt Chart" color="#8cb6ce" meeting="false" start="2022-02-08" duration="34" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" expand="true"/>
             <task id="5" name="Fill out Roadmap" color="#8cb6ce" meeting="false" start="2022-02-08" duration="34" complete="0" thirdDate="2022-02-03" thirdDate-constraint="0" expand="true"/>
         </task>

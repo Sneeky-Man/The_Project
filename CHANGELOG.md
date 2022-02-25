@@ -160,3 +160,7 @@ This means I don't need to keep checking if the target is still their every fram
 * Replaced all instances of the GameWindow being passed to classes and defs with arcade.get_window()
 * While in debug mode, you must middle-click to print the longer_report
 * Updated GANTT Chart
+
+## 25/02/22 17:12
+* Updated README.md
+* Updated GANTT Chart
