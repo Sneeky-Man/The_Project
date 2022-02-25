@@ -54,7 +54,7 @@ I'm still pretty unsure, but I think it's best to make some prototypes, and find
 * Lack of progress is due to procrastination, will try to do actual work over the holidays
 
 ## 03/01/22 23:07
-* Procrastination has continued as i have gotten very invested in foxhole, to the detriment of other things. Will force myself to start doing work.
+* Procrastination has continued as I have gotten very invested in foxhole, to the detriment of other things. Will force myself to start doing work.
 
 ## 03/01/22 23:13
 * Added Bullet.py
@@ -112,9 +112,9 @@ then finds the nearest target and attacks them.
 This was for performance. The previous way was cripplingly slow.
 * Changed the Entity, Building, and Player __str__ to __repr__
 * __repr__ now show a very basic overview (name, tier, team, coords)
-* Entity, Building, and Player now has longer_report() which gives a more detailed report (eg. path, targets, targetted_by)
+* Entity, Building, and Player now has longer_report() which gives a more detailed report (e.g. path, targets, targetted_by)
 * Split the foreground list in scene into four categories: Red Player, Blue Player, Red Building, Blue Building.
-This is partially for performance reasons, and because it makes it alot easier logic wise.
+This is partially for performance reasons, and because it makes it a lot easier logic wise.
 * Added 2 more maps, bring it up to four.
 * Sparse_1 is a 1v1 with a red turret and a blue base. This is for testing a single turret, a non turret, and a player
 * Sparse_2 is a 3v1 with 3 red turrets and a blue base. This is for testing how multiple turrets handle each other, and if they stop firing correctly.
@@ -127,7 +127,7 @@ This means I don't need to keep checking if the target is still their every fram
 * Added debug mode. This is enabled by setting self.debug to True. 
 * When debug mode is active, if you click over a Building or Player (not bullet), it will print the longer_report of that sprite.
 * Additionally, buildings will not start firing until the space bar is pressed.
-* Added a FPS counter, and a counter counting the amount of Buildings on the map (excluding Bullets)
+* Added an FPS counter, and a counter counting the amount of Buildings on the map (excluding Bullets)
 * Improved documentation
 
 # 19/02/22 17:00
@@ -148,3 +148,15 @@ This means I don't need to keep checking if the target is still their every fram
 * Added fading_text.py (this is for the damage text)
 * Updated BUGS.MD
 * Updated GANTT chart
+
+## 23/02/22 15:15
+* Added Hotbar Hammer Icon
+
+## 25/02/22 16:47
+* Added items.py. This is where all items used in a players hotbar will be made.
+* Added Hammer to items.py. This hammer will (when equipped) heal buildings with left click, within a range of 100.
+* The hammer, when equipped, will follow the mouse.
+* Added Hotbar Hammer Item (just a smaller ver of the icon)
+* Replaced all instances of the GameWindow being passed to classes and defs with arcade.get_window()
+* While in debug mode, you must middle-click to print the longer_report
+* Updated GANTT Chart

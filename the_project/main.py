@@ -4,6 +4,7 @@ from the_project.constants import *
 from the_project.entities.player import Player
 from the_project.entities.building import Building
 from the_project.database import setup_database
+from the_project.special_scripts.items import Hammer
 
 """
 Map Layers
@@ -173,9 +174,12 @@ class GameWindow(arcade.Window):
 
         # Hotbar setup
         self.hotbar_selected = 0
-        self.hotbar_list = arcade.SpriteList()
+        self.hotbar_background = arcade.SpriteList()
+        self.hotbar_icons = arcade.SpriteList()
         hotbar_1 = arcade.Sprite("assets/maps/map_assets/hotbar/hotbar_1.png")
         hotbar_1.position = (300, 50)
+        icon_1 = arcade.Sprite("assets/maps/map_assets/hotbar/hotbar_icon_hammer.png")
+        icon_1.position = hotbar_1.position
         hotbar_2 = arcade.Sprite("assets/maps/map_assets/hotbar/hotbar_2.png")
         hotbar_2.position = (400, 50)
         hotbar_3 = arcade.Sprite("assets/maps/map_assets/hotbar/hotbar_3.png")
@@ -184,11 +188,13 @@ class GameWindow(arcade.Window):
         hotbar_4.position = (600, 50)
         hotbar_5 = arcade.Sprite("assets/maps/map_assets/hotbar/hotbar_5.png")
         hotbar_5.position = (700, 50)
-        self.hotbar_list.append(hotbar_1)
-        self.hotbar_list.append(hotbar_2)
-        self.hotbar_list.append(hotbar_3)
-        self.hotbar_list.append(hotbar_4)
-        self.hotbar_list.append(hotbar_5)
+        self.hotbar_background.append(hotbar_1)
+        self.hotbar_background.append(hotbar_2)
+        self.hotbar_background.append(hotbar_3)
+        self.hotbar_background.append(hotbar_4)
+        self.hotbar_background.append(hotbar_5)
+        self.hotbar_icons.append(icon_1)
+        self.hotbar_items = [Hammer(), None, None, None, None]
         logging.info(f"'Game_Window.setup_map() - End - 'main'. Set up the map: {map_name!r}")
         logging.info(" - - - - - ")
 
@@ -210,8 +216,15 @@ class GameWindow(arcade.Window):
         # for sprite in self.scene[SCENE_NAME_RED_PLAYER]:
         #     sprite.draw()
 
-        for hotbar in self.hotbar_list:
+        for hotbar in self.hotbar_background:
             hotbar.draw()
+
+        for icon in self.hotbar_icons:
+            icon.draw()
+
+        if self.hotbar_selected != 0:
+            if self.hotbar_items[self.hotbar_selected - 1] is not None:
+                self.hotbar_items[self.hotbar_selected - 1].draw()
 
         fps = arcade.get_fps()
         arcade.draw_text(f"FPS: {fps:.0f}", 900, 950, arcade.color.BLUE, 18)
@@ -224,19 +237,20 @@ class GameWindow(arcade.Window):
 
         :param delta_time: This is essentially a clock
         """
+
         if self.debug is True:
             if self.debug_start is True:
                 for sprite in self.scene[SCENE_NAME_BLUE_BUILDING]:
-                    sprite.update(window=self, delta_time=delta_time)
+                    sprite.update(delta_time=delta_time)
 
                 for sprite in self.scene[SCENE_NAME_RED_BUILDING]:
-                    sprite.update(window=self, delta_time=delta_time)
+                    sprite.update(delta_time=delta_time)
         else:
             for sprite in self.scene[SCENE_NAME_BLUE_BUILDING]:
-                sprite.update(window=self, delta_time=delta_time)
+                sprite.update(delta_time=delta_time)
 
             for sprite in self.scene[SCENE_NAME_RED_BUILDING]:
-                sprite.update(window=self, delta_time=delta_time)
+                sprite.update(delta_time=delta_time)
 
         # for sprite in self.scene.sprite_lists[1]:
         #     sprite.update(self, delta_time)
@@ -261,7 +275,6 @@ class GameWindow(arcade.Window):
         """
         Called when a key is pressed.
         """
-
         if key == arcade.key.W or key == arcade.key.UP:
             self.up_pressed = True
         elif key == arcade.key.S or key == arcade.key.DOWN:
@@ -270,6 +283,26 @@ class GameWindow(arcade.Window):
             self.left_pressed = True
         elif key == arcade.key.D or key == arcade.key.RIGHT:
             self.right_pressed = True
+        elif key == arcade.key.KEY_1 or key == arcade.key.KEY_2 or key == arcade.key.KEY_3 or key == arcade.key.KEY_4 \
+                or key == arcade.key.KEY_5:
+            # If the key that was pressed was the selected one
+            num_key = key - 48
+            if num_key == self.hotbar_selected:
+                self.hotbar_background[num_key - 1].texture = arcade.load_texture(
+                    f"assets/maps/map_assets/hotbar/hotbar_{num_key}.png")
+                self.hotbar_selected = 0
+
+            # If the key that was pressed was not the selected one
+            else:
+                if self.hotbar_selected != 0:
+                    self.hotbar_background[self.hotbar_selected - 1].texture = arcade.load_texture(
+                        f"assets/maps/map_assets/hotbar/hotbar_{self.hotbar_selected}.png")
+                self.hotbar_background[num_key - 1].texture = arcade.load_texture(
+                    f"assets/maps/map_assets/hotbar/hotbar_selected_{num_key}.png")
+                self.hotbar_selected = num_key
+
+        elif key == arcade.key.SPACE and self.debug is True:
+            self.debug_start = True
 
     def on_key_release(self, key, modifiers):
         """
@@ -283,30 +316,9 @@ class GameWindow(arcade.Window):
             self.left_pressed = False
         elif key == arcade.key.D or key == arcade.key.RIGHT:
             self.right_pressed = False
-        elif key == arcade.key.KEY_1 or key == arcade.key.KEY_2 or key == arcade.key.KEY_3 or key == arcade.key.KEY_4 \
-                or key == arcade.key.KEY_5:
-            # If the key that was pressed was the selected one
-            num_key = key - 48
-            if num_key == self.hotbar_selected:
-                self.hotbar_list[num_key - 1].texture = arcade.load_texture(
-                    f"assets/maps/map_assets/hotbar/hotbar_{num_key}.png")
-                self.hotbar_selected = 0
-
-            # If the key that was pressed was not the selected one
-            else:
-                if self.hotbar_selected != 0:
-                    self.hotbar_list[self.hotbar_selected - 1].texture = arcade.load_texture(
-                        f"assets/maps/map_assets/hotbar/hotbar_{self.hotbar_selected}.png")
-                self.hotbar_list[num_key - 1].texture = arcade.load_texture(
-                    f"assets/maps/map_assets/hotbar/hotbar_selected_{num_key}.png")
-                self.hotbar_selected = num_key
-            print(self.hotbar_selected)
-
-        elif key == arcade.key.SPACE and self.debug is True:
-            self.debug_start = True
 
     def on_mouse_press(self, x: float, y: float, button: int, modifiers: int):
-        if self.debug is True:
+        if self.debug is True and button == 2:
             list_1 = (arcade.get_sprites_at_point((x, y), self.scene[SCENE_NAME_RED_BUILDING]))
             list_2 = (arcade.get_sprites_at_point((x, y), self.scene[SCENE_NAME_BLUE_BUILDING]))
             list_3 = (arcade.get_sprites_at_point((x, y), self.scene[SCENE_NAME_BLUE_PLAYER]))
@@ -323,6 +335,21 @@ class GameWindow(arcade.Window):
             if list_3:
                 for sprite in list_3:
                     print(sprite.longer_report())
+
+        if self.hotbar_selected != 0:
+            if self.hotbar_items[self.hotbar_selected-1] is not None:
+                self.hotbar_items[self.hotbar_selected-1].on_click(x, y, button, modifiers)
+
+    def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
+        """
+        :param float x: x position of mouse
+        :param float y: y position of mouse
+        :param float dx: Change in x since the last time this method was called
+        :param float dy: Change in y since the last time this method was called
+        """
+        for item in self.hotbar_items:
+            if item is not None:
+                item.update_position(x, y)
 
 
 

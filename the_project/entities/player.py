@@ -1,5 +1,6 @@
 from the_project.entities.entity import Entity
 
+from arcade import get_window
 
 class Player(Entity):
     def __init__(self, name: str, tier: int, team: str, x: int, y: int, path: str, max_health: int, starting_health: int, speed: float):
@@ -48,4 +49,8 @@ class Player(Entity):
         self.__speed = speed
 
     def kill(self):
+        window = get_window()
+        for counter in range(0, len(window.hotbar_items)):
+            if window.hotbar_items[counter] is not None:
+                window.hotbar_items[counter] = None
         super().kill()

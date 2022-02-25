@@ -39,12 +39,11 @@ class Bullet(arcade.Sprite):
     def __repr__(self):
         return f"Bullet. Parent {self.__parent}"
 
-    def check_for_collision(self, window):
+    def check_for_collision(self):
         """
         This runs every frame to check for a collision
-
-        :param window: The Game_Window
         """
+        window = arcade.get_window()
         if self.get_team() == "Blue":
             collision_list = arcade.check_for_collision_with_lists(self,
                                                            [
@@ -100,15 +99,14 @@ class Bullet(arcade.Sprite):
         """
         return self.__path_to_texture
 
-    def update(self, window):
+    def update(self):
         """
         This runs every frame to check for a collision
-
-        :param window: The Game_Window
         """
         super().update()
+        window = arcade.get_window()
         # Code stolen from asteroid_smasher.py
-        self.check_for_collision(window)
+        self.check_for_collision()
         self.angle = math.degrees(math.atan2(self.change_y, self.change_x)) - 90
 
 

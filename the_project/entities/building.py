@@ -156,12 +156,11 @@ class Building(Entity):
                             parent=self)
             self.__bullet_list.append(bullet)
 
-    def find_target_building(self, window):
+    def find_target_building(self):
         """
         This checks for enemy buildings.
-
-        :param window: The GameWindow Window
         """
+        window = arcade.get_window()
         if self.__attack_enabled is True:
             if self.__target is None:
                 if self.get_team() == "Blue":
@@ -186,14 +185,13 @@ class Building(Entity):
                     self.add_target(collision_list[smallest_pos])
                     collision_list[smallest_pos].add_targetted_by(self)
 
-    def find_target_player(self, window):
+    def find_target_player(self):
         """
         This checks for enemy players.
-
-        :param window: The GameWindow Window
         """
         if self.__attack_enabled is True:
             if self.__target is None:
+                window = arcade.get_window()
                 if self.get_team() == "Blue":
                     pass
                     # collision_list = arcade.check_for_collision_with_list(self.__range_detector,
@@ -269,13 +267,10 @@ class Building(Entity):
         """
         return self.__bullet_speed
 
-    def update(self, window, delta_time):
+    def update(self, delta_time):
         """
         Updates the building logic every frame.
-
-        :param window: The GameWindow Window
         """
-
         # Updates the cooldown
         if self.__attack_enabled is True:
             # If cooldown is still active:
@@ -286,9 +281,9 @@ class Building(Entity):
             else:
                 if self.__target is None:
                     if self.check_buildings is True:
-                        self.find_target_building(window)
+                        self.find_target_building()
                         self.check_buildings = False
-                    self.find_target_player(window)
+                    self.find_target_player()
 
                     if self.__target is not None:
                         self.shoot()
@@ -300,7 +295,7 @@ class Building(Entity):
             self.check_bullets()
 
             for bullet in self.__bullet_list:
-                bullet.update(window=window)
+                bullet.update()
 
     def draw(self):
         """
