@@ -3,9 +3,11 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "the_project_prototype_test_map_perf_2.json",
+    "activeFile": "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/the_project_prototype_test_map_battle.json",
     "expandedProjectPaths": [
-        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content"
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps",
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -548,6 +550,124 @@
             "dynamicWrapping": true,
             "scaleInDock": 1
         },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing_margin.json": {
+            "scaleInDock": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing_margin.json": {
+            "scaleInDock": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/prototype_map_battle.json": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 695.9999999999999,
+                "y": 517.3333333333333
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/game_tests/game_test_map_sparse_1.json": {
+            "scale": 0.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 964,
+                "y": 642
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/game_tests/game_test_map_sparse_3.json": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 607.9999999999999,
+                "y": 598.6666666666666
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/game_tests/tile sheets/building_tileset_blue.json": {
+            "scaleInDock": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/game_tests/tile sheets/building_tileset_red.json": {
+            "scaleInDock": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/game_tests/tile sheets/the_project_prototype_ground_tilesheet.json": {
+            "scaleInDock": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/perfomance_tests/performance_map_5.json": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 643.9999999999999,
+                "y": 560
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_1.json": {
+            "scale": 0.75,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 556,
+                "y": 554.6666666666666
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_2.json": {
+            "scale": 0.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 690,
+                "y": 624
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_3.json": {
+            "scale": 0.5,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 690,
+                "y": 624
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_4.json": {
+            "scale": 0.51767578125,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 1025.7385398981326,
+                "y": 513.8351254480287
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_5.json": {
+            "scale": 0.51767578125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1025.7385398981326,
+                "y": 513.8351254480287
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/the_project_prototype_test_map_battle.json": {
+            "scale": 0.5097115384615384,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 716.0913035276365,
+                "y": 490.47349556687425
+            }
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tile sheets/building_tileset_blue.json": {
+            "scaleInDock": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tile sheets/building_tileset_red.json": {
+            "scaleInDock": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tile sheets/the_project_prototype_ground_tilesheet.json": {
+            "scaleInDock": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tile_sheets/building_tileset_blue.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tile_sheets/building_tileset_red.json": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tile_sheets/the_project_prototype_ground_tilesheet.json": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
         "the_project_prototype_ground_tilesheet.json": {
             "dynamicWrapping": false,
             "scaleInDock": 1,
@@ -625,7 +745,7 @@
     "frame.defaultDuration": 300,
     "last.exportedFilePath": "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps",
     "last.externalTilesetPath": "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps",
-    "last.imagePath": "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/maps/map_assets/building/turret",
+    "last.imagePath": "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/game_sprites/building/turret",
     "map.fixedSize": true,
     "map.height": 32,
     "map.lastUsedExportFilter": "JSON map files (*.json)",
@@ -633,28 +753,25 @@
     "map.layerDataFormat": null,
     "map.width": 64,
     "openFiles": [
-        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing_margin.json",
-        "tile sheets/building_tileset_blue.json",
-        "tile sheets/building_tileset_red.json",
-        "the_project_prototype_test_map_sparse.json",
-        "the_project_prototype_test_map_sparse_3.json",
-        "the_project_prototype_test_map_perf_2.json"
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/the_project_prototype_test_map_battle.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tile_sheets/building_tileset_blue.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tile_sheets/building_tileset_red.json"
     ],
     "project": "the_project_prototype.tiled-project",
     "property.type": "int",
     "recentFiles": [
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_4.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_5.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_3.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_2.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/perfomance_tests/performance_map_5.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/game_tests/game_test_map_sparse_3.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tile_sheets/building_tileset_red.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tile_sheets/building_tileset_blue.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/the_project_prototype_test_map_battle.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/Screwing with Tiled v2/tiled_test/tiled_maps/tmw_desert_spacing_margin.json",
         "tile sheets/building_tileset_blue.json",
-        "tile sheets/building_tileset_red.json",
-        "the_project_prototype_test_map_sparse.json",
-        "the_project_prototype_test_map_sparse_3.json",
-        "the_project_prototype_test_map_perf_2.json",
-        "the_project_prototype_test_map_battle.json",
-        "the_project_prototype_test_map_sparse_2.json",
-        "the_project_prototype_map_1.json",
-        "tile sheets/building_tileset.json",
-        "tile sheets/the_project_prototype_ground_tilesheet.json",
-        "the_project_prototype_ground_tilesheet.json"
+        "tile sheets/building_tileset_red.json"
     ],
     "tileset.embedInMap": false,
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",

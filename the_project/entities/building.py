@@ -48,7 +48,7 @@ class Building(Entity):
                 self.__range_detector.center_y = self.center_y
                 self.__target = None
                 self.__bullet_list = arcade.SpriteList(use_spatial_hash=False)
-                self.cooldown_time = 1
+                self.cooldown_time = 2
                 self.cooldown_current = 0
                 self.check_buildings = True
 
@@ -150,7 +150,7 @@ class Building(Entity):
             angle = math.degrees(angle) - 90
             self.angle = angle
 
-            bullet = Bullet(path="assets/maps/map_assets/non_building/bullet/bullet.png",
+            bullet = Bullet(path="assets/images/game_sprites/non_building/bullet/bullet.png",
                             speed=self.get_bullet_speed(),
                             damage=self.get_bullet_damage(),
                             parent=self)

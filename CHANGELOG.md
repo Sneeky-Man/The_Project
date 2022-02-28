@@ -167,3 +167,25 @@ This means I don't need to keep checking if the target is still their every fram
 
 ## 28/02/22 12:23
 * Updated how the Hammer positions itself
+
+## 28/02/22 
+* Reorganised the asset folders
+* Remade all the maps:
+  * Normal
+    * map_battle: Normal 25v25 battle
+  * Test Maps - Testing game features
+    * sparse_1: 1v0 (Turret v Base)
+    * sparse_2: 1v0 (Turret v Bases)
+    * sparse_3: 1v1 (Turret v Turret)
+    * sparse_4: 3v1 (Turrets v Turret + Bases)
+    * sparse_5: 3v4 (Turret v Turrets)
+  * Performance Maps - Testing the performance of the maps
+    * map_1: 50 v 50 Bases
+    * map_2: 100 v 100 Bases
+    * map_3: 200 v 200 Bases
+    * map_4: 25 v 25 Turrets
+    * map_5: 50 v 50 Turrets
+    * map_6: 75 v 75 Turrets
+    * map_7: 100 v 100 Turrets
+* Health bar will only show when the building isn't full health. This is for performance reasons.
+* Updated GANTT Chart

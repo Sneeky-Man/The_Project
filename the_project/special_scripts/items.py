@@ -14,7 +14,7 @@ class Hammer(arcade.Sprite):
 
     def __init__(self):
         super().__init__()
-        self.texture = arcade.load_texture("assets/maps/map_assets/hotbar/hotbar_item_hammer.png")
+        self.texture = arcade.load_texture("assets/images/other_sprites/hotbar_items/hotbar_item_hammer.png")
 
         # This is a backup. Mouse hasn't been moved yet, it will default to the player.
         window = arcade.get_window()

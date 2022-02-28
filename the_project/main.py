@@ -47,11 +47,9 @@ class GameWindow(arcade.Window):
         self.up_pressed = None
         self.down_pressed = None
 
-        # Time
-        self.time = None
-
-        # Score
-        self.score = None
+        # Maps
+        self.cur_map = None
+        self.proto_map_list = None
 
         # Debug
         self.debug = None
@@ -71,28 +69,50 @@ class GameWindow(arcade.Window):
         # Set the colour of the window (arcade uses color not colour!)
         arcade.set_background_color(arcade.color.BLUEBERRY)
 
-        # Track state of movement
-        self.left_pressed = False
-        self.right_pressed = False
-        self.up_pressed = False
-        self.down_pressed = False
-
-        # Time
-        self.time = 0
 
         # Debug
         self.debug = True
 
-        if self.debug is True:
-            self.debug_start = False
+        self.proto_map_list = ["prototype_map_battle",
+                               "tests/game_tests/game_test_map_sparse_1",
+                               "tests/game_tests/game_test_map_sparse_2",
+                               "tests/game_tests/game_test_map_sparse_3",
+                               "tests/game_tests/game_test_map_sparse_4",
+                               "tests/game_tests/game_test_map_sparse_5",
+                               "tests/performance_tests/performance_map_1",
+                               "tests/performance_tests/performance_map_2",
+                               "tests/performance_tests/performance_map_3",
+                               "tests/performance_tests/performance_map_4",
+                               "tests/performance_tests/performance_map_5",
+                               "tests/performance_tests/performance_map_6",
+                               "tests/performance_tests/performance_map_7",
+                               ]
+
+        """
+        * Normal
+            * map_battle: Normal 25v25 battle
+            
+        * Test Maps - Testing game features
+            * sparse_1: 1v0 (Turret v Base)
+            * sparse_2: 1v0 (Turret v Bases)
+            * sparse_3: 1v1 (Turret v Turret)
+            * sparse_4: 3v1 (Turrets v Turret + Bases)
+            * sparse_5: 3v4 (Turret v Turrets)
+            
+        * Performance Maps - Testing the performance of the maps
+            * map_1: 50 v 50 Bases
+            * map_2: 100 v 100 Bases
+            * map_3: 200 v 200 Bases
+            * map_4: 25 v 25 Turrets
+            * map_5: 50 v 50 Turrets
+            * map_6: 75 v 75 Turrets
+            * map_7: 100 v 100 Turrets
+        """
+
+        self.cur_map = 0
 
         # Load the first map
-        self.setup_map("the_project_prototype_test_map_battle")
-
-        # Physics Engine
-        self.physics_engine = arcade.PhysicsEngineSimple(
-            player_sprite=self.player_sprite,
-            walls=[self.scene[SCENE_NAME_BLUE_BUILDING], self.scene[SCENE_NAME_RED_BUILDING]])
+        self.setup_map(self.proto_map_list[self.cur_map])
 
         # FPS Counter
         arcade.enable_timings()
@@ -116,7 +136,7 @@ class GameWindow(arcade.Window):
                 "use_spatial_hashing": True
             }
         }
-        self.tiled_map = arcade.load_tilemap(f"assets/maps/{map_name}.json", layer_options=layer_options, scaling=1)
+        self.tiled_map = arcade.load_tilemap(f"assets/images/maps/prototype_maps/{map_name}.json", layer_options=layer_options, scaling=1)
         self.scene = arcade.Scene.from_tilemap(self.tiled_map)
 
         blue_player_list = arcade.SpriteList()
@@ -176,17 +196,17 @@ class GameWindow(arcade.Window):
         self.hotbar_selected = 0
         self.hotbar_background = arcade.SpriteList()
         self.hotbar_icons = arcade.SpriteList()
-        hotbar_1 = arcade.Sprite("assets/maps/map_assets/hotbar/hotbar_1.png")
+        hotbar_1 = arcade.Sprite("assets/images/other_sprites/hotbar_background/hotbar_1.png")
         hotbar_1.position = (300, 50)
-        icon_1 = arcade.Sprite("assets/maps/map_assets/hotbar/hotbar_icon_hammer.png")
+        icon_1 = arcade.Sprite("assets/images/other_sprites/hotbar_icons/hotbar_icon_hammer.png")
         icon_1.position = hotbar_1.position
-        hotbar_2 = arcade.Sprite("assets/maps/map_assets/hotbar/hotbar_2.png")
+        hotbar_2 = arcade.Sprite("assets/images/other_sprites/hotbar_background/hotbar_2.png")
         hotbar_2.position = (400, 50)
-        hotbar_3 = arcade.Sprite("assets/maps/map_assets/hotbar/hotbar_3.png")
+        hotbar_3 = arcade.Sprite("assets/images/other_sprites/hotbar_background/hotbar_3.png")
         hotbar_3.position = (500, 50)
-        hotbar_4 = arcade.Sprite("assets/maps/map_assets/hotbar/hotbar_4.png")
+        hotbar_4 = arcade.Sprite("assets/images/other_sprites/hotbar_background/hotbar_4.png")
         hotbar_4.position = (600, 50)
-        hotbar_5 = arcade.Sprite("assets/maps/map_assets/hotbar/hotbar_5.png")
+        hotbar_5 = arcade.Sprite("assets/images/other_sprites/hotbar_background/hotbar_5.png")
         hotbar_5.position = (700, 50)
         self.hotbar_background.append(hotbar_1)
         self.hotbar_background.append(hotbar_2)
@@ -195,6 +215,22 @@ class GameWindow(arcade.Window):
         self.hotbar_background.append(hotbar_5)
         self.hotbar_icons.append(icon_1)
         self.hotbar_items = [Hammer(), None, None, None, None]
+
+
+        # Track state of movement
+        self.left_pressed = False
+        self.right_pressed = False
+        self.up_pressed = False
+        self.down_pressed = False
+
+        if self.debug is True:
+            self.debug_start = False
+
+        # Physics Engine
+        self.physics_engine = arcade.PhysicsEngineSimple(
+            player_sprite=self.player_sprite,
+            walls=[self.scene[SCENE_NAME_BLUE_BUILDING], self.scene[SCENE_NAME_RED_BUILDING]])
+
         logging.info(f"'Game_Window.setup_map() - End - 'main'. Set up the map: {map_name!r}")
         logging.info(" - - - - - ")
 
@@ -296,16 +332,16 @@ class GameWindow(arcade.Window):
             num_key = key - 48
             if num_key == self.hotbar_selected:
                 self.hotbar_background[num_key - 1].texture = arcade.load_texture(
-                    f"assets/maps/map_assets/hotbar/hotbar_{num_key}.png")
+                    f"assets/images/other_sprites/hotbar_background/hotbar_{num_key}.png")
                 self.hotbar_selected = 0
 
             # If the key that was pressed was not the selected one
             else:
                 if self.hotbar_selected != 0:
                     self.hotbar_background[self.hotbar_selected - 1].texture = arcade.load_texture(
-                        f"assets/maps/map_assets/hotbar/hotbar_{self.hotbar_selected}.png")
+                        f"assets/images/other_sprites/hotbar_background/hotbar_{self.hotbar_selected}.png")
                 self.hotbar_background[num_key - 1].texture = arcade.load_texture(
-                    f"assets/maps/map_assets/hotbar/hotbar_selected_{num_key}.png")
+                    f"assets/images/other_sprites/hotbar_background/hotbar_selected_{num_key}.png")
                 self.hotbar_selected = num_key
 
         elif key == arcade.key.SPACE and self.debug is True:
@@ -326,22 +362,28 @@ class GameWindow(arcade.Window):
 
     def on_mouse_press(self, x: float, y: float, button: int, modifiers: int):
         if self.debug is True and button == 2:
-            list_1 = (arcade.get_sprites_at_point((x, y), self.scene[SCENE_NAME_RED_BUILDING]))
-            list_2 = (arcade.get_sprites_at_point((x, y), self.scene[SCENE_NAME_BLUE_BUILDING]))
-            list_3 = (arcade.get_sprites_at_point((x, y), self.scene[SCENE_NAME_BLUE_PLAYER]))
+            if self.cur_map + 1 >= len(self.proto_map_list):
+                self.cur_map = 0
+            else:
+                self.cur_map += 1
 
-            print(f"\n")
-            if list_1:
-                for sprite in list_1:
-                    print(sprite.longer_report())
-
-            if list_2:
-                for sprite in list_2:
-                    print(sprite.longer_report())
-
-            if list_3:
-                for sprite in list_3:
-                    print(sprite.longer_report())
+            self.setup_map(self.proto_map_list[self.cur_map])
+            # list_1 = (arcade.get_sprites_at_point((x, y), self.scene[SCENE_NAME_RED_BUILDING]))
+            # list_2 = (arcade.get_sprites_at_point((x, y), self.scene[SCENE_NAME_BLUE_BUILDING]))
+            # list_3 = (arcade.get_sprites_at_point((x, y), self.scene[SCENE_NAME_BLUE_PLAYER]))
+            #
+            # print(f"\n")
+            # if list_1:
+            #     for sprite in list_1:
+            #         print(sprite.longer_report())
+            #
+            # if list_2:
+            #     for sprite in list_2:
+            #         print(sprite.longer_report())
+            #
+            # if list_3:
+            #     for sprite in list_3:
+            #         print(sprite.longer_report())
 
         if self.hotbar_selected != 0:
             if self.hotbar_items[self.hotbar_selected-1] is not None:

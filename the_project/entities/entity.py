@@ -202,16 +202,18 @@ class Entity(arcade.Sprite):
 
     def draw(self):
         # Health bar code stolen from sprite_health.py
-        health_width = 32 * (self.__current_health / self.__max_health)
-        arcade.draw_rectangle_filled(center_x=self.center_x,
-                                     center_y=self.center_y - 25,
-                                     width=health_width,
-                                     height=5,
-                                     color=arcade.color.RED)
-        # for text in self.__text_list:
-        #     delete = text.draw(self.center_x, self.center_y)
-        #     if delete is True:
-        #         self.__text_list.remove(text)
+        # Not showing health bar on full health saves a lot on performance, especially for non-attack tests
+        if self.__current_health != self.__max_health:
+            health_width = 32 * (self.__current_health / self.__max_health)
+            arcade.draw_rectangle_filled(center_x=self.center_x,
+                                         center_y=self.center_y - 25,
+                                         width=health_width,
+                                         height=5,
+                                         color=arcade.color.RED)
+            # for text in self.__text_list:
+            #     delete = text.draw(self.center_x, self.center_y)
+            #     if delete is True:
+            #         self.__text_list.remove(text)
         super().draw()
 
     def kill(self):

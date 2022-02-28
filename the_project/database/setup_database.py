@@ -177,8 +177,8 @@ def database_setup_entries():
     entry_list = []
     entry_list.append(Entry(name="Turret",
                             tier=1,
-                            path_to_blue="assets/maps/map_assets/building/turret/turret_tier_1_blue.png",
-                            path_to_red="assets/maps/map_assets/building/turret/turret_tier_1_red.png",
+                            path_to_blue="assets/images/game_sprites/building/turret/turret_tier_1_blue.png",
+                            path_to_red="assets/images/game_sprites/building/turret/turret_tier_1_red.png",
                             max_health=50,
                             starting_health=50,
                             radius=100,
@@ -187,28 +187,28 @@ def database_setup_entries():
 
     entry_list.append(Entry(name="Turret",
                             tier=2,
-                            path_to_blue="assets/maps/map_assets/building/turret/turret_tier_2_blue.png",
-                            path_to_red="assets/maps/map_assets/building/turret/turret_tier_2_red.png",
+                            path_to_blue="assets/images/game_sprites/building/turret/turret_tier_2_blue.png",
+                            path_to_red="assets/images/game_sprites/building/turret/turret_tier_2_red.png",
                             max_health=100,
                             starting_health=100,
                             radius=250,
                             bullet_damage=25,
-                            bullet_speed=4.0))
+                            bullet_speed=3.0))
 
     entry_list.append(Entry(name="Turret",
                             tier=3,
-                            path_to_blue="assets/maps/map_assets/building/turret/turret_tier_3_blue.png",
-                            path_to_red="assets/maps/map_assets/building/turret/turret_tier_3_red.png",
+                            path_to_blue="assets/images/game_sprites/building/turret/turret_tier_3_blue.png",
+                            path_to_red="assets/images/game_sprites/building/turret/turret_tier_3_red.png",
                             max_health=250,
                             starting_health=250,
                             radius=500,
                             bullet_damage=50,
-                            bullet_speed=6.0))
+                            bullet_speed=4.0))
 
     entry_list.append(Entry(name="Base",
                             tier=1,
-                            path_to_blue="assets/maps/map_assets/building/base/base_blue.png",
-                            path_to_red="assets/maps/map_assets/building/base/base_red.png",
+                            path_to_blue="assets/images/game_sprites/building/base/base_blue.png",
+                            path_to_red="assets/images/game_sprites/building/base/base_red.png",
                             max_health=500,
                             starting_health=500,
                             radius=None,
@@ -217,8 +217,8 @@ def database_setup_entries():
 
     entry_list.append(Entry(name="Player",
                             tier=1,
-                            path_to_blue="assets/maps/map_assets/non_building/player/player_blue.png",
-                            path_to_red="assets/maps/map_assets/non_building/player/player_red.png",
+                            path_to_blue="assets/images/game_sprites/non_building/player/player_blue.png",
+                            path_to_red="assets/images/game_sprites/non_building/player/player_red.png",
                             max_health=200,
                             starting_health=200,
                             radius=None,
