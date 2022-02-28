@@ -245,6 +245,7 @@ class GameWindow(arcade.Window):
 
                 for sprite in self.scene[SCENE_NAME_RED_BUILDING]:
                     sprite.update(delta_time=delta_time)
+
         else:
             for sprite in self.scene[SCENE_NAME_BLUE_BUILDING]:
                 sprite.update(delta_time=delta_time)
@@ -270,6 +271,12 @@ class GameWindow(arcade.Window):
             self.player_sprite.change_y = self.player_sprite.get_speed()
         elif self.down_pressed and not self.up_pressed:
             self.player_sprite.change_y = -self.player_sprite.get_speed()
+
+        # If the player has moved, update the item based on the previous mouse position
+        if self.up_pressed or self.down_pressed or self.left_pressed or self.right_pressed:
+            for item in self.hotbar_items:
+                if item is not None:
+                    item.update_position()
 
     def on_key_press(self, key, modifiers):
         """

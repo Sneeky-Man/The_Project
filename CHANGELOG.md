@@ -164,3 +164,6 @@ This means I don't need to keep checking if the target is still their every fram
 ## 25/02/22 17:12
 * Updated README.md
 * Updated GANTT Chart
+
+## 28/02/22 12:23
+* Updated how the Hammer positions itself
