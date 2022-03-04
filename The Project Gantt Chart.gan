@@ -53,8 +53,8 @@
             </task>
             <task id="37" name="Reprogram the Buildings to Increase Performance" color="#8cb6ce" meeting="false" start="2022-02-13" duration="5" complete="100" thirdDate="2022-02-10" thirdDate-constraint="0" expand="true"/>
         </task>
-        <task id="38" name="Asset Design" meeting="false" start="2022-02-18" duration="24" complete="0" expand="true">
-            <task id="34" name="Replace placeholder sprites" color="#8cb6ce" meeting="false" start="2022-02-18" duration="24" complete="0" thirdDate="2022-01-30" thirdDate-constraint="0" expand="true"/>
+        <task id="38" name="Asset Design" meeting="false" start="2022-02-18" duration="38" complete="0" expand="true">
+            <task id="34" name="Replace placeholder sprites" color="#8cb6ce" meeting="false" start="2022-02-18" duration="38" complete="0" thirdDate="2022-01-30" thirdDate-constraint="0" expand="true"/>
         </task>
         <task id="40" name="Damage and Health" meeting="false" start="2022-02-19" duration="3" complete="100" expand="false">
             <task id="41" name="Implement HP System" color="#8cb6ce" meeting="false" start="2022-02-19" duration="1" complete="100" thirdDate="2022-02-09" thirdDate-constraint="0" expand="true">
@@ -66,14 +66,12 @@
             <task id="48" name="Implement Damage System" color="#8cb6ce" meeting="false" start="2022-02-20" duration="1" complete="100" thirdDate="2022-02-18" thirdDate-constraint="0" expand="true"/>
             <task id="53" name="Show Addition or Removal of HP as Numbers" meeting="false" start="2022-02-20" duration="2" complete="100" expand="true"/>
         </task>
-        <task id="59" name="Advanced Player" meeting="false" start="2022-02-21" duration="26" complete="27" expand="true">
-            <task id="60" name="Implement a Hotbar system" color="#8cb6ce" meeting="false" start="2022-02-21" duration="9" complete="80" thirdDate="2022-02-16" thirdDate-constraint="0" expand="true">
-                <depend id="67" type="2" difference="0" hardness="Strong"/>
-            </task>
-            <task id="67" name="Add building buildings!" meeting="false" start="2022-03-02" duration="2" complete="0" expand="true">
+        <task id="59" name="Advanced Player" meeting="false" start="2022-02-21" duration="25" complete="37" expand="true">
+            <task id="60" name="Implement a Hotbar system" color="#8cb6ce" meeting="false" start="2022-02-21" duration="10" complete="100" thirdDate="2022-02-16" thirdDate-constraint="0" expand="true">
                 <depend id="71" type="2" difference="0" hardness="Strong"/>
             </task>
-            <task id="71" name="Add Other Hotbar Items" color="#8cb6ce" meeting="false" start="2022-03-04" duration="15" complete="0" thirdDate="2022-01-24" thirdDate-constraint="0" expand="true"/>
+            <task id="67" name="Add building buildings!" color="#8cb6ce" meeting="false" start="2022-03-06" duration="2" complete="0" thirdDate="2022-03-03" thirdDate-constraint="0" expand="true"/>
+            <task id="71" name="Add Other Hotbar Items" color="#8cb6ce" meeting="false" start="2022-03-03" duration="15" complete="0" thirdDate="2022-01-24" thirdDate-constraint="0" expand="true"/>
         </task>
         <task id="68" name="Other" meeting="false" start="2022-02-26" duration="3" complete="100" expand="true">
             <depend id="71" type="2" difference="0" hardness="Strong"/>

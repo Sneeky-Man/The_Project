@@ -43,6 +43,7 @@ class Building(Entity):
                 else:
                     logging.error(
                         f"'Building.__init__() - In - 'Building'. Team is not red or blue! {self.get_team()!r}")
+                # Range detector idea stolen from Binary Defence
                 self.__range_detector: arcade.Sprite = arcade.SpriteCircle(self.__radius, (color))
                 self.__range_detector.center_x = self.center_x
                 self.__range_detector.center_y = self.center_y

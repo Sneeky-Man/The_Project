@@ -188,4 +188,9 @@ This means I don't need to keep checking if the target is still their every fram
     * map_6: 75 v 75 Turrets
     * map_7: 100 v 100 Turrets
 * Health bar will only show when the building isn't full health. This is for performance reasons.
+* Pressing middle-click while in debug mode will switch the map to the next one in the list.
 * Updated GANTT Chart
+
+## 04/03/22 00:15
+* Made Item, a class to deal with player items. 
+* Hammer is now a subclass of Item

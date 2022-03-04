@@ -195,27 +195,15 @@ class GameWindow(arcade.Window):
         # Hotbar setup
         self.hotbar_selected = 0
         self.hotbar_background = arcade.SpriteList()
-        self.hotbar_icons = arcade.SpriteList()
-        hotbar_1 = arcade.Sprite("assets/images/other_sprites/hotbar_background/hotbar_1.png")
-        hotbar_1.position = (300, 50)
-        icon_1 = arcade.Sprite("assets/images/other_sprites/hotbar_icons/hotbar_icon_hammer.png")
-        icon_1.position = hotbar_1.position
-        hotbar_2 = arcade.Sprite("assets/images/other_sprites/hotbar_background/hotbar_2.png")
-        hotbar_2.position = (400, 50)
-        hotbar_3 = arcade.Sprite("assets/images/other_sprites/hotbar_background/hotbar_3.png")
-        hotbar_3.position = (500, 50)
-        hotbar_4 = arcade.Sprite("assets/images/other_sprites/hotbar_background/hotbar_4.png")
-        hotbar_4.position = (600, 50)
-        hotbar_5 = arcade.Sprite("assets/images/other_sprites/hotbar_background/hotbar_5.png")
-        hotbar_5.position = (700, 50)
-        self.hotbar_background.append(hotbar_1)
-        self.hotbar_background.append(hotbar_2)
-        self.hotbar_background.append(hotbar_3)
-        self.hotbar_background.append(hotbar_4)
-        self.hotbar_background.append(hotbar_5)
-        self.hotbar_icons.append(icon_1)
-        self.hotbar_items = [Hammer(), None, None, None, None]
 
+        x_pos = 300
+        for counter in range(1, 6):
+            hotbar = arcade.Sprite(f"assets/images/other_sprites/hotbar_background/hotbar_{counter}.png")
+            hotbar.position = (x_pos, 50)
+            self.hotbar_background.append(hotbar)
+            x_pos += 100
+
+        self.hotbar_items = [Hammer(300, 50), None, None, None, None]
 
         # Track state of movement
         self.left_pressed = False
@@ -255,8 +243,9 @@ class GameWindow(arcade.Window):
         for hotbar in self.hotbar_background:
             hotbar.draw()
 
-        for icon in self.hotbar_icons:
-            icon.draw()
+        for item in self.hotbar_items:
+            if item is not None:
+                item.draw()
 
         if self.hotbar_selected != 0:
             if self.hotbar_items[self.hotbar_selected - 1] is not None:
