@@ -1,7 +1,7 @@
 import arcade
 
 from the_project.entities.entity import Entity
-from the_project.entities.bullet import Bullet
+from the_project.entities.bullet import BuildingBullet
 import logging
 from the_project.constants import *
 import math
@@ -49,9 +49,9 @@ class Building(Entity):
                 self.__range_detector.center_y = self.center_y
                 self.__target = None
                 self.__bullet_list = arcade.SpriteList(use_spatial_hash=False)
-                self.cooldown_time = 2
-                self.cooldown_current = 0
-                self.check_buildings = True
+                self.__cooldown_time = 2
+                self.__cooldown_current = 0
+                self.__check_buildings = True
 
     def __repr__(self):
         """
@@ -151,9 +151,7 @@ class Building(Entity):
             angle = math.degrees(angle) - 90
             self.angle = angle
 
-            bullet = Bullet(path="assets/images/game_sprites/non_building/bullet/bullet.png",
-                            speed=self.get_bullet_speed(),
-                            damage=self.get_bullet_damage(),
+            bullet = BuildingBullet(path="assets/images/game_sprites/non_building/bullet/bullet.png",
                             parent=self)
             self.__bullet_list.append(bullet)
 
@@ -227,7 +225,7 @@ class Building(Entity):
         """
         if self.__attack_enabled is not None:
             if self.__target is None:
-                self.check_buildings = True
+                self.__check_buildings = True
 
     def add_target(self, new_target):
         """
@@ -275,23 +273,23 @@ class Building(Entity):
         # Updates the cooldown
         if self.__attack_enabled is True:
             # If cooldown is still active:
-            if self.cooldown_current > 0:
-                self.cooldown_current -= delta_time
+            if self.__cooldown_current > 0:
+                self.__cooldown_current -= delta_time
 
             # If the cooldown is over
             else:
                 if self.__target is None:
-                    if self.check_buildings is True:
+                    if self.__check_buildings is True:
                         self.find_target_building()
-                        self.check_buildings = False
+                        self.__check_buildings = False
                     self.find_target_player()
 
                     if self.__target is not None:
                         self.shoot()
-                        self.cooldown_current = self.cooldown_time
+                        self.__cooldown_current = self.__cooldown_time
                 else:
                     self.shoot()
-                    self.cooldown_current = self.cooldown_time
+                    self.__cooldown_current = self.__cooldown_time
 
             self.check_bullets()
 

@@ -1,9 +1,11 @@
 from the_project.entities.entity import Entity
 
-from arcade import get_window
+import arcade
+
 
 class Player(Entity):
-    def __init__(self, name: str, tier: int, team: str, x: int, y: int, path: str, max_health: int, starting_health: int, speed: float):
+    def __init__(self, name: str, tier: int, team: str, x: int, y: int, path: str, max_health: int,
+                 starting_health: int, speed: float):
         """
         This is the class that all players will be.
 
@@ -17,8 +19,10 @@ class Player(Entity):
         :param starting_health: The starting health of the building.
         :param speed: The Speed of the Player
         """
-        super().__init__(name=name, tier=tier, team=team, path=path, x=x, y=y, max_health=max_health, starting_health=starting_health)
+        super().__init__(name=name, tier=tier, team=team, path=path, x=x, y=y, max_health=max_health,
+                         starting_health=starting_health)
         self.__speed = speed
+        self.__bullet_list = arcade.SpriteList(use_spatial_hash=False)
 
     def __repr__(self):
         """
@@ -42,15 +46,45 @@ class Player(Entity):
         return_string += f"Currently Targetted By: \n{self.get_targetted_by()!r}"
         return return_string
 
+    def update(self):
+        self.__bullet_list.update()
+
+    def draw(self):
+        super().draw()
+        self.__bullet_list.draw()
+
     def get_speed(self):
+        """
+        :return: The speed of the player
+        :rtype: float
+        """
         return self.__speed
 
-    def set_speed(self, speed):
+    def set_speed(self, speed: float):
+        """
+        Sets the speed of the player
+        :param float speed:
+        """
         self.__speed = speed
 
+    def add_bullet(self, bullet: object):
+        """
+        Adds a bullet to the bullet list
+        :param object bullet: Bullet to be added
+        """
+        self.__bullet_list.append(bullet)
+
+    def remove_bullet(self, bullet: object):
+        """
+        Removes a bullet to the bullet list
+        :param object bullet: Bullet to be removed
+        """
+        self.__bullet_list.remove(bullet)
+
     def kill(self):
-        window = get_window()
+        window = arcade.get_window()
         for counter in range(0, len(window.hotbar_items)):
             if window.hotbar_items[counter] is not None:
                 window.hotbar_items[counter] = None
+        self.__bullet_list.clear()
         super().kill()

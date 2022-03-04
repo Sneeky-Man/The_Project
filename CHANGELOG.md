@@ -94,12 +94,12 @@ I'm still pretty unsure, but I think it's best to make some prototypes, and find
 ## 09/02/22 11:30
 * Test to make sure merge worked
 
-# 10/02/22 09:50
+## 10/02/22 09:50
 * Implemented the collision detection system (aside from one bug).
 * It now continues to target one enemy until its no longer in range, 
 then finds the nearest target and attacks them.
 
-# 12/02/22 18:10
+## 12/02/22 18:10
 * Reverted the target system due a bug. Now buildings snap to the next target.
 * Added and implemented bullets
 * Changed map_1 to test_map_sparse
@@ -107,7 +107,7 @@ then finds the nearest target and attacks them.
 * Still an issue with buildings not realising their targets have died
 * Updated GANTT Chart
 
-# 17/02/22 14:20
+## 17/02/22 14:20
 * Changed how the building targeting system works.
 This was for performance. The previous way was cripplingly slow.
 * Changed the Entity, Building, and Player __str__ to __repr__
@@ -130,18 +130,18 @@ This means I don't need to keep checking if the target is still their every fram
 * Added an FPS counter, and a counter counting the amount of Buildings on the map (excluding Bullets)
 * Improved documentation
 
-# 19/02/22 17:00
+## 19/02/22 17:00
 * Dramatically Updated GANTT Chart
 * Bullet is now a subclass of arcade.Sprite, instead of Entity.
 
-# 19/02/22
+## 19/02/22
 * Added the health system
 * Added the damage system
 * Updated the database to handle the new variables
 * Got rid of setting variables in Player and Building that should only be set in Entity
 * Updated the GANTT Chart
 
-# 23/02/22 15:00
+## 23/02/22 15:00
 * Updated to arcade 2.6.10. This gave serious fps improvements due to the changes with the collision_with_lists.
 * Added hotbar and hotbar selected images 1-5.
 * Added damage and healing text (although its temp disabled due to a bug with arcade)
@@ -194,3 +194,14 @@ This means I don't need to keep checking if the target is still their every fram
 ## 04/03/22 00:15
 * Made Item, a class to deal with player items. 
 * Hammer is now a subclass of Item
+
+## 04/03/22 20:15
+* Fully implemented the hot bar system.
+* Split Bullet into BaseBullet, BuildingBullet and ItemBullet. 
+* BuildingBullet and ItemBullet is a subclass of BaseBullet
+* Added the Pistol Item
+* Added Pistol Icon and Item Images
+* Added cool down to Items
+* Added a cool down effect to item icons.
+* Added a bullet list to Players
+* Updated GANTT Chart 

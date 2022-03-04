@@ -4,7 +4,7 @@ from the_project.constants import *
 from the_project.entities.player import Player
 from the_project.entities.building import Building
 from the_project.database import setup_database
-from the_project.special_scripts.items import Hammer
+from the_project.special_scripts.items import Hammer, Pistol
 
 """
 Map Layers
@@ -203,7 +203,7 @@ class GameWindow(arcade.Window):
             self.hotbar_background.append(hotbar)
             x_pos += 100
 
-        self.hotbar_items = [Hammer(300, 50), None, None, None, None]
+        self.hotbar_items = [Hammer(300, 50), Pistol(400, 50), None, None, None]
 
         # Track state of movement
         self.left_pressed = False
@@ -245,7 +245,7 @@ class GameWindow(arcade.Window):
 
         for item in self.hotbar_items:
             if item is not None:
-                item.draw()
+                item.draw_icon()
 
         if self.hotbar_selected != 0:
             if self.hotbar_items[self.hotbar_selected - 1] is not None:
@@ -263,23 +263,19 @@ class GameWindow(arcade.Window):
         :param delta_time: This is essentially a clock
         """
 
-        if self.debug is True:
-            if self.debug_start is True:
-                for sprite in self.scene[SCENE_NAME_BLUE_BUILDING]:
-                    sprite.update(delta_time=delta_time)
-
-                for sprite in self.scene[SCENE_NAME_RED_BUILDING]:
-                    sprite.update(delta_time=delta_time)
-
-        else:
+        if (self.debug is True and self.debug_start is True) or self.debug is False:
             for sprite in self.scene[SCENE_NAME_BLUE_BUILDING]:
                 sprite.update(delta_time=delta_time)
 
             for sprite in self.scene[SCENE_NAME_RED_BUILDING]:
                 sprite.update(delta_time=delta_time)
 
-        # for sprite in self.scene.sprite_lists[1]:
-        #     sprite.update(self, delta_time)
+            for sprite in self.scene[SCENE_NAME_BLUE_PLAYER]:
+                sprite.update()
+
+        for item in self.hotbar_items:
+            if item is not None:
+                item.on_update()
 
         self.physics_engine.update()
 
@@ -350,33 +346,19 @@ class GameWindow(arcade.Window):
             self.right_pressed = False
 
     def on_mouse_press(self, x: float, y: float, button: int, modifiers: int):
-        if self.debug is True and button == 2:
+        if ((self.debug is True and self.debug_start is True) or self.debug is False) and button == 2:
             if self.cur_map + 1 >= len(self.proto_map_list):
                 self.cur_map = 0
             else:
                 self.cur_map += 1
 
             self.setup_map(self.proto_map_list[self.cur_map])
-            # list_1 = (arcade.get_sprites_at_point((x, y), self.scene[SCENE_NAME_RED_BUILDING]))
-            # list_2 = (arcade.get_sprites_at_point((x, y), self.scene[SCENE_NAME_BLUE_BUILDING]))
-            # list_3 = (arcade.get_sprites_at_point((x, y), self.scene[SCENE_NAME_BLUE_PLAYER]))
-            #
-            # print(f"\n")
-            # if list_1:
-            #     for sprite in list_1:
-            #         print(sprite.longer_report())
-            #
-            # if list_2:
-            #     for sprite in list_2:
-            #         print(sprite.longer_report())
-            #
-            # if list_3:
-            #     for sprite in list_3:
-            #         print(sprite.longer_report())
 
-        if self.hotbar_selected != 0:
-            if self.hotbar_items[self.hotbar_selected-1] is not None:
-                self.hotbar_items[self.hotbar_selected-1].on_click(x, y, button, modifiers)
+        if (self.debug is True and self.debug_start is True) or self.debug is False:
+            if self.hotbar_selected != 0:
+                if self.hotbar_items[self.hotbar_selected-1] is not None:
+                    self.hotbar_items[self.hotbar_selected-1].on_click(x, y, button, modifiers)
+
 
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
         """
