@@ -1,4 +1,5 @@
 from the_project.entities.entity import Entity
+from the_project.constants import *
 
 import arcade
 
@@ -87,4 +88,5 @@ class Player(Entity):
             if window.hotbar_items[counter] is not None:
                 window.hotbar_items[counter] = None
         self.__bullet_list.clear()
+        window.scene[SCENE_NAME_BLUE_PLAYER].remove(self)
         super().kill()

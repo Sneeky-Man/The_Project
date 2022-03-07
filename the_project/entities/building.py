@@ -24,7 +24,8 @@ class Building(Entity):
         :param bullet_damage: The damage of the bullets fired from the building.
         :param bullet_speed: The speed of the bullets fired from the building.
         """
-        super().__init__(name=name, tier=tier, team=team, path=path, x=x, y=y, max_health=max_health, starting_health=starting_health)
+        super().__init__(name=name, tier=tier, team=team, path=path, x=x, y=y, max_health=max_health,
+                         starting_health=starting_health)
         self.__radius = radius
         self.__bullet_damage = bullet_damage
         self.__bullet_speed = bullet_speed
@@ -35,23 +36,10 @@ class Building(Entity):
             self.__attack_enabled = False
 
         if self.__attack_enabled == True:
-            if self.__radius > 0:
-                if self.get_team() == "Blue":
-                    color = (0, 0, 255, 20)
-                elif self.get_team() == "Red":
-                    color = (255, 0, 0, 20)
-                else:
-                    logging.error(
-                        f"'Building.__init__() - In - 'Building'. Team is not red or blue! {self.get_team()!r}")
-                # Range detector idea stolen from Binary Defence
-                self.__range_detector: arcade.Sprite = arcade.SpriteCircle(self.__radius, (color))
-                self.__range_detector.center_x = self.center_x
-                self.__range_detector.center_y = self.center_y
-                self.__target = None
-                self.__bullet_list = arcade.SpriteList(use_spatial_hash=False)
-                self.__cooldown_time = 2
-                self.__cooldown_current = 0
-                self.__check_buildings = True
+            self.__target = None
+            self.__bullet_list = arcade.SpriteList(use_spatial_hash=False)
+            self.__cooldown_time = 2
+            self.__cooldown_current = 0
 
     def __repr__(self):
         """
@@ -73,60 +61,12 @@ class Building(Entity):
                          f"{self.get_path()}")
 
         if self.__attack_enabled is True:
-            return_string += f"\n Current Target is: {self.__target}\n"
+            return_string += f"\n Current Target is: {self.get_target()}\n"
         else:
             return_string += f"\nAttack is not enabled.\n"
         return_string += f"Currently Targetted By: \n{self.get_targetted_by()!r}"
         return return_string
 
-    # def check_for_enemies(self, window):
-    #     """
-    #     This checks for enemies.
-    #
-    #     :param window: The GameWindow Window
-    #     """
-    #     if self.__range_detector is not None:
-    #         if self.__target is None:
-    #             collision_list = arcade.check_for_collision_with_lists(self.__range_detector,
-    #                                                                    [window.scene[LAYER_NAME_PLAYER],
-    #                                                                     window.scene[LAYER_NAME_FOREGROUND]
-    #                                                                     ])
-    #
-    #             # Add all valid collisions to final_list
-    #             if collision_list:
-    #                 final_list = []
-    #                 for counter in range(0, len(collision_list)):
-    #                     if isinstance(collision_list[counter], Entity) and not self.same_team(collision_list[counter]):
-    #                         final_list.append(collision_list[counter])
-    #
-    #                 # Then, find the smallest distance in final_list
-    #                 if final_list:
-    #                     smallest_length = arcade.get_distance_between_sprites(self, final_list[0])
-    #                     smallest_pos = 0
-    #                     for counter in range(1, len(final_list)):
-    #                         length = arcade.get_distance_between_sprites(self, final_list[counter])
-    #                         if length < smallest_length:
-    #                             smallest_length = length
-    #                             smallest_pos = counter
-    #
-    #                     # Set target to the smallest distance collision
-    #                     self.__target = final_list[smallest_pos]
-    #                     self.__target.add_targetted_by(self)
-    #
-    # def check_for_bullets(self):
-    #     if len(self.__bullet_list) >= 1:
-    #         collision_list = arcade.check_for_collision_with_list(self.__range_detector, self.__bullet_list)
-    #         for bullet in self.__bullet_list:
-    #             if bullet not in collision_list:
-    #                 bullet.kill()
-    #
-    # # def check_for_target(self):
-    # #     if self.__target is not None:
-    # #         # This shows the game down dramatically???
-    # #         result = arcade.check_for_collision(self.__range_detector, self.__target)
-    # #         if result is False:
-    # #             self.__target = None
-    #
     def shoot(self):
         """
         Shoots the target.
@@ -159,30 +99,23 @@ class Building(Entity):
         """
         This checks for enemy buildings.
         """
-        window = arcade.get_window()
         if self.__attack_enabled is True:
             if self.__target is None:
+                window = arcade.get_window()
                 if self.get_team() == "Blue":
-                    collision_list = arcade.check_for_collision_with_list(self.__range_detector,
-                                                                          window.scene[SCENE_NAME_RED_BUILDING],
-                                                                          3)
+                    if len(window.scene[SCENE_NAME_RED_BUILDING]) >= 1:
+                        sprite, distance = arcade.get_closest_sprite(self, window.scene[SCENE_NAME_RED_BUILDING])
+                    else:
+                        sprite = None
                 else:
-                    collision_list = arcade.check_for_collision_with_list(self.__range_detector,
-                                                                          window.scene[SCENE_NAME_BLUE_BUILDING],
-                                                                          3)
-                # Find the smallest distance in collision list
-                if len(collision_list) >= 1:
-                    smallest_length = arcade.get_distance_between_sprites(self, collision_list[0])
-                    smallest_pos = 0
-                    for counter in range(1, len(collision_list)):
-                        length = arcade.get_distance_between_sprites(self, collision_list[counter])
-                        if length < smallest_length:
-                            smallest_length = length
-                            smallest_pos = counter
+                    if len(window.scene[SCENE_NAME_BLUE_BUILDING]) >= 1:
+                        sprite, distance = arcade.get_closest_sprite(self, window.scene[SCENE_NAME_BLUE_BUILDING])
+                    else:
+                        sprite = None
 
-                    # Set target to the smallest distance collision
-                    self.add_target(collision_list[smallest_pos])
-                    collision_list[smallest_pos].add_targetted_by(self)
+                if sprite is not None:
+                    if distance <= self.__radius:
+                        self.add_target(sprite)
 
     def find_target_player(self):
         """
@@ -192,31 +125,32 @@ class Building(Entity):
             if self.__target is None:
                 window = arcade.get_window()
                 if self.get_team() == "Blue":
-                    pass
-                    # collision_list = arcade.check_for_collision_with_list(self.__range_detector,
-                    #                                                       window.scene[SCENE_NAME_RED_PLAYER])
+                    sprite = None
                 else:
-                    collision_list = arcade.check_for_collision_with_list(self.__range_detector,
-                                                                          window.scene[SCENE_NAME_BLUE_PLAYER],
-                                                                          3)
-                    # Find the smallest distance in collision list
-                    if len(collision_list) >= 1:
-                        self.add_target(collision_list[0])  # It fails without the [0]!
-                        collision_list[0].add_targetted_by(self)
+                    if len(window.scene[SCENE_NAME_BLUE_BUILDING]) >= 1:
+                        sprite, distance = arcade.get_closest_sprite(self, window.scene[SCENE_NAME_BLUE_PLAYER])
+                    else:
+                        sprite = None
+
+                if sprite is not None:
+                    if distance <= self.__radius:
+                        self.add_target(sprite)
 
     def check_bullets(self):
         """
         Checks to see if the bullets are still in range.
         """
         for bullet in self.__bullet_list:
-            if arcade.check_for_collision(self.__range_detector, bullet) == False:
+            distance = arcade.get_distance_between_sprites(self, bullet)
+            if distance > self.__radius:
                 bullet.kill()
 
     def check_target_in_range(self):
         """
         Checks to see if the target is still in range.
         """
-        if arcade.check_for_collision(self.__range_detector, self.__target) is False:
+        distance = arcade.get_distance_between_sprites(self, self.__target)
+        if distance > self.__radius:
             self.remove_target()
 
     def manual_building_check(self):
@@ -234,6 +168,7 @@ class Building(Entity):
         :param new_target: The new target of the building
         """
         self.__target = new_target
+        self.__target.add_targetted_by(self)
 
     def remove_target(self):
         """
@@ -242,6 +177,15 @@ class Building(Entity):
         if self.__target is not None:
             self.__target = None
             self.manual_building_check()
+
+    def get_target(self):
+        """
+        Used for debugging purposes.
+
+        :return: The current target
+        :rtype: object or None
+        """
+        return self.__target
 
     def get_target(self):
         """
@@ -278,16 +222,10 @@ class Building(Entity):
 
             # If the cooldown is over
             else:
-                if self.__target is None:
-                    if self.__check_buildings is True:
-                        self.find_target_building()
-                        self.__check_buildings = False
-                    self.find_target_player()
+                self.find_target_building()
+                self.find_target_player()
 
-                    if self.__target is not None:
-                        self.shoot()
-                        self.__cooldown_current = self.__cooldown_time
-                else:
+                if self.__target is not None:
                     self.shoot()
                     self.__cooldown_current = self.__cooldown_time
 
@@ -302,6 +240,18 @@ class Building(Entity):
         """
         super().draw()
         if self.__attack_enabled is True:
-            #self.__range_detector.draw()
             if len(self.__bullet_list) >= 1:
                 self.__bullet_list.draw()
+
+    def kill(self):
+        window = arcade.get_window()
+        if self.__attack_enabled is True:
+            if self.__target is not None:
+                self.__target.remove_targetted_by(self)
+        if self.get_team() == "Blue":
+            window.scene[SCENE_NAME_BLUE_BUILDING].remove(self)
+        else:
+            window.scene[SCENE_NAME_RED_BUILDING].remove(self)
+        super().kill()
+
+

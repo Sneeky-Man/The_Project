@@ -1,9 +1,11 @@
 # Imports the necessary packages
-import arcade, logging
+import arcade
+import logging
+
 from the_project.constants import *
-from the_project.entities.player import Player
-from the_project.entities.building import Building
 from the_project.database import setup_database
+from the_project.entities.building import Building
+from the_project.entities.player import Player
 from the_project.special_scripts.items import Hammer, Pistol
 
 """
@@ -117,6 +119,7 @@ class GameWindow(arcade.Window):
         # FPS Counter
         arcade.enable_timings()
 
+
         logging.info(f"'Game_Window.setup() - End - 'main'. Game window has been set up")
 
     def setup_map(self, map_name):
@@ -214,6 +217,8 @@ class GameWindow(arcade.Window):
         if self.debug is True:
             self.debug_start = False
 
+        self.perf_graph = arcade.PerfGraph(400, 400)
+
         # Physics Engine
         self.physics_engine = arcade.PhysicsEngineSimple(
             player_sprite=self.player_sprite,
@@ -256,6 +261,8 @@ class GameWindow(arcade.Window):
         length = (len(self.scene[SCENE_NAME_BLUE_BUILDING]) + len(self.scene[SCENE_NAME_RED_BUILDING]))
         arcade.draw_text(f"Length of Lists: {length}", 850, 900, arcade.color.BLUE, 12)
 
+        #self.perf_graph.draw()
+
     def on_update(self, delta_time: float):
         """
         This runs every frame. This is where all the game logic goes.
@@ -278,6 +285,7 @@ class GameWindow(arcade.Window):
                 item.on_update()
 
         self.physics_engine.update()
+        # self.perf_graph.update_graph(delta_time=delta_time)
 
         # Reset change_x, change_y
         self.player_sprite.change_x = 0
@@ -346,13 +354,20 @@ class GameWindow(arcade.Window):
             self.right_pressed = False
 
     def on_mouse_press(self, x: float, y: float, button: int, modifiers: int):
-        if ((self.debug is True and self.debug_start is True) or self.debug is False) and button == 2:
+        """
+        Buttons. 1 = left, 2 = middle, 4 = right
+        """
+        if self.debug is True and button == 2:
             if self.cur_map + 1 >= len(self.proto_map_list):
                 self.cur_map = 0
             else:
                 self.cur_map += 1
 
             self.setup_map(self.proto_map_list[self.cur_map])
+
+        if button == 4:
+            arcade.print_timings()
+            # self.scene[LAYER_NAME_BACKGROUND]
 
         if (self.debug is True and self.debug_start is True) or self.debug is False:
             if self.hotbar_selected != 0:

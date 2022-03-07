@@ -205,3 +205,10 @@ This means I don't need to keep checking if the target is still their every fram
 * Added a cool down effect to item icons.
 * Added a bullet list to Players
 * Updated GANTT Chart 
+
+## 07/03/22 20:00
+* Complete overhaul on how building targeting works. 
+Removed the range detector technique, and replaced it with arcade.get_closest_sprite().
+* This increased 50v50 turret fps from 20 to 40. Why did i not find this earlier!
+* Added being_built.py, but its not finished yet.
+* Slight edit to the pistol images.
