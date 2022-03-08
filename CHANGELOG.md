@@ -218,3 +218,6 @@ Removed the range detector technique, and replaced it with arcade.get_closest_sp
 * Buildings that are being built will be a member of BeingBuilt, which is a subclass of entity.
 * Buildings that are being built will fade in, before transiting into a proper building.
 * When right-clicking with the hammer, a lv 1 turret will be made on that tile, if nothing is on the tile.
+
+## 08/03/22 18:06
+* Updated GANTT Chart
