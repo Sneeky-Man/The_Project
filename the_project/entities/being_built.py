@@ -28,11 +28,11 @@ class BeingBuilt(Entity):
                          starting_health=starting_health)
 
         # Once this reaches building_max, the building will become a actual Building
-        self.__built_status = 0
+        self.__built_status = 1
         self.__built_max = 100
         self.__building_variable_radius = radius
         self.__building_variable_bullet_damage = bullet_damage
-        self.__building_variable_bullet_speed= bullet_speed
+        self.__building_variable_bullet_speed = bullet_speed
 
     def __repr__(self):
         """
@@ -81,23 +81,36 @@ class BeingBuilt(Entity):
                             path=self.get_path(),
                             x=self.center_x,
                             y=self.center_y,
-                            starting_health=self.get_current_health(),
+                            starting_health=self.get_max_health(),
                             max_health=self.get_max_health(),
                             radius=self.__building_variable_radius,
                             bullet_damage=self.__building_variable_bullet_damage,
                             bullet_speed=self.__building_variable_bullet_speed)
         if self.get_team() == "Blue":
-            window.scene[SCENE_NAME_BLUE_BUILDING].add_sprite(SCENE_NAME_BLUE_BUILDING, building)
+            window.scene.add_sprite(SCENE_NAME_BLUE_BUILDING, building)
         else:
-            window.scene[SCENE_NAME_RED_BUILDING].add_sprite(SCENE_NAME_RED_BUILDING, building)
+            window.scene.add_sprite(SCENE_NAME_RED_BUILDING, building)
 
         self.kill()
 
+    def update(self, delta_time):
+        """
+        Updates the building logic every frame.
+        """
+        self.change_built_status(1)
+        super().update()
+
     def kill(self):
+        window = arcade.get_window()
+        if self.get_team() == "Blue":
+            window.scene[SCENE_NAME_BLUE_BUILDING].remove(self)
+        else:
+            window.scene[SCENE_NAME_RED_BUILDING].remove(self)
         super().kill()
 
     def draw(self):
         """
         Draws the building.
         """
+        self.alpha = ((self.__built_status / self.__built_max) * 255)
         super().draw()

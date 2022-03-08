@@ -7,6 +7,8 @@ import math
 import logging
 from the_project.constants import *
 from the_project.entities.bullet import ItemBullet
+from the_project.entities.being_built import BeingBuilt
+from the_project.database.setup_database import database_search
 
 
 class Item(arcade.Sprite):
@@ -65,15 +67,15 @@ class Item(arcade.Sprite):
         if button == 1:
             try:
                 self.left_click(x=x, y=y)
-            except AttributeError:
-                logging.error(f"Item.on_click - In - 'Item'. self.left_click() does not exist, as it has not been "
-                              f"implemented. {self.__repr__()}")
+            except AttributeError as error:
+                logging.error(f"Item.on_click - In - 'Item'. Likely triggered due to self.left_click() not existing, "
+                              f"as it likely has not been implemented. {self.__repr__()} Error: {error}")
         elif button == 4:
             try:
                 self.right_click(x=x, y=y)
-            except AttributeError:
-                logging.error(f"Item.on_click - In - 'Item'. self.right_click() does not exist, as it has not been "
-                              f"implemented. {self.__repr__()}")
+            except AttributeError as error:
+                logging.error(f"Item.on_click - In - 'Item'. Likely triggered due to self.right_click() not existing, "
+                              f"as it likely has not been implemented. {self.__repr__()} Error: {error}")
 
     def update_position(self, mouse_x=None, mouse_y=None):
         """
@@ -321,8 +323,8 @@ class Hammer(Item):
         """
         Runs when the left click is called.
 
-        :param x: X-Coord of click.
-        :param y: Y-Coord of click.
+        :param float x: X-Coord of click.
+        :param float y: Y-Coord of click.
         """
         # This will not work if the player is red!
         if self.can_attack() is True:
@@ -335,6 +337,51 @@ class Hammer(Item):
                 for building in click_list:
                     building.change_current_health(200)
                     self.reset_cooldown()
+
+    def right_click(self, x: float, y: float):
+        """
+        Runs when the right click is called.
+
+        :param float x: X-Coord of click.
+        :param float y: Y-Coord of click.
+        """
+        if self.can_attack() is True:
+            window = arcade.get_window()
+
+            # This method is used, as the alternative is using get_sprites_at_point() with the background, and
+            # as the background is 2048 tiles long, it lags the game for a very noticeable split second
+
+            # I need to flip the Y, so (0, 0) is in the top left
+            new_x = x
+            new_y = (window.tiled_map.height * window.tiled_map.tile_height) - y
+
+            tile_coords = (window.tiled_map.get_cartesian(new_x, new_y))
+            tile_no = (tile_coords[1]*window.tiled_map.width) + tile_coords[0]
+            tile = window.scene[LAYER_NAME_BACKGROUND][tile_no]
+
+            # print(f"Coords: {new_x, new_y}. Tile Number: {tile_no}")
+
+            list = [arcade.get_sprites_at_point((tile.center_x, tile.center_y), window.scene[SCENE_NAME_BLUE_BUILDING]),
+                    arcade.get_sprites_at_point((tile.center_x, tile.center_y), window.scene[SCENE_NAME_RED_BUILDING]),
+                    arcade.get_sprites_at_point((tile.center_x, tile.center_y), window.scene[SCENE_NAME_BLUE_PLAYER])]
+
+            if list == [[], [], []]:
+                result = (database_search(window.conn, "Turret", 1))
+                building = BeingBuilt(name=result.name,
+                                    tier=result.tier,
+                                    team="Blue",
+                                    x=tile.center_x,
+                                    y=tile.center_y,
+                                    path=result.path_to_blue,
+                                    max_health=result.max_health,
+                                    starting_health=result.starting_health,
+                                    radius=result.radius,
+                                    bullet_damage=result.bullet_damage,
+                                    bullet_speed=result.bullet_speed
+                                    )
+                window.scene.add_sprite(SCENE_NAME_BLUE_BUILDING, building)
+
+
 
 
 class Pistol(ItemWeapon):

@@ -181,8 +181,8 @@ def database_setup_entries():
                             path_to_red="assets/images/game_sprites/building/turret/turret_tier_1_red.png",
                             max_health=50,
                             starting_health=50,
-                            radius=100,
-                            bullet_damage=10,
+                            radius=250,
+                            bullet_damage=100,
                             bullet_speed=2.0))
 
     entry_list.append(Entry(name="Turret",
@@ -191,8 +191,8 @@ def database_setup_entries():
                             path_to_red="assets/images/game_sprites/building/turret/turret_tier_2_red.png",
                             max_health=100,
                             starting_health=100,
-                            radius=250,
-                            bullet_damage=25,
+                            radius=500,
+                            bullet_damage=125,
                             bullet_speed=3.0))
 
     entry_list.append(Entry(name="Turret",
@@ -201,8 +201,8 @@ def database_setup_entries():
                             path_to_red="assets/images/game_sprites/building/turret/turret_tier_3_red.png",
                             max_health=250,
                             starting_health=250,
-                            radius=500,
-                            bullet_damage=50,
+                            radius=1000,
+                            bullet_damage=150,
                             bullet_speed=4.0))
 
     entry_list.append(Entry(name="Base",

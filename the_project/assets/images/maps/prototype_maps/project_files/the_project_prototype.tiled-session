@@ -560,8 +560,8 @@
             "scale": 0.75,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 695.9999999999999,
-                "y": 517.3333333333333
+                "x": 1023.3333333333333,
+                "y": 527.3333333333334
             }
         },
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/game_tests/game_test_map_sparse_1.json": {
@@ -641,8 +641,8 @@
             "scale": 0.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 690,
-                "y": 624
+                "x": 1023,
+                "y": 513
             }
         },
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/the_project_prototype_test_map_battle.json": {

@@ -212,3 +212,9 @@ Removed the range detector technique, and replaced it with arcade.get_closest_sp
 * This increased 50v50 turret fps from 20 to 40. Why did i not find this earlier!
 * Added being_built.py, but its not finished yet.
 * Slight edit to the pistol images.
+
+## 08/03/22 18:05
+* Implemented BeingBuilt in being_built.py. 
+* Buildings that are being built will be a member of BeingBuilt, which is a subclass of entity.
+* Buildings that are being built will fade in, before transiting into a proper building.
+* When right-clicking with the hammer, a lv 1 turret will be made on that tile, if nothing is on the tile.

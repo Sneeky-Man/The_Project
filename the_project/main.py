@@ -365,10 +365,6 @@ class GameWindow(arcade.Window):
 
             self.setup_map(self.proto_map_list[self.cur_map])
 
-        if button == 4:
-            arcade.print_timings()
-            # self.scene[LAYER_NAME_BACKGROUND]
-
         if (self.debug is True and self.debug_start is True) or self.debug is False:
             if self.hotbar_selected != 0:
                 if self.hotbar_items[self.hotbar_selected-1] is not None:
