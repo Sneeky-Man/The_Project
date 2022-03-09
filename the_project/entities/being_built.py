@@ -28,7 +28,7 @@ class BeingBuilt(Entity):
                          starting_health=starting_health)
 
         # Once this reaches building_max, the building will become a actual Building
-        self.__built_status = 1
+        self.__built_status = 20
         self.__built_max = 100
         self.__building_variable_radius = radius
         self.__building_variable_bullet_damage = bullet_damage
@@ -97,7 +97,6 @@ class BeingBuilt(Entity):
         """
         Updates the building logic every frame.
         """
-        self.change_built_status(1)
         super().update()
 
     def kill(self):

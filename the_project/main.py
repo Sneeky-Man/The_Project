@@ -370,6 +370,14 @@ class GameWindow(arcade.Window):
                 if self.hotbar_items[self.hotbar_selected-1] is not None:
                     self.hotbar_items[self.hotbar_selected-1].on_click(x, y, button, modifiers)
 
+    def on_mouse_release(self, x: float, y: float, button: int, modifiers: int):
+        """
+        Buttons. 1 = left, 2 = middle, 4 = right
+        """
+        if (self.debug is True and self.debug_start is True) or self.debug is False:
+            if self.hotbar_selected != 0:
+                if self.hotbar_items[self.hotbar_selected-1] is not None:
+                    self.hotbar_items[self.hotbar_selected-1].on_release(x, y, button, modifiers)
 
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
         """

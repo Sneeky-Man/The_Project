@@ -5,6 +5,7 @@ This deals with all the items the player can equip.
 import arcade
 import math
 import logging
+import random
 from the_project.constants import *
 from the_project.entities.bullet import ItemBullet
 from the_project.entities.being_built import BeingBuilt
@@ -12,7 +13,8 @@ from the_project.database.setup_database import database_search
 
 
 class Item(arcade.Sprite):
-    def __init__(self, name: str, texture: str, icon_texture: str, icon_x: int, icon_y: int, cooldown_length: float, angle_correction: float):
+    def __init__(self, name: str, texture: str, icon_texture: str, icon_x: int, icon_y: int, cooldown_length: float,
+                 angle_correction: float):
         """
         This is the class that will be the building block for the rest of the item entities.
         __variables are not to be altered outside the class.
@@ -33,7 +35,6 @@ class Item(arcade.Sprite):
         self.__icon.position = (icon_x, icon_y)
         self.__path_to_icon = icon_texture
         self.__angle_correction = angle_correction
-
 
         # Cooldown current will be added from delta time. Once current is >= to length, then an attack can commence.
         # Starts ready to use
@@ -56,7 +57,7 @@ class Item(arcade.Sprite):
 
     def on_click(self, x: float, y: float, button: int, modifiers: int):
         """
-        If the player clicked while the hammer is equiped.
+        Runs when the player clicks a button on their mouse.
 
         :param x: X-Coord of click.
         :param y: Y-Coord of click.
@@ -76,6 +77,29 @@ class Item(arcade.Sprite):
             except AttributeError as error:
                 logging.error(f"Item.on_click - In - 'Item'. Likely triggered due to self.right_click() not existing, "
                               f"as it likely has not been implemented. {self.__repr__()} Error: {error}")
+
+    def on_release(self, x: float, y: float, button: int, modifiers: int):
+        """
+        Runs when the player lets go of a button on their mouse.
+
+        :param x: X-Coord of click.
+        :param y: Y-Coord of click.
+        :param button: Button used to click. 1 = left, 2 = middle, 4 = right
+        :param modifiers: Bitwise 'and' of all modifiers (shift, ctrl, num lock) pressed during this event.
+        See :ref:`keyboard_modifiers`.
+        """
+        if button == 1:
+            try:
+                self.left_click_release(x=x, y=y)
+            except AttributeError as error:
+                logging.error(f"Item.on_release - In - 'Item'. Likely triggered due to self.left_click_release() not "
+                              f"existing, as it likely has not been implemented. {self.__repr__()} Error: {error}")
+        elif button == 4:
+            try:
+                self.right_click_release(x=x, y=y)
+            except AttributeError as error:
+                logging.error(f"Item.on_release - In - 'Item'. Likely triggered due to self.right_click_release() not "
+                              f"existing, as it likely has not been implemented. {self.__repr__()} Error: {error}")
 
     def update_position(self, mouse_x=None, mouse_y=None):
         """
@@ -215,6 +239,7 @@ class ItemWeapon(Item):
                  bullet_speed: float,
                  bullet_damage: int,
                  bullet_range: int,
+                 max_inaccuracy: float
                  ):
         """
         This is an advanced version of the item, specialising in guns like pistols and shotguns.
@@ -230,6 +255,7 @@ class ItemWeapon(Item):
         :param float bullet_speed: Speed of the Bullet
         :param int bullet_damage: Damage of the Bullet
         :param int bullet_range: Range of the Bullet
+        :param float max_inaccuracy: The maximum amount the weapons can vary
         """
         super().__init__(name=name,
                          texture=texture,
@@ -243,10 +269,19 @@ class ItemWeapon(Item):
         self.__bullet_speed = bullet_speed
         self.__bullet_damage = bullet_damage
         self.__bullet_range = bullet_range
+        self.__max_inaccuracy = max_inaccuracy
+        self.__current_inaccuracy = self.__max_inaccuracy
+        self.__change_in_accuracy = 0.0
+        self.__aiming = False
 
     def shoot(self):
         speed = self.get_bullet_speed()
         angle = self.angle - 90
+
+        # Random float between the two numbers (both included)
+        random_angle = random.uniform(-self.__current_inaccuracy, self.__current_inaccuracy)
+        angle += random_angle
+
         # Math stolen from asteroid_smasher.py
         change_x = \
             -math.sin(math.radians(angle)) \
@@ -272,6 +307,62 @@ class ItemWeapon(Item):
         window = arcade.get_window()
         for player in window.scene[SCENE_NAME_BLUE_PLAYER]:
             player.add_bullet(bullet=bullet)
+
+    def aim(self, change_in_accuracy):
+        """
+        This aims the weapon, making it more accurate
+        :param change_in_accuracy: How quickly the weapon becomes accurate
+        """
+        if self.__current_inaccuracy - change_in_accuracy < 0:
+            self.__current_inaccuracy = 0.0
+            self.__change_in_accuracy = 0.0
+        else:
+            self.__change_in_accuracy = change_in_accuracy
+        self.__aiming = True
+
+    def stop_aiming(self):
+        """
+        This stops aiming the weapon, and set the
+        :return:
+        """
+        self.__current_inaccuracy = self.__max_inaccuracy
+        self.__change_in_accuracy = 0.0
+        self.__aiming = False
+
+    def on_update(self, delta_time: float = 1 / 60):
+        super().on_update()
+        if self.__aiming is True:
+            if self.__current_inaccuracy - self.__change_in_accuracy < 0:
+                self.__current_inaccuracy = 0.0
+                self.__change_in_accuracy = 0.0
+            else:
+                self.__current_inaccuracy -= self.__change_in_accuracy
+
+    def draw(self):
+        super().draw()
+        if self.__aiming is True:
+            x1, y1 = self.get_end_point(self.center_x, self.center_y, self.angle - self.__current_inaccuracy, self.__bullet_range)
+            x2, y2 = self.get_end_point(self.center_x, self.center_y, self.angle + self.__current_inaccuracy, self.__bullet_range)
+            arcade.draw_line(self.center_x, self.center_y, x1, y1, (255, 0, 0, 75), 2)
+            arcade.draw_line(self.center_x, self.center_y, x2, y2, (255, 0, 0, 75), 2)
+
+    def get_end_point(self, start_x: int, start_y: int, angle: float, distance: float):
+        """
+        Finds end point from hypotenuse and angle.
+        Code stolen from:
+        https://stackoverflow.com/questions/70222584/get-adjacent-and-opposite-of-an-triangle-with-hypotenuse-and-an-angle/70222633
+        :param int start_x: Starting X of the point.
+        :param int start_y: Starting Y of the point.
+        :param float angle: Angle of the hypotenuse.
+        :param float distance: Length of the hypotenuse.
+        :return: X and Y Coordinates
+        :rtype: (int, int)
+        """
+        opposite = distance * math.sin(math.radians(angle))
+        adjacent = distance * math.cos(angle * (math.pi / 180))
+        x = start_x + adjacent
+        y = start_y + opposite
+        return (x, y)
 
     def get_bullet_texture(self):
         """
@@ -301,6 +392,20 @@ class ItemWeapon(Item):
         """
         return self.__bullet_range
 
+    def get_max_inaccuracy(self):
+        """
+        :return: The maximum inaccuracy of the weapon
+        :rtype: float
+        """
+        return self.__max_inaccuracy
+
+    def get_current_inaccuracy(self):
+        """
+        :return: The current inaccuracy of the weapon
+        :rtype: float
+        """
+        return self.__current_inaccuracy
+
 
 class Hammer(Item):
     def __init__(self, icon_x: int, icon_y: int):
@@ -315,7 +420,7 @@ class Hammer(Item):
                          icon_texture="assets/images/other_sprites/hotbar_icons/hotbar_icon_hammer.png",
                          icon_x=icon_x,
                          icon_y=icon_y,
-                         cooldown_length=3.5,
+                         cooldown_length=0.5,
                          angle_correction=-90
                          )
 
@@ -335,8 +440,20 @@ class Hammer(Item):
             if distance <= 100:
                 click_list = (arcade.get_sprites_at_point((x, y), window.scene[SCENE_NAME_BLUE_BUILDING]))
                 for building in click_list:
-                    building.change_current_health(200)
+                    if isinstance(building, BeingBuilt) is True:
+                        building.change_built_status(20)
+                    else:
+                        building.change_current_health(200)
                     self.reset_cooldown()
+
+    def left_click_release(self, x: float, y: float):
+        """
+        Runs when the left click has stopped being pressed.
+
+        :param x: X-Coord of click.
+        :param y: Y-Coord of click.
+        """
+        pass
 
     def right_click(self, x: float, y: float):
         """
@@ -356,32 +473,43 @@ class Hammer(Item):
             new_y = (window.tiled_map.height * window.tiled_map.tile_height) - y
 
             tile_coords = (window.tiled_map.get_cartesian(new_x, new_y))
-            tile_no = (tile_coords[1]*window.tiled_map.width) + tile_coords[0]
+            tile_no = (tile_coords[1] * window.tiled_map.width) + tile_coords[0]
             tile = window.scene[LAYER_NAME_BACKGROUND][tile_no]
 
-            # print(f"Coords: {new_x, new_y}. Tile Number: {tile_no}")
+            x1, y1 = window.scene[SCENE_NAME_BLUE_PLAYER][0].position
+            distance = arcade.get_distance(x1, y1, tile.center_x, tile.center_y)
+            if distance <= 100:
 
-            list = [arcade.get_sprites_at_point((tile.center_x, tile.center_y), window.scene[SCENE_NAME_BLUE_BUILDING]),
+                list = [
+                    arcade.get_sprites_at_point((tile.center_x, tile.center_y), window.scene[SCENE_NAME_BLUE_BUILDING]),
                     arcade.get_sprites_at_point((tile.center_x, tile.center_y), window.scene[SCENE_NAME_RED_BUILDING]),
                     arcade.get_sprites_at_point((tile.center_x, tile.center_y), window.scene[SCENE_NAME_BLUE_PLAYER])]
 
-            if list == [[], [], []]:
-                result = (database_search(window.conn, "Turret", 1))
-                building = BeingBuilt(name=result.name,
-                                    tier=result.tier,
-                                    team="Blue",
-                                    x=tile.center_x,
-                                    y=tile.center_y,
-                                    path=result.path_to_blue,
-                                    max_health=result.max_health,
-                                    starting_health=result.starting_health,
-                                    radius=result.radius,
-                                    bullet_damage=result.bullet_damage,
-                                    bullet_speed=result.bullet_speed
-                                    )
-                window.scene.add_sprite(SCENE_NAME_BLUE_BUILDING, building)
+                if list == [[], [], []]:
+                    result = (database_search(window.conn, "Turret", 1))
+                    building = BeingBuilt(name=result.name,
+                                          tier=result.tier,
+                                          team="Blue",
+                                          x=tile.center_x,
+                                          y=tile.center_y,
+                                          path=result.path_to_blue,
+                                          max_health=result.max_health,
+                                          starting_health=result.starting_health,
+                                          radius=result.radius,
+                                          bullet_damage=result.bullet_damage,
+                                          bullet_speed=result.bullet_speed
+                                          )
+                    window.scene.add_sprite(SCENE_NAME_BLUE_BUILDING, building)
+                    self.reset_cooldown()
 
+    def right_click_release(self, x: float, y: float):
+        """
+        Runs when the right click has stopped being pressed.
 
+        :param x: X-Coord of click.
+        :param y: Y-Coord of click.
+        """
+        pass
 
 
 class Pistol(ItemWeapon):
@@ -402,12 +530,13 @@ class Pistol(ItemWeapon):
                          bullet_texture="assets/images/game_sprites/non_building/bullet/bullet.png",
                          bullet_speed=10,
                          bullet_damage=100,
-                         bullet_range=500
+                         bullet_range=500,
+                         max_inaccuracy=20
                          )
 
     def left_click(self, x: float, y: float):
         """
-        Runs when the left click is called.
+        Runs when the left click has been pressed.
 
         :param x: X-Coord of click.
         :param y: Y-Coord of click.
@@ -415,3 +544,30 @@ class Pistol(ItemWeapon):
         if self.can_attack() is True:
             self.reset_cooldown()
             self.shoot()
+
+    def left_click_release(self, x: float, y: float):
+        """
+        Runs when the left click has stopped being pressed.
+
+        :param x: X-Coord of click.
+        :param y: Y-Coord of click.
+        """
+        pass
+
+    def right_click(self, x: float, y: float):
+        """
+        Runs when the right click has been pressed.
+
+        :param x: X-Coord of click.
+        :param y: Y-Coord of click.
+        """
+        self.aim(0.5)
+
+    def right_click_release(self, x: float, y: float):
+        """
+        Runs when the right click has stopped being pressed.
+
+        :param x: X-Coord of click.
+        :param y: Y-Coord of click.
+        """
+        self.stop_aiming()
