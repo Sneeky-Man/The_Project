@@ -43,7 +43,6 @@ class Item(arcade.Sprite):
 
         # This is a backup. If the mouse hasn't been moved yet, it will default to the player.
         window = arcade.get_window()
-        self.__prev_mouse_x, self.__prev_mouse_y = window.scene[SCENE_NAME_BLUE_PLAYER][0].position
 
     def __repr__(self):
         """
@@ -101,30 +100,25 @@ class Item(arcade.Sprite):
                 logging.error(f"Item.on_release - In - 'Item'. Likely triggered due to self.right_click_release() not "
                               f"existing, as it likely has not been implemented. {self.__repr__()} Error: {error}")
 
-    def update_position(self, mouse_x=None, mouse_y=None):
+    def update_position(self):
         """
         Updates the Items position. Run every time the mouse is moved.
-
-        :param float mouse_x: x position of mouse. Default to None if the mouse havent moved at all.
-        :param float mouse_y: y position of mouse. Default to None if the mouse havent moved at all.
         """
-        # This is my own terrible math. I'm just making a 100x100 box as i cannot manage to do
+
         window = arcade.get_window()
         player_x, player_y = window.scene[SCENE_NAME_BLUE_PLAYER][0].position
-
-        if mouse_x is None or mouse_y is None:
-            mouse_x = self.__prev_mouse_x
-            mouse_y = self.__prev_mouse_y
-        else:
-            self.__prev_mouse_x = mouse_x
-            self.__prev_mouse_y = mouse_y
-
+        mouse_x = window.mouse['x']
+        mouse_y = window.mouse['y']
         self.center_x = player_x + 32
         self.center_y = player_y
 
         # Math code stolen from sprite_bullets_enemy_aims.py
-        diff_x = mouse_x - self.center_x
-        diff_y = mouse_y - self.center_y
+
+        # With the addition of cameras, we need to find the true position of the mouse.
+        true_mouse_x = (window.mouse['x'] + player_x - 500)
+        true_mouse_y = (window.mouse['y'] + player_y - 500)
+        diff_x = true_mouse_x - self.center_x
+        diff_y = true_mouse_y - self.center_y
 
         angle = math.atan2(diff_x, diff_y)
 
@@ -341,10 +335,16 @@ class ItemWeapon(Item):
     def draw(self):
         super().draw()
         if self.__aiming is True:
-            x1, y1 = self.get_end_point(self.center_x, self.center_y, self.angle - self.__current_inaccuracy, self.__bullet_range)
-            x2, y2 = self.get_end_point(self.center_x, self.center_y, self.angle + self.__current_inaccuracy, self.__bullet_range)
-            arcade.draw_line(self.center_x, self.center_y, x1, y1, (255, 0, 0, 75), 2)
-            arcade.draw_line(self.center_x, self.center_y, x2, y2, (255, 0, 0, 75), 2)
+            window = arcade.get_window()
+
+            start_x = self.center_x
+            start_y = self.center_y
+
+            x1, y1 = self.get_end_point(start_x, start_y, self.angle - self.__current_inaccuracy, self.__bullet_range)
+            x2, y2 = self.get_end_point(start_x, start_y, self.angle + self.__current_inaccuracy, self.__bullet_range)
+
+            arcade.draw_line(start_x, start_y, x1, y1, (255, 0, 0, 75), 2)
+            arcade.draw_line(start_x, start_y, x2, y2, (255, 0, 0, 75), 2)
 
     def get_end_point(self, start_x: int, start_y: int, angle: float, distance: float):
         """
@@ -362,6 +362,8 @@ class ItemWeapon(Item):
         adjacent = distance * math.cos(angle * (math.pi / 180))
         x = start_x + adjacent
         y = start_y + opposite
+
+        # print(f"Start Point: {start_x, start_y}. End Points: {x, y}")
         return (x, y)
 
     def get_bullet_texture(self):
@@ -435,10 +437,12 @@ class Hammer(Item):
         if self.can_attack() is True:
             window = arcade.get_window()
             x2, y2 = window.scene[SCENE_NAME_BLUE_PLAYER][0].position
-            distance = arcade.get_distance(x1=x, y1=y, x2=x2, y2=y2)
+            true_mouse_x = (window.mouse['x'] + x2 - 500)
+            true_mouse_y = (window.mouse['y'] + y2 - 500)
+            distance = arcade.get_distance(x1=true_mouse_x, y1=true_mouse_y, x2=x2, y2=y2)
 
             if distance <= 100:
-                click_list = (arcade.get_sprites_at_point((x, y), window.scene[SCENE_NAME_BLUE_BUILDING]))
+                click_list = (arcade.get_sprites_at_point((true_mouse_x, true_mouse_y), window.scene[SCENE_NAME_BLUE_BUILDING]))
                 for building in click_list:
                     if isinstance(building, BeingBuilt) is True:
                         building.change_built_status(20)
@@ -468,18 +472,23 @@ class Hammer(Item):
             # This method is used, as the alternative is using get_sprites_at_point() with the background, and
             # as the background is 2048 tiles long, it lags the game for a very noticeable split second
 
+            # First, find the true mouse positions. This needs to happen because of cameras.
+            player_x, player_y = window.scene[SCENE_NAME_BLUE_PLAYER][0].position
+            true_mouse_x = (x + player_x - 500)
+            true_mouse_y = (y + player_y - 500)
+
             # I need to flip the Y, so (0, 0) is in the top left
-            new_x = x
-            new_y = (window.tiled_map.height * window.tiled_map.tile_height) - y
+            new_x = true_mouse_x
+            new_y = (window.tiled_map.height * window.tiled_map.tile_height) - true_mouse_y
 
             tile_coords = (window.tiled_map.get_cartesian(new_x, new_y))
             tile_no = (tile_coords[1] * window.tiled_map.width) + tile_coords[0]
             tile = window.scene[LAYER_NAME_BACKGROUND][tile_no]
 
+
             x1, y1 = window.scene[SCENE_NAME_BLUE_PLAYER][0].position
             distance = arcade.get_distance(x1, y1, tile.center_x, tile.center_y)
             if distance <= 100:
-
                 list = [
                     arcade.get_sprites_at_point((tile.center_x, tile.center_y), window.scene[SCENE_NAME_BLUE_BUILDING]),
                     arcade.get_sprites_at_point((tile.center_x, tile.center_y), window.scene[SCENE_NAME_RED_BUILDING]),

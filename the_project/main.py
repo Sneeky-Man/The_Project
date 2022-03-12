@@ -1,6 +1,7 @@
 # Imports the necessary packages
 import arcade
 import logging
+from pyglet.math import Vec2
 
 from the_project.constants import *
 from the_project.database import setup_database
@@ -53,6 +54,10 @@ class GameWindow(arcade.Window):
         self.cur_map = None
         self.proto_map_list = None
 
+        # Cameras
+        self.camera = None
+        self.gui_camera = None
+
         # Debug
         self.debug = None
         self.debug_start = None
@@ -70,7 +75,6 @@ class GameWindow(arcade.Window):
 
         # Set the colour of the window (arcade uses color not colour!)
         arcade.set_background_color(arcade.color.BLUEBERRY)
-
 
         # Debug
         self.debug = True
@@ -195,6 +199,10 @@ class GameWindow(arcade.Window):
         self.scene.add_sprite_list(SCENE_NAME_RED_BUILDING, False, red_building_list)
         self.scene.remove_sprite_list_by_name(LAYER_NAME_FOREGROUND)
 
+        # Camera
+        self.camera = arcade.Camera(self.width, self.height)
+        self.camera_gui = arcade.Camera(self.width, self.height)
+
         # Hotbar setup
         self.hotbar_selected = 0
         self.hotbar_background = arcade.SpriteList()
@@ -217,8 +225,6 @@ class GameWindow(arcade.Window):
         if self.debug is True:
             self.debug_start = False
 
-        self.perf_graph = arcade.PerfGraph(400, 400)
-
         # Physics Engine
         self.physics_engine = arcade.PhysicsEngineSimple(
             player_sprite=self.player_sprite,
@@ -235,6 +241,9 @@ class GameWindow(arcade.Window):
         # This starts drawing, never call finish_render()!
         arcade.start_render()
 
+        self.clear()
+        self.camera.use()
+
         self.scene[LAYER_NAME_BACKGROUND].draw()
         for sprite in self.scene[SCENE_NAME_BLUE_BUILDING]:
             sprite.draw()
@@ -245,16 +254,19 @@ class GameWindow(arcade.Window):
         # for sprite in self.scene[SCENE_NAME_RED_PLAYER]:
         #     sprite.draw()
 
-        for hotbar in self.hotbar_background:
-            hotbar.draw()
+        if self.hotbar_selected != 0:
+            if self.hotbar_items[self.hotbar_selected - 1] is not None:
+                self.hotbar_items[self.hotbar_selected - 1].draw()
+
+        self.camera_gui.use()
 
         for item in self.hotbar_items:
             if item is not None:
                 item.draw_icon()
 
-        if self.hotbar_selected != 0:
-            if self.hotbar_items[self.hotbar_selected - 1] is not None:
-                self.hotbar_items[self.hotbar_selected - 1].draw()
+        for hotbar in self.hotbar_background:
+            hotbar.draw()
+
 
         fps = arcade.get_fps()
         arcade.draw_text(f"FPS: {fps:.0f}", 900, 950, arcade.color.BLUE, 18)
@@ -307,6 +319,10 @@ class GameWindow(arcade.Window):
                 if item is not None:
                     item.update_position()
 
+        # Pan to the user
+        self.camera.update()
+        self.scroll_to_player()
+
     def on_key_press(self, key, modifiers):
         """
         Called when a key is pressed.
@@ -358,6 +374,12 @@ class GameWindow(arcade.Window):
         Buttons. 1 = left, 2 = middle, 4 = right
         """
         if self.debug is True and button == 2:
+            # player_x, player_y = self.scene[SCENE_NAME_BLUE_PLAYER][0].position
+            # x_from_player = (self.mouse['x'] + player_x - 500)
+            # y_from_player = (self.mouse['y'] + player_y - 500)
+            # print(f"Mouse Coords: {self.mouse['x'], self.mouse['y']}. Camera Coords: {self.camera.position}. Player "
+            #       f"Position: {self.scene[SCENE_NAME_BLUE_PLAYER][0].position}. "
+            #       f"Actual Coords: {x_from_player, y_from_player}")
             if self.cur_map + 1 >= len(self.proto_map_list):
                 self.cur_map = 0
             else:
@@ -388,7 +410,22 @@ class GameWindow(arcade.Window):
         """
         for item in self.hotbar_items:
             if item is not None:
-                item.update_position(x, y)
+                item.update_position()
+
+    def scroll_to_player(self):
+        """
+        Stolen from sprite_move_scrolling.py
+
+        Scroll the window to the player.
+
+        if CAMERA_SPEED is 1, the camera will immediately move to the desired position.
+        Anything between 0 and 1 will have the camera move to the location with a smoother
+        pan.
+        """
+
+        position = Vec2(self.player_sprite.center_x - self.width / 2,
+                        self.player_sprite.center_y - self.height / 2)
+        self.camera.move_to(position, 0.1)
 
 
 

@@ -222,7 +222,11 @@ Removed the range detector technique, and replaced it with arcade.get_closest_sp
 ## 08/03/22 18:06
 * Updated GANTT Chart
 
-# 09/03/22 20:20
+## 09/03/22 20:20
 * Added aiming with weapons
 * Added left_click_release and right_click_release to items.
 * Updated GANTT Chart
+
+## 12/03/22 17:33
+* Added Camera scrolling
+* Changed items to work with the new cameras
