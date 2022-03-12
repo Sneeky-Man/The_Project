@@ -230,3 +230,10 @@ Removed the range detector technique, and replaced it with arcade.get_closest_sp
 ## 12/03/22 17:33
 * Added Camera scrolling
 * Changed items to work with the new cameras
+
+## 12/03/22 21:00
+* Added button pictures.
+* Added ui manager
+* Added buttons.py
+* Added BuildingButton for building buttons, which is a subclass of the UITextureButton
+* Added two buttons to select buildings from. This is only temp.

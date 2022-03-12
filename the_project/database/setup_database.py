@@ -182,7 +182,7 @@ def database_setup_entries():
                             max_health=50,
                             starting_health=50,
                             radius=250,
-                            bullet_damage=100,
+                            bullet_damage=50,
                             bullet_speed=2.0))
 
     entry_list.append(Entry(name="Turret",
@@ -192,7 +192,7 @@ def database_setup_entries():
                             max_health=100,
                             starting_health=100,
                             radius=500,
-                            bullet_damage=125,
+                            bullet_damage=100,
                             bullet_speed=3.0))
 
     entry_list.append(Entry(name="Turret",

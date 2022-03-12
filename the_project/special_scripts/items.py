@@ -426,6 +426,10 @@ class Hammer(Item):
                          angle_correction=-90
                          )
 
+        # This sets the defaults
+        self.__selected_building_name = "Turret"
+        self.__selected_building_tier = 1
+
     def left_click(self, x: float, y: float):
         """
         Runs when the left click is called.
@@ -442,7 +446,8 @@ class Hammer(Item):
             distance = arcade.get_distance(x1=true_mouse_x, y1=true_mouse_y, x2=x2, y2=y2)
 
             if distance <= 100:
-                click_list = (arcade.get_sprites_at_point((true_mouse_x, true_mouse_y), window.scene[SCENE_NAME_BLUE_BUILDING]))
+                click_list = (
+                    arcade.get_sprites_at_point((true_mouse_x, true_mouse_y), window.scene[SCENE_NAME_BLUE_BUILDING]))
                 for building in click_list:
                     if isinstance(building, BeingBuilt) is True:
                         building.change_built_status(20)
@@ -485,7 +490,6 @@ class Hammer(Item):
             tile_no = (tile_coords[1] * window.tiled_map.width) + tile_coords[0]
             tile = window.scene[LAYER_NAME_BACKGROUND][tile_no]
 
-
             x1, y1 = window.scene[SCENE_NAME_BLUE_PLAYER][0].position
             distance = arcade.get_distance(x1, y1, tile.center_x, tile.center_y)
             if distance <= 100:
@@ -495,7 +499,7 @@ class Hammer(Item):
                     arcade.get_sprites_at_point((tile.center_x, tile.center_y), window.scene[SCENE_NAME_BLUE_PLAYER])]
 
                 if list == [[], [], []]:
-                    result = (database_search(window.conn, "Turret", 1))
+                    result = (database_search(window.conn, self.__selected_building_name, self.__selected_building_tier))
                     building = BeingBuilt(name=result.name,
                                           tier=result.tier,
                                           team="Blue",
@@ -519,6 +523,15 @@ class Hammer(Item):
         :param y: Y-Coord of click.
         """
         pass
+
+    def set_selected_building(self, name, tier):
+        """
+        Sets the selected building of the hammer.
+        :param name: Name of the building.
+        :param tier: Tier of the building
+        """
+        self.__selected_building_name = name
+        self.__selected_building_tier = tier
 
 
 class Pistol(ItemWeapon):

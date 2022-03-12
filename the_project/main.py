@@ -1,5 +1,6 @@
 # Imports the necessary packages
 import arcade
+import arcade.gui
 import logging
 from pyglet.math import Vec2
 
@@ -8,6 +9,7 @@ from the_project.database import setup_database
 from the_project.entities.building import Building
 from the_project.entities.player import Player
 from the_project.special_scripts.items import Hammer, Pistol
+from the_project.special_scripts.buttons import BuildingButton
 
 """
 Map Layers
@@ -53,6 +55,9 @@ class GameWindow(arcade.Window):
         # Maps
         self.cur_map = None
         self.proto_map_list = None
+
+        # UI
+        self.ui_manager = None
 
         # Cameras
         self.camera = None
@@ -123,7 +128,6 @@ class GameWindow(arcade.Window):
         # FPS Counter
         arcade.enable_timings()
 
-
         logging.info(f"'Game_Window.setup() - End - 'main'. Game window has been set up")
 
     def setup_map(self, map_name):
@@ -143,7 +147,8 @@ class GameWindow(arcade.Window):
                 "use_spatial_hashing": True
             }
         }
-        self.tiled_map = arcade.load_tilemap(f"assets/images/maps/prototype_maps/{map_name}.json", layer_options=layer_options, scaling=1)
+        self.tiled_map = arcade.load_tilemap(f"assets/images/maps/prototype_maps/{map_name}.json",
+                                             layer_options=layer_options, scaling=1)
         self.scene = arcade.Scene.from_tilemap(self.tiled_map)
 
         blue_player_list = arcade.SpriteList()
@@ -198,6 +203,40 @@ class GameWindow(arcade.Window):
         self.scene.add_sprite_list(SCENE_NAME_BLUE_BUILDING, False, blue_building_list)
         self.scene.add_sprite_list(SCENE_NAME_RED_BUILDING, False, red_building_list)
         self.scene.remove_sprite_list_by_name(LAYER_NAME_FOREGROUND)
+
+        # Stolen from music_control_demo.py
+        # This creates a "manager" for all our UI elements
+        self.ui_manager = arcade.gui.UIManager(self)
+        self.ui_manager.enable()
+
+        box = arcade.gui.UIBoxLayout(x=100, y=300)
+
+        # Loading the Buttons
+        normal_texture = arcade.load_texture("assets/images/other_sprites/button_icons/button.png")
+        hover_texture = arcade.load_texture("assets/images/other_sprites/button_icons/button_hover.png")
+        press_texture = arcade.load_texture("assets/images/other_sprites/button_icons/button_selected.png")
+
+        button_1 = BuildingButton(normal_texture, hover_texture, press_texture, "Turret", 1)
+
+        @button_1.event("on_click")
+        def selected(event):
+            for item in self.hotbar_items:
+                if isinstance(item, Hammer):
+                    name, tier = button_1.get_building_info()
+                    item.set_selected_building(name, tier)
+
+        button_2 = BuildingButton(normal_texture, hover_texture, press_texture, "Turret", 2)
+
+        @button_2.event("on_click")
+        def selected(event):
+            for item in self.hotbar_items:
+                if isinstance(item, Hammer):
+                    name, tier = button_2.get_building_info()
+                    item.set_selected_building(name, tier)
+
+        box.add(button_1.with_space_around(bottom=10))
+        box.add(button_2.with_space_around(bottom=10))
+        self.ui_manager.add(arcade.gui.UIAnchorWidget(child=box, align_x=400, align_y=200))
 
         # Camera
         self.camera = arcade.Camera(self.width, self.height)
@@ -260,6 +299,9 @@ class GameWindow(arcade.Window):
 
         self.camera_gui.use()
 
+        # This draws our UI elements
+        self.ui_manager.draw()
+
         for item in self.hotbar_items:
             if item is not None:
                 item.draw_icon()
@@ -267,13 +309,12 @@ class GameWindow(arcade.Window):
         for hotbar in self.hotbar_background:
             hotbar.draw()
 
-
         fps = arcade.get_fps()
         arcade.draw_text(f"FPS: {fps:.0f}", 900, 950, arcade.color.BLUE, 18)
         length = (len(self.scene[SCENE_NAME_BLUE_BUILDING]) + len(self.scene[SCENE_NAME_RED_BUILDING]))
         arcade.draw_text(f"Length of Lists: {length}", 850, 900, arcade.color.BLUE, 12)
 
-        #self.perf_graph.draw()
+        # self.perf_graph.draw()
 
     def on_update(self, delta_time: float):
         """
@@ -318,6 +359,9 @@ class GameWindow(arcade.Window):
             for item in self.hotbar_items:
                 if item is not None:
                     item.update_position()
+
+        # Ui Manager
+        self.ui_manager.on_update(delta_time)
 
         # Pan to the user
         self.camera.update()
@@ -389,8 +433,8 @@ class GameWindow(arcade.Window):
 
         if (self.debug is True and self.debug_start is True) or self.debug is False:
             if self.hotbar_selected != 0:
-                if self.hotbar_items[self.hotbar_selected-1] is not None:
-                    self.hotbar_items[self.hotbar_selected-1].on_click(x, y, button, modifiers)
+                if self.hotbar_items[self.hotbar_selected - 1] is not None:
+                    self.hotbar_items[self.hotbar_selected - 1].on_click(x, y, button, modifiers)
 
     def on_mouse_release(self, x: float, y: float, button: int, modifiers: int):
         """
@@ -398,8 +442,8 @@ class GameWindow(arcade.Window):
         """
         if (self.debug is True and self.debug_start is True) or self.debug is False:
             if self.hotbar_selected != 0:
-                if self.hotbar_items[self.hotbar_selected-1] is not None:
-                    self.hotbar_items[self.hotbar_selected-1].on_release(x, y, button, modifiers)
+                if self.hotbar_items[self.hotbar_selected - 1] is not None:
+                    self.hotbar_items[self.hotbar_selected - 1].on_release(x, y, button, modifiers)
 
     def on_mouse_motion(self, x: float, y: float, dx: float, dy: float):
         """
@@ -426,8 +470,6 @@ class GameWindow(arcade.Window):
         position = Vec2(self.player_sprite.center_x - self.width / 2,
                         self.player_sprite.center_y - self.height / 2)
         self.camera.move_to(position, 0.1)
-
-
 
 
 """
