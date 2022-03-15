@@ -237,3 +237,15 @@ Removed the range detector technique, and replaced it with arcade.get_closest_sp
 * Added buttons.py
 * Added BuildingButton for building buttons, which is a subclass of the UITextureButton
 * Added two buttons to select buildings from. This is only temp.
+
+## 15/03/22 17:50
+* Changed all __ variables into _ ones.
+* Converted all variables from my set gets into @property. (This took a while)
+* Added resource.py, although it is currently unfinished.
+* Updated buttons.py. Now, the "on_click" event will be done from within the class.
+* Renamed the tile layer "foreground" to "units"
+* Added a new tile layer called "foreground". This will be where stuff like resources will be placed
+* Updated all the maps to reflect the new layer changes.
+* Added game_test_map_money_1.json. This is for testing the money system
+* Added a prototype non_building tile set (this is largely for resources.)
+* Added prototype_gold.png, a very temp gold picture to base the money system on.

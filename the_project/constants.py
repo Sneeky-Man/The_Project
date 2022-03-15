@@ -1,6 +1,7 @@
 # Layer Names
 LAYER_NAME_BACKGROUND = "background"
 LAYER_NAME_FOREGROUND = "foreground"
+LAYER_NAME_UNITS = "units"
 LAYER_NAME_OBJECTS = "game_objects"
 
 SCENE_NAME_RED_PLAYER = "red_player"

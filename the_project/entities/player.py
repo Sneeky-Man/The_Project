@@ -22,8 +22,10 @@ class Player(Entity):
         """
         super().__init__(name=name, tier=tier, team=team, path=path, x=x, y=y, max_health=max_health,
                          starting_health=starting_health)
-        self.__speed = speed
-        self.__bullet_list = arcade.SpriteList(use_spatial_hash=False)
+
+        # If this isn't private, its will cause a recursion error for some reason.
+        self._speed = speed
+        self._bullet_list = arcade.SpriteList(use_spatial_hash=False)
 
     def __repr__(self):
         """
@@ -32,7 +34,7 @@ class Player(Entity):
         :return: A basic report of the sprite
         :rtype: str
         """
-        return f"Player. {self.__name!r}, {self.__tier!r}, {self.__team!r}. ({self.center_x!r},{self.center_y!r})."
+        return f"Player. {self._name!r}, {self._tier!r}, {self._team!r}. ({self.center_x!r},{self.center_y!r})."
 
     def longer_report(self):
         """
@@ -41,52 +43,51 @@ class Player(Entity):
         :return: A detailed report of the Building
         :rtype: str
         """
-        return_string = (f"Player. {self.__name}, {self.__tier}, {self.__team}. ({self.center_x},{self.center_y}), "
-                         f"{self.__path_to_texture}, {self.__speed}")
+        return_string = (f"Player. {self._name}, {self._tier}, {self._team}. ({self.center_x},{self.center_y}), "
+                         f"{self._path_to_texture}, {self.speed}")
 
-        return_string += f"Currently Targetted By: \n{self.get_targetted_by()!r}"
+        return_string += f"Currently Targeted By: \n{self._targetted_by()!r}"
         return return_string
 
+    @property
+    def speed(self):
+        return self._speed
+
+    @speed.setter
+    def speed(self, value: float):
+        print(f"Setting Speed to: {value}")
+        self._speed = value
+
+    @property
+    def bullet_list(self):
+        return self._bullet_list
+
     def update(self):
-        self.__bullet_list.update()
+        self._bullet_list.update()
 
     def draw(self):
         super().draw()
-        self.__bullet_list.draw()
+        self._bullet_list.draw()
 
-    def get_speed(self):
-        """
-        :return: The speed of the player
-        :rtype: float
-        """
-        return self.__speed
-
-    def set_speed(self, speed: float):
-        """
-        Sets the speed of the player
-        :param float speed:
-        """
-        self.__speed = speed
-
-    def add_bullet(self, bullet: object):
+    def add_bullet(self, bullet: arcade.Sprite):
         """
         Adds a bullet to the bullet list
         :param object bullet: Bullet to be added
         """
-        self.__bullet_list.append(bullet)
+        self._bullet_list.append(bullet)
 
-    def remove_bullet(self, bullet: object):
+    def remove_bullet(self, bullet: arcade.Sprite):
         """
         Removes a bullet to the bullet list
         :param object bullet: Bullet to be removed
         """
-        self.__bullet_list.remove(bullet)
+        self._bullet_list.remove(bullet)
 
     def kill(self):
         window = arcade.get_window()
         for counter in range(0, len(window.hotbar_items)):
             if window.hotbar_items[counter] is not None:
                 window.hotbar_items[counter] = None
-        self.__bullet_list.clear()
+        self._bullet_list.clear()
         window.scene[SCENE_NAME_BLUE_PLAYER].remove(self)
         super().kill()

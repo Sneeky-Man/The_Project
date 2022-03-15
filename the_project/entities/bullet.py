@@ -6,7 +6,8 @@ import math
 
 
 class BaseBullet(arcade.Sprite):
-    def __init__(self, path: str, x: int, y: int, angle: float, speed: float, change_x: float, change_y: float, team: str,
+    def __init__(self, path: str, x: int, y: int, angle: float, speed: float, change_x: float, change_y: float,
+                 team: str,
                  damage: int, shot_from: str):
         """
         This is the class that all bullets will be.
@@ -25,19 +26,62 @@ class BaseBullet(arcade.Sprite):
         super().__init__()
 
         self.texture = arcade.load_texture(path)
-        self.__path_to_texture = path
+        self._path_to_texture = path
         self.position = (x, y)
         self.angle = angle
-        self.__speed = speed
+        self._speed = speed
         self.change_x = change_x
         self.change_y = change_y
-        self.__team = team
-        self.__damage = damage
-        self.__shot_from = shot_from
+        self._team = team
+        self._damage = damage
+        self._shot_from = shot_from
         self.scale = 0.5
 
     def __repr__(self):
-        return f"Bullet. Shot from: {self.get_shot_from()!r}"
+        return f"Bullet. Shot from: {self._shot_from!r}"
+
+    @property
+    def path_to_texture(self):
+        return self._path_to_texture
+
+    @path_to_texture.setter
+    def path_to_texture(self, value: str):
+        self._path_to_texture = value
+
+    @property
+    def team(self):
+        return self._team
+
+    @team.setter
+    def team(self, value: str):
+        self._team = value
+
+    @property
+    def speed(self):
+        return self._speed
+
+    @speed.setter
+    def speed(self, value: float):
+        self._speed = value
+
+    @property
+    def damage(self):
+        return self._damage
+
+    @damage.setter
+    def damage(self, value: int):
+        self._damage = value
+
+    @property
+    def shot_from(self):
+        """
+        Used for debugging purposes.
+        """
+        return self._shot_from
+
+    @shot_from.setter
+    def shot_from(self, value: str):
+        self._shot_from = value
 
     def check_for_collision(self):
         """
@@ -47,61 +91,26 @@ class BaseBullet(arcade.Sprite):
         :rtype: bool
         """
         window = arcade.get_window()
-        if self.get_team() == "Blue":
+        if self._team == "Blue":
             collision_list = arcade.check_for_collision_with_lists(self,
                                                                    [
-                                                                    window.scene[SCENE_NAME_RED_BUILDING]
+                                                                       window.scene[SCENE_NAME_RED_BUILDING]
                                                                    ],
                                                                    3)
         else:
             collision_list = arcade.check_for_collision_with_lists(self,
                                                                    [
-                                                                    window.scene[SCENE_NAME_BLUE_PLAYER],
-                                                                    window.scene[SCENE_NAME_BLUE_BUILDING]
-                                                                    ],
+                                                                       window.scene[SCENE_NAME_BLUE_PLAYER],
+                                                                       window.scene[SCENE_NAME_BLUE_BUILDING]
+                                                                   ],
                                                                    3)
 
         for collision in collision_list:
             if isinstance(collision, Entity):
                 if not collision.same_team(self):
-                    hit = collision.change_current_health(-self.get_damage())
+                    hit = collision.change_current_health(-self._damage)
                     self.kill()
                     return hit
-
-    def get_path(self):
-        """
-        :return: The path of the bullet
-        :rtype: str
-        """
-        return self.__path_to_texture
-
-    def get_speed(self):
-        """
-        :return: The speed of the bullet
-        :rtype: float
-        """
-        return self.__speed
-
-    def get_team(self):
-        """
-        :return: The team of the bullet
-        :rtype: str
-        """
-        return self.__team
-
-    def get_damage(self):
-        """
-        :return: The damage of the bullet
-        :rtype: int
-        """
-        return self.__damage
-
-    def get_shot_from(self):
-        """
-        :return: Who shot the bullet. Used for debugging purposes.
-        :rtype: str
-        """
-        return self.__shot_from
 
     def update(self):
         """
@@ -121,7 +130,7 @@ class BuildingBullet(BaseBullet):
 
         # Math stolen from asteroid_smasher.py
         angle = parent.angle
-        speed = parent.get_bullet_speed()
+        speed = parent._bullet_speed
         change_x = \
             -math.sin(math.radians(angle)) \
             * speed
@@ -139,19 +148,20 @@ class BuildingBullet(BaseBullet):
                          speed=speed,
                          change_x=change_x,
                          change_y=change_y,
-                         team=parent.get_team(),
-                         damage=parent.get_bullet_damage(),
+                         team=parent.team,
+                         damage=parent._bullet_damage,
                          shot_from=f"Building. Parent: {parent!r}"
                          )
 
-        self.__parent = parent
-
-    def get_parent(self):
-        """
-        :return: The parent of the Bullet.
-        :rtype: object
-        """
-        return self.__parent
+        self._parent = parent
+        
+    @property
+    def parent(self):
+        return self._parent
+    
+    @parent.setter
+    def parent(self, value: arcade.Sprite):
+        self.parent = value
 
     def update(self):
         """
@@ -159,8 +169,7 @@ class BuildingBullet(BaseBullet):
         """
         super().update()
         if self.check_for_collision() is True:
-            self.__parent.remove_target()
-
+            self._parent._target = None
 
 
 class ItemBullet(BaseBullet):
@@ -201,35 +210,35 @@ class ItemBullet(BaseBullet):
                          team=team,
                          damage=damage,
                          shot_from=shot_from)
-        self.__origin = (x, y)
-        self.__max_range = max_range
+        self._origin = (x, y)
+        self._max_range = max_range
+        
+    @property
+    def origin(self):
+        return self._origin
+
+    @origin.setter
+    def origin(self, value: (int, int)):
+        self._origin = value
+        
+    @property
+    def max_range(self):
+        return self._max_range
+
+    @max_range.setter
+    def max_range(self, value: int):
+        self._max_range = value
 
     def update(self):
         super().update()
         window = arcade.get_window()
-        x1, y1 = self.get_origin()
+        x1, y1 = self._origin
         x2, y2 = self.position
         distance = arcade.get_distance(x1=x1, y1=y1, x2=x2, y2=y2)
-        if distance >= self.get_max_range():
+        if distance >= self._max_range:
             self.kill()
 
         self.check_for_collision()
 
     def draw(self):
         super().draw()
-
-    def get_origin(self):
-        """
-        :return: The origin point of the bullet
-        :rtype: (int, int)
-        """
-        return self.__origin
-
-    def get_max_range(self):
-        """
-        :return: Maximum range of the bullet
-        :rtype: int
-        """
-        return self.__max_range
-
-

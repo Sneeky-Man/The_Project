@@ -20,7 +20,7 @@ background: This is ground (dirt, grass) ect.
 
 
 class GameWindow(arcade.Window):
-    def __init__(self, width: int, height: int, title: str, conn: object):
+    def __init__ (self, width: int, height: int, title: str, conn: object):
         """
         This is the main window which all things will run on.
 
@@ -85,6 +85,7 @@ class GameWindow(arcade.Window):
         self.debug = True
 
         self.proto_map_list = ["prototype_map_battle",
+                               "tests/game_tests/game_test_map_money_1",
                                "tests/game_tests/game_test_map_sparse_1",
                                "tests/game_tests/game_test_map_sparse_2",
                                "tests/game_tests/game_test_map_sparse_3",
@@ -104,6 +105,7 @@ class GameWindow(arcade.Window):
             * map_battle: Normal 25v25 battle
             
         * Test Maps - Testing game features
+            * money_1: Testing money system.
             * sparse_1: 1v0 (Turret v Base)
             * sparse_2: 1v0 (Turret v Bases)
             * sparse_3: 1v1 (Turret v Turret)
@@ -145,6 +147,9 @@ class GameWindow(arcade.Window):
             },
             "foreground": {
                 "use_spatial_hashing": True
+            },
+            "units": {
+                "use_spatial_hashing": True
             }
         }
         self.tiled_map = arcade.load_tilemap(f"assets/images/maps/prototype_maps/{map_name}.json",
@@ -159,11 +164,11 @@ class GameWindow(arcade.Window):
         result = (setup_database.database_search(self.conn, "Player", 1))
         self.player_sprite = Player(name=result.name, tier=result.tier, team="Blue", x=200, y=200,
                                     path=result.path_to_blue, max_health=result.max_health,
-                                    starting_health=result.starting_health, speed=3)
+                                    starting_health=result.starting_health, speed=3.0)
         blue_player_list.append(self.player_sprite)
 
         # This converts all tiles on the foreground to a Building
-        for cur_tile in self.scene[LAYER_NAME_FOREGROUND]:
+        for cur_tile in self.scene[LAYER_NAME_UNITS]:
             result = setup_database.database_search(self.conn, cur_tile.properties["name"], cur_tile.properties["tier"])
             if cur_tile.properties["team"] == "Blue":
                 building = Building(name=result.name,
@@ -202,7 +207,20 @@ class GameWindow(arcade.Window):
         # self.scene.add_sprite_list(SCENE_NAME_RED_PLAYER, False, red_player_list)
         self.scene.add_sprite_list(SCENE_NAME_BLUE_BUILDING, False, blue_building_list)
         self.scene.add_sprite_list(SCENE_NAME_RED_BUILDING, False, red_building_list)
-        self.scene.remove_sprite_list_by_name(LAYER_NAME_FOREGROUND)
+        self.scene.remove_sprite_list_by_name(LAYER_NAME_UNITS)
+
+        # Hotbar setup
+        self.hotbar_selected = 0
+        self.hotbar_background = arcade.SpriteList()
+
+        x_pos = 300
+        for counter in range(1, 6):
+            hotbar = arcade.Sprite(f"assets/images/other_sprites/hotbar_background/hotbar_{counter}.png")
+            hotbar.position = (x_pos, 50)
+            self.hotbar_background.append(hotbar)
+            x_pos += 100
+
+        self.hotbar_items = [Hammer(300, 50), Pistol(400, 50), None, None, None]
 
         # Stolen from music_control_demo.py
         # This creates a "manager" for all our UI elements
@@ -217,43 +235,15 @@ class GameWindow(arcade.Window):
         press_texture = arcade.load_texture("assets/images/other_sprites/button_icons/button_selected.png")
 
         button_1 = BuildingButton(normal_texture, hover_texture, press_texture, "Turret", 1)
-
-        @button_1.event("on_click")
-        def selected(event):
-            for item in self.hotbar_items:
-                if isinstance(item, Hammer):
-                    name, tier = button_1.get_building_info()
-                    item.set_selected_building(name, tier)
-
         button_2 = BuildingButton(normal_texture, hover_texture, press_texture, "Turret", 2)
-
-        @button_2.event("on_click")
-        def selected(event):
-            for item in self.hotbar_items:
-                if isinstance(item, Hammer):
-                    name, tier = button_2.get_building_info()
-                    item.set_selected_building(name, tier)
 
         box.add(button_1.with_space_around(bottom=10))
         box.add(button_2.with_space_around(bottom=10))
         self.ui_manager.add(arcade.gui.UIAnchorWidget(child=box, align_x=400, align_y=200))
 
-        # Camera
+        # Camera (MUST GO AFTER BUTTONS!)
         self.camera = arcade.Camera(self.width, self.height)
         self.camera_gui = arcade.Camera(self.width, self.height)
-
-        # Hotbar setup
-        self.hotbar_selected = 0
-        self.hotbar_background = arcade.SpriteList()
-
-        x_pos = 300
-        for counter in range(1, 6):
-            hotbar = arcade.Sprite(f"assets/images/other_sprites/hotbar_background/hotbar_{counter}.png")
-            hotbar.position = (x_pos, 50)
-            self.hotbar_background.append(hotbar)
-            x_pos += 100
-
-        self.hotbar_items = [Hammer(300, 50), Pistol(400, 50), None, None, None]
 
         # Track state of movement
         self.left_pressed = False
@@ -346,13 +336,13 @@ class GameWindow(arcade.Window):
 
         # Check Button States, and move accordingly
         if self.left_pressed and not self.right_pressed:
-            self.player_sprite.change_x = -self.player_sprite.get_speed()
+            self.player_sprite.change_x = -self.player_sprite.speed
         elif self.right_pressed and not self.left_pressed:
-            self.player_sprite.change_x = self.player_sprite.get_speed()
+            self.player_sprite.change_x = self.player_sprite.speed
         if self.up_pressed and not self.down_pressed:
-            self.player_sprite.change_y = self.player_sprite.get_speed()
+            self.player_sprite.change_y = self.player_sprite.speed
         elif self.down_pressed and not self.up_pressed:
-            self.player_sprite.change_y = -self.player_sprite.get_speed()
+            self.player_sprite.change_y = -self.player_sprite.speed
 
         # If the player has moved, update the item based on the previous mouse position
         if self.up_pressed or self.down_pressed or self.left_pressed or self.right_pressed:

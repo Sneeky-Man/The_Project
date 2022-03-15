@@ -28,21 +28,18 @@ class Item(arcade.Sprite):
         :param float angle_correction: Used to correct the angle if you don't want it starting at the mouse (eg hammer)
         """
         super().__init__()
-        self.__name = name
+        self._name = name
         self.texture = arcade.load_texture(texture)
-        self.__path_to_texture = texture
-        self.__icon = arcade.Sprite(icon_texture)
-        self.__icon.position = (icon_x, icon_y)
-        self.__path_to_icon = icon_texture
-        self.__angle_correction = angle_correction
+        self._path_to_texture = texture
+        self._icon = arcade.Sprite(icon_texture)
+        self._icon.position = (icon_x, icon_y)
+        self._path_to_icon = icon_texture
+        self._angle_correction = angle_correction
 
         # Cooldown current will be added from delta time. Once current is >= to length, then an attack can commence.
         # Starts ready to use
-        self.__cooldown_length = cooldown_length
-        self.__cooldown_current = cooldown_length
-
-        # This is a backup. If the mouse hasn't been moved yet, it will default to the player.
-        window = arcade.get_window()
+        self._cooldown_length = cooldown_length
+        self._cooldown_current = cooldown_length
 
     def __repr__(self):
         """
@@ -51,8 +48,64 @@ class Item(arcade.Sprite):
         :return: A basic report of the Item
         :rtype: str
         """
-        return f"Item. Type: {self.get_name()!r}. " \
-               f"Texture: {self.get_texture()}. Icon Texture: {self.get_icon_texture()}"
+        return f"Item. Type: {self._name!r}. " \
+               f"Texture: {self._path_to_texture}. Icon Texture: {self._path_to_icon}"
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value: str):
+        self._name = value
+
+    @property
+    def cooldown_length(self):
+        return self._cooldown_length
+
+    @cooldown_length.setter
+    def cooldown_length(self, value: float):
+        self._cooldown_length = value
+
+    @property
+    def cooldown_current(self):
+        return self._cooldown_current
+
+    @cooldown_current.setter
+    def cooldown_current(self, value: float):
+        self._cooldown_current = value
+
+    @property
+    def path_to_texture(self):
+        return self._path_to_texture
+
+    @path_to_texture.setter
+    def path_to_texture(self, value: str):
+        self._path_to_texture = value
+
+    @property
+    def icon(self):
+        return self._icon
+
+    @icon.setter
+    def icon(self, value: arcade.Sprite):
+        self._icon = value
+
+    @property
+    def path_to_icon(self):
+        return self._path_to_icon
+
+    @path_to_icon.setter
+    def path_to_icon(self, value: str):
+        self._path_to_icon = value
+
+    @property
+    def angle_correction(self):
+        return self._angle_correction
+
+    @angle_correction.setter
+    def angle_correction(self, value: float):
+        self._angle_correction = value
 
     def on_click(self, x: float, y: float, button: int, modifiers: int):
         """
@@ -124,19 +177,19 @@ class Item(arcade.Sprite):
 
         # Set the enemy to face the player.
         angle = math.degrees(angle)
-        self.angle = -angle + 90 + self.get_angle_correction()
+        self.angle = -angle + 90 + self._angle_correction
 
     def on_update(self, delta_time: float = 1 / 60):
-        self.__cooldown_current += delta_time
+        self._cooldown_current += delta_time
 
     def draw(self):
         super().draw()
 
     def draw_icon(self):
-        self.__icon.draw()
+        self._icon.draw()
         if self.can_attack() is False:
-            x, y = self.get_icon_position()
-            cooldown_height = 64 * (self.get_cooldown_current() / self.get_cooldown_length())
+            x, y = self._icon.position
+            cooldown_height = 64 * (self._cooldown_current / self._cooldown_length)
             y = (y - (32 - (cooldown_height / 2)))
             arcade.draw_rectangle_filled(center_x=x,
                                          center_y=y,
@@ -144,19 +197,13 @@ class Item(arcade.Sprite):
                                          height=cooldown_height,
                                          color=(255, 255, 255, 30))
 
-    def get_name(self):
-        """
-        :return: The name of the Item
-        :rtype: str
-        """
-        return self.__name
 
     def can_attack(self):
         """
         :returns: True if cooldown is over, False is cooldown is still active
         :rtype: bool
         """
-        if self.__cooldown_current >= self.__cooldown_length:
+        if self._cooldown_current >= self._cooldown_length:
             return True
         else:
             return False
@@ -165,56 +212,7 @@ class Item(arcade.Sprite):
         """
         Resets the cooldown timer.
         """
-        self.__cooldown_current = 0
-
-    def get_cooldown_current(self):
-        """
-        :return: The current progress of the cooldown
-        :rtype: float
-        """
-        return self.__cooldown_current
-
-    def get_cooldown_length(self):
-        """
-        :return: The total length of the cooldown
-        :rtype: float
-        """
-        return self.__cooldown_length
-
-    def get_texture(self):
-        """
-        :return: Path to the texture
-        :rtype: str
-        """
-        return self.__path_to_texture
-
-    def get_icon_texture(self):
-        """
-        :return: The path to the icon texture
-        :rtype: str
-        """
-        return self.__path_to_texture
-
-    def get_icon_position(self):
-        """
-        :return: Position of the icon.
-        :rtype: int
-        """
-        return self.__icon.position
-
-    def set_icon_position(self, x: int, y: int):
-        """
-        :param x: X-Coordinate of the Icon
-        :param y: Y-Coordinate of the Icon
-        """
-        self.__icon.position = (x, y)
-
-    def get_angle_correction(self):
-        """
-        :return: The Angle Correction. Used in update_position()
-        :rtype: float
-        """
-        return self.__angle_correction
+        self._cooldown_current = 0
 
     def kill(self):
         super().kill()
@@ -259,21 +257,85 @@ class ItemWeapon(Item):
                          cooldown_length=cooldown_length,
                          angle_correction=angle_correction
                          )
-        self.__path_to_bullet = bullet_texture
-        self.__bullet_speed = bullet_speed
-        self.__bullet_damage = bullet_damage
-        self.__bullet_range = bullet_range
-        self.__max_inaccuracy = max_inaccuracy
-        self.__current_inaccuracy = self.__max_inaccuracy
-        self.__change_in_accuracy = 0.0
-        self.__aiming = False
+        self._path_to_bullet = bullet_texture
+        self._bullet_speed = bullet_speed
+        self._bullet_damage = bullet_damage
+        self._bullet_range = bullet_range
+        self._max_inaccuracy = max_inaccuracy
+        self._current_inaccuracy = self._max_inaccuracy
+        self._change_in_accuracy = 0.0
+        self._aiming = False
+
+    @property
+    def path_to_bullet(self):
+        return self._path_to_bullet
+
+    @path_to_bullet.setter
+    def path_to_bullet(self, value: str):
+        self._path_to_bullet = value
+
+    @property
+    def bullet_speed(self):
+        return self._bullet_speed
+
+    @bullet_speed.setter
+    def bullet_speed(self, value: float):
+        self._bullet_speed = value
+
+    @property
+    def bullet_damage(self):
+        return self._bullet_damage
+
+    @bullet_damage.setter
+    def bullet_damage(self, value: int):
+        self._bullet_damage = value
+
+    @property
+    def bullet_range(self):
+        return self._bullet_range
+
+    @bullet_range.setter
+    def bullet_range(self, value: int):
+        self._bullet_range = value
+
+    @property
+    def max_inaccuracy(self):
+        return self._max_inaccuracy
+
+    @max_inaccuracy.setter
+    def max_inaccuracy(self, value: float):
+        self._max_inaccuracy = value
+
+    @property
+    def current_inaccuracy(self):
+        return self._current_inaccuracy
+
+    @current_inaccuracy.setter
+    def current_inaccuracy(self, value: float):
+        self._current_inaccuracy = value
+        
+    @property
+    def change_in_accuracy(self):
+        return self._change_in_accuracy
+    
+    @change_in_accuracy.setter
+    def change_in_accuracy(self, value: float):
+        self._change_in_accuracy = value
+        
+    @property
+    def aiming(self):
+        return self._aiming
+    
+    @aiming.setter
+    def aiming(self, value: bool):
+        self._aiming = value
 
     def shoot(self):
-        speed = self.get_bullet_speed()
+        speed = self._bullet_speed
         angle = self.angle - 90
 
         # Random float between the two numbers (both included)
-        random_angle = random.uniform(-self.__current_inaccuracy, self.__current_inaccuracy)
+        random_angle = random.uniform(-self._current_inaccuracy, self._current_inaccuracy)
         angle += random_angle
 
         # Math stolen from asteroid_smasher.py
@@ -286,7 +348,7 @@ class ItemWeapon(Item):
 
         # Code stolen from asteroid_smasher.py
         angle = math.degrees(math.atan2(change_y, change_x)) - 90
-        bullet = ItemBullet(path=self.get_bullet_texture(),
+        bullet = ItemBullet(path=self._path_to_bullet,
                             x=self.center_x,
                             y=self.center_y,
                             angle=angle,
@@ -294,9 +356,9 @@ class ItemWeapon(Item):
                             change_x=change_x,
                             change_y=change_y,
                             team="Blue",
-                            damage=self.get_bullet_damage(),
-                            shot_from=f"Item. Shot from: {self.get_name()!r}",
-                            max_range=self.get_bullet_range())
+                            damage=self._bullet_damage,
+                            shot_from=f"Item. Shot from: {self._name!r}",
+                            max_range=self._bullet_range)
 
         window = arcade.get_window()
         for player in window.scene[SCENE_NAME_BLUE_PLAYER]:
@@ -307,41 +369,41 @@ class ItemWeapon(Item):
         This aims the weapon, making it more accurate
         :param change_in_accuracy: How quickly the weapon becomes accurate
         """
-        if self.__current_inaccuracy - change_in_accuracy < 0:
-            self.__current_inaccuracy = 0.0
-            self.__change_in_accuracy = 0.0
+        if self._current_inaccuracy - change_in_accuracy < 0:
+            self._current_inaccuracy = 0.0
+            self._change_in_accuracy = 0.0
         else:
-            self.__change_in_accuracy = change_in_accuracy
-        self.__aiming = True
+            self._change_in_accuracy = change_in_accuracy
+        self._aiming = True
 
     def stop_aiming(self):
         """
         This stops aiming the weapon, and set the
         :return:
         """
-        self.__current_inaccuracy = self.__max_inaccuracy
-        self.__change_in_accuracy = 0.0
-        self.__aiming = False
+        self._current_inaccuracy = self._max_inaccuracy
+        self._change_in_accuracy = 0.0
+        self._aiming = False
 
     def on_update(self, delta_time: float = 1 / 60):
         super().on_update()
-        if self.__aiming is True:
-            if self.__current_inaccuracy - self.__change_in_accuracy < 0:
-                self.__current_inaccuracy = 0.0
-                self.__change_in_accuracy = 0.0
+        if self._aiming is True:
+            if self._current_inaccuracy - self._change_in_accuracy < 0:
+                self._current_inaccuracy = 0.0
+                self._change_in_accuracy = 0.0
             else:
-                self.__current_inaccuracy -= self.__change_in_accuracy
+                self._current_inaccuracy -= self._change_in_accuracy
 
     def draw(self):
         super().draw()
-        if self.__aiming is True:
+        if self._aiming is True:
             window = arcade.get_window()
 
             start_x = self.center_x
             start_y = self.center_y
 
-            x1, y1 = self.get_end_point(start_x, start_y, self.angle - self.__current_inaccuracy, self.__bullet_range)
-            x2, y2 = self.get_end_point(start_x, start_y, self.angle + self.__current_inaccuracy, self.__bullet_range)
+            x1, y1 = self.get_end_point(start_x, start_y, self.angle - self._current_inaccuracy, self._bullet_range)
+            x2, y2 = self.get_end_point(start_x, start_y, self.angle + self._current_inaccuracy, self._bullet_range)
 
             arcade.draw_line(start_x, start_y, x1, y1, (255, 0, 0, 75), 2)
             arcade.draw_line(start_x, start_y, x2, y2, (255, 0, 0, 75), 2)
@@ -366,48 +428,6 @@ class ItemWeapon(Item):
         # print(f"Start Point: {start_x, start_y}. End Points: {x, y}")
         return (x, y)
 
-    def get_bullet_texture(self):
-        """
-        :return: The path to the bullet
-        :rtype: str
-        """
-        return self.__path_to_bullet
-
-    def get_bullet_speed(self):
-        """
-        :return: The speed of the bullet
-        :rtype: float
-        """
-        return self.__bullet_speed
-
-    def get_bullet_damage(self):
-        """
-        :return: The damage of the bullet
-        :rtype: int
-        """
-        return self.__bullet_damage
-
-    def get_bullet_range(self):
-        """
-        :return: The range of the bullet
-        :rtype: int
-        """
-        return self.__bullet_range
-
-    def get_max_inaccuracy(self):
-        """
-        :return: The maximum inaccuracy of the weapon
-        :rtype: float
-        """
-        return self.__max_inaccuracy
-
-    def get_current_inaccuracy(self):
-        """
-        :return: The current inaccuracy of the weapon
-        :rtype: float
-        """
-        return self.__current_inaccuracy
-
 
 class Hammer(Item):
     def __init__(self, icon_x: int, icon_y: int):
@@ -427,8 +447,24 @@ class Hammer(Item):
                          )
 
         # This sets the defaults
-        self.__selected_building_name = "Turret"
-        self.__selected_building_tier = 1
+        self._selected_building_name = "Turret"
+        self._selected_building_tier = 1
+
+    @property
+    def selected_building_name(self):
+        return self._selected_building_name
+
+    @selected_building_name.setter
+    def selected_building_name(self, value: str):
+        self._selected_building_name = value
+
+    @property
+    def selected_building_tier(self):
+        return self._selected_building_tier
+
+    @selected_building_tier.setter
+    def selected_building_tier(self, value: int):
+        self._selected_building_tier = value
 
     def left_click(self, x: float, y: float):
         """
@@ -499,7 +535,7 @@ class Hammer(Item):
                     arcade.get_sprites_at_point((tile.center_x, tile.center_y), window.scene[SCENE_NAME_BLUE_PLAYER])]
 
                 if list == [[], [], []]:
-                    result = (database_search(window.conn, self.__selected_building_name, self.__selected_building_tier))
+                    result = (database_search(window.conn, self._selected_building_name, self._selected_building_tier))
                     building = BeingBuilt(name=result.name,
                                           tier=result.tier,
                                           team="Blue",
@@ -515,6 +551,7 @@ class Hammer(Item):
                     window.scene.add_sprite(SCENE_NAME_BLUE_BUILDING, building)
                     self.reset_cooldown()
 
+
     def right_click_release(self, x: float, y: float):
         """
         Runs when the right click has stopped being pressed.
@@ -523,15 +560,6 @@ class Hammer(Item):
         :param y: Y-Coord of click.
         """
         pass
-
-    def set_selected_building(self, name, tier):
-        """
-        Sets the selected building of the hammer.
-        :param name: Name of the building.
-        :param tier: Tier of the building
-        """
-        self.__selected_building_name = name
-        self.__selected_building_tier = tier
 
 
 class Pistol(ItemWeapon):

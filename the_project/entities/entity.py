@@ -4,7 +4,8 @@ from the_project.special_scripts.fading_text import FadingText
 
 
 class Entity(arcade.Sprite):
-    def __init__(self, name: str, tier: int, team: str, path: str, x: int, y: int, max_health: int, starting_health: int):
+    def __init__(self, name: str, tier: int, team: str, path: str, x: int, y: int, max_health: int,
+                 starting_health: int):
         """
         This is the class that will be the building block for the rest of the special entities.
         __variables are not to be altered outside the class
@@ -19,10 +20,10 @@ class Entity(arcade.Sprite):
         :param starting_health: The starting health of the entity.
         """
         super().__init__()
-        self.__name = name
-        self.__tier = tier
-        self.__team = team
-        self.__path_to_texture = path
+        self._name = name
+        self._tier = tier
+        self._team = team
+        self._path_to_texture = path
         self.center_x = x
         self.center_y = y
 
@@ -30,16 +31,14 @@ class Entity(arcade.Sprite):
             logging.error(
                 f"'Entity.__init__ - In - 'Entity'. Starting health was larger than max health! {starting_health} > {max_health}."
                 f" Setting max health to starting health.")
-            self.__max_health = starting_health
-            self.__current_health = starting_health
+            self._max_health = starting_health
+            self._current_health = starting_health
         else:
-            self.__max_health = max_health
-            self.__current_health = starting_health
-
-
+            self._max_health = max_health
+            self._current_health = starting_health
 
         self.texture = arcade.load_texture(path)
-        self.__targetted_by = []
+        self._targetted_by = []
         # self.__text_list = []
 
     def __repr__(self):
@@ -49,7 +48,7 @@ class Entity(arcade.Sprite):
         :return: A basic report of the sprite
         :rtype: str
         """
-        return f"Entity. {self.__name!r}, {self.__tier!r}, {self.__team!r}. ({self.center_x!r},{self.center_y!r})."
+        return f"Entity. {self._name!r}, {self._tier!r}, {self._team!r}. ({self.center_x!r},{self.center_y!r})."
 
     def longer_report(self):
         """
@@ -58,62 +57,89 @@ class Entity(arcade.Sprite):
         :return: A detailed report of the Building
         :rtype: str
         """
-        return_string = (f"Entity. {self.__name}, {self.__tier}, {self.__team}. ({self.center_x},{self.center_y}), "
-                         f"{self.__path_to_texture}")
+        return_string = (f"Entity. {self._name}, {self._tier}, {self._team}. ({self.center_x},{self.center_y}), "
+                         f"{self._path_to_texture}")
 
         return_string += f"Currently Targetted By: \n{self.get_targetted_by()!r}"
         return return_string
 
+    @property
+    def name(self):
+        return self._name
 
-    def get_name(self):
-        """
-        :return: The name of the entity
-        :rtype: str
-        """
-        return self.__name
+    @name.setter
+    def name(self, value: str):
+        self._name = value
 
-    def get_tier(self):
-        """
-        :return: The tier of the entity
-        :rtype: int
-        """
-        return self.__tier
+    @property
+    def tier(self):
+        return self._tier
 
-    def get_team(self):
-        """
-        :return: The team of the entity
-        :rtype: str
-        """
-        return self.__team
+    @tier.setter
+    def tier(self, value: int):
+        self._tier = value
 
-    def get_path(self):
-        """
-        :return: The path of the entity
-        :rtype: str
-        """
-        return self.__path_to_texture
+    @property
+    def team(self):
+        return self._team
 
-    def get_current_health(self):
-        """
-        :return: The health of the Entity.
-        :rtype: int
-        """
-        return self.__current_health
+    @team.setter
+    def team(self, value: str):
+        self._team = value
 
-    def set_current_health(self, new_health: int):
-        """
-        Sets the health of the entity to a value.
+    @property
+    def path_to_texture(self):
+        return self._path_to_texture
 
-        :param new_health: The new health of the entity
+    @path_to_texture.setter
+    def path_to_texture(self, value: str):
+        self._path_to_texture = value
+
+    @property
+    def targetted_by(self):
+        return self._targetted_by
+
+    def add_targetted_by(self, target: arcade.Sprite):
         """
-        if new_health > self.__max_health:
-            logging.error(
-                f"'Entity.set_current_health - In - 'Entity'. New health was larger than max health! {new_health} > {self.__max_health}."
-                f" Setting the health to max health.")
-        elif new_health <= 0:
+        Adds a sprite to the targetted_by list
+
+        :param target: The sprite that needs added
+        """
+        self._targetted_by.append(target)
+
+    def remove_targetted_by(self, target):
+        """
+        Removes a sprite from the targetted_by list
+        :param target: The sprite that needs removed
+        """
+        while target in self._targetted_by:
+            self._targetted_by.remove(target)
+
+    @property
+    def current_health(self):
+        return self._current_health
+
+    @property
+    def max_health(self):
+        return self._max_health
+
+    @max_health.setter
+    def max_health(self, value: int):
+        if value <= 0:
             self.kill()
         else:
-            self.__current_health = new_health
+            self._max_health = value
+
+    @current_health.setter
+    def current_health(self, value: int):
+        if value > self._max_health:
+            logging.error(
+                f"'Entity.set_current_health - In - 'Entity'. New health was larger than max health! {value} > {self._max_health}."
+                f" Setting the health to max health.")
+        elif value <= 0:
+            self.kill()
+        else:
+            self._current_health = value
 
     def change_current_health(self, amount: int):
         """
@@ -122,70 +148,27 @@ class Entity(arcade.Sprite):
         :returns: True if the Entity has been killed, False if its still alive
         :rtype: bool
         """
-        if self.__current_health + amount >= self.__max_health:
-            self.__current_health = self.__max_health
+        if self._current_health + amount >= self._max_health:
+            self._current_health = self._max_health
             # self.__text_list.append(FadingText(amount=amount, x=self.center_x, y=self.center_y, is_damage=False))
             return False
-        elif self.__current_health + amount <= 0:
+        elif self._current_health + amount <= 0:
             self.kill()
             return True
         else:
-            self.__current_health += amount
+            self._current_health += amount
             # self.__text_list.append(FadingText(amount=amount, x=self.center_x, y=self.center_y, is_damage=True))
             return False
-
-    def get_max_health(self):
-        """
-        :return: The maximum health the entity can have.
-        :rtype: int
-        """
-        return self.__max_health
-
-    def set_max_health(self, new_health: int):
-        """
-        Sets the max health of the entity to a value.
-
-        :param new_health: The new max health of the entity
-        """
-        if new_health <= 0:
-            self.kill()
-        else:
-            self.__max_health = new_health
 
     def change_max_health(self, amount: int):
         """
         Change the max health of the entity.
         :param amount: The amount to change it by. Can be positive or negative
         """
-        if self.__max_health - amount <= 0:
+        if self._max_health - amount <= 0:
             self.kill()
         else:
-            self.__max_health += amount
-
-    def add_targetted_by(self, target: arcade.Sprite):
-        """
-        Adds a sprite to the targetted_by list
-
-        :param target: The sprite that needs added
-        """
-        self.__targetted_by.append(target)
-
-    def remove_targetted_by(self, target):
-        """
-        Removes a sprite from the targetted_by list
-        :param target: The sprite that needs removed
-        """
-        while target in self.__targetted_by:
-            self.__targetted_by.remove(target)
-
-    def get_targetted_by(self):
-        """
-        Used for debugging purposes.
-
-        :return: The Targetted_By List
-        :rtype: list
-        """
-        return self.__targetted_by
+            self._max_health += amount
 
     def same_team(self, entity: object):
         """
@@ -195,7 +178,7 @@ class Entity(arcade.Sprite):
         :return: True if same team, False if on other team
         :rtype: bool
         """
-        if self.get_team() == entity.get_team():
+        if self.team == entity.team:
             return True
         else:
             return False
@@ -203,8 +186,8 @@ class Entity(arcade.Sprite):
     def draw(self):
         # Health bar code stolen from sprite_health.py
         # Not showing health bar on full health saves a lot on performance, especially for non-attack tests
-        if self.__current_health != self.__max_health:
-            health_width = 32 * (self.__current_health / self.__max_health)
+        if self._current_health != self._max_health:
+            health_width = 32 * (self._current_health / self._max_health)
             arcade.draw_rectangle_filled(center_x=self.center_x,
                                          center_y=self.center_y - 25,
                                          width=health_width,
@@ -221,7 +204,7 @@ class Entity(arcade.Sprite):
         This deletes the sprite from all sprite lists
         """
         # For all the people targeting me, make their target None
-        for target in self.__targetted_by:
-            target.remove_target()
+        for target in self._targetted_by:
+            target._target = None
         # self.__text_list = None
         super().kill()
