@@ -20,24 +20,35 @@ class Resource(arcade.Sprite):
         self.center_y = y
         self._occupied = False
 
-
     @property
-    def _name(self):
+    def name(self):
         return self._name
 
+    @name.setter
+    def name(self, value: str):
+        self._name = value
+
     @property
-    def _tier(self):
+    def tier(self):
         return self._tier
 
+    @tier.setter
+    def tier(self, value: int):
+        self._tier = value
+
     @property
-    def _path_to_texture(self):
+    def path_to_texture(self):
         return self._path_to_texture
 
+    @path_to_texture.setter
+    def path_to_texture(self, value: str):
+        self._path_to_texture = value
+
     @property
-    def _occupied(self):
+    def occupied(self):
         return self._occupied
 
-    @_occupied.setter
-    def _occupied(self, value: bool):
+    @occupied.setter
+    def occupied(self, value: bool):
         self._occupied = value
 

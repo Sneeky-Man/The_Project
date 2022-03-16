@@ -9,7 +9,7 @@ from the_project.database import setup_database
 from the_project.entities.building import Building
 from the_project.entities.player import Player
 from the_project.special_scripts.items import Hammer, Pistol
-from the_project.special_scripts.buttons import BuildingButton
+from the_project.special_scripts.buttons import BuildingButton, ButtonGroup
 
 """
 Map Layers
@@ -20,7 +20,7 @@ background: This is ground (dirt, grass) ect.
 
 
 class GameWindow(arcade.Window):
-    def __init__ (self, width: int, height: int, title: str, conn: object):
+    def __init__(self, width: int, height: int, title: str, conn: object):
         """
         This is the main window which all things will run on.
 
@@ -234,8 +234,13 @@ class GameWindow(arcade.Window):
         hover_texture = arcade.load_texture("assets/images/other_sprites/button_icons/button_hover.png")
         press_texture = arcade.load_texture("assets/images/other_sprites/button_icons/button_selected.png")
 
-        button_1 = BuildingButton(normal_texture, hover_texture, press_texture, "Turret", 1)
-        button_2 = BuildingButton(normal_texture, hover_texture, press_texture, "Turret", 2)
+        button_1 = BuildingButton(normal_texture, hover_texture, press_texture, press_texture, "Turret", 1)
+        button_2 = BuildingButton(normal_texture, hover_texture, press_texture, press_texture, "Turret", 2)
+
+        self.button_group = ButtonGroup()
+        self.button_group.add(button_1)
+        self.button_group.add(button_2)
+        self.button_group.activate_button(button_1)
 
         box.add(button_1.with_space_around(bottom=10))
         box.add(button_2.with_space_around(bottom=10))
@@ -414,6 +419,7 @@ class GameWindow(arcade.Window):
             # print(f"Mouse Coords: {self.mouse['x'], self.mouse['y']}. Camera Coords: {self.camera.position}. Player "
             #       f"Position: {self.scene[SCENE_NAME_BLUE_PLAYER][0].position}. "
             #       f"Actual Coords: {x_from_player, y_from_player}")
+
             if self.cur_map + 1 >= len(self.proto_map_list):
                 self.cur_map = 0
             else:

@@ -187,7 +187,7 @@ class Item(arcade.Sprite):
 
     def draw_icon(self):
         self._icon.draw()
-        if self.can_attack() is False:
+        if self.cooldown_over() is False:
             x, y = self._icon.position
             cooldown_height = 64 * (self._cooldown_current / self._cooldown_length)
             y = (y - (32 - (cooldown_height / 2)))
@@ -197,8 +197,7 @@ class Item(arcade.Sprite):
                                          height=cooldown_height,
                                          color=(255, 255, 255, 30))
 
-
-    def can_attack(self):
+    def cooldown_over(self):
         """
         :returns: True if cooldown is over, False is cooldown is still active
         :rtype: bool
@@ -231,7 +230,8 @@ class ItemWeapon(Item):
                  bullet_speed: float,
                  bullet_damage: int,
                  bullet_range: int,
-                 max_inaccuracy: float
+                 max_inaccuracy: float,
+                 clip_size: int
                  ):
         """
         This is an advanced version of the item, specialising in guns like pistols and shotguns.
@@ -248,6 +248,7 @@ class ItemWeapon(Item):
         :param int bullet_damage: Damage of the Bullet
         :param int bullet_range: Range of the Bullet
         :param float max_inaccuracy: The maximum amount the weapons can vary
+        :param int clip_size: The number of bullets the gun can fire before it needs ot reload.
         """
         super().__init__(name=name,
                          texture=texture,
@@ -265,6 +266,8 @@ class ItemWeapon(Item):
         self._current_inaccuracy = self._max_inaccuracy
         self._change_in_accuracy = 0.0
         self._aiming = False
+        self._clip_size = clip_size
+        self._current_clip = self._clip_size
 
     @property
     def path_to_bullet(self):
@@ -313,22 +316,38 @@ class ItemWeapon(Item):
     @current_inaccuracy.setter
     def current_inaccuracy(self, value: float):
         self._current_inaccuracy = value
-        
+
     @property
     def change_in_accuracy(self):
         return self._change_in_accuracy
-    
+
     @change_in_accuracy.setter
     def change_in_accuracy(self, value: float):
         self._change_in_accuracy = value
-        
+
     @property
     def aiming(self):
         return self._aiming
-    
+
     @aiming.setter
     def aiming(self, value: bool):
         self._aiming = value
+
+    @property
+    def clip_size(self):
+        return self._clip_size
+
+    @clip_size.setter
+    def clip_size(self, value: int):
+        self._clip_size = value
+
+    @property
+    def current_clip(self):
+        return self._current_clip
+
+    @current_clip.setter
+    def current_clip(self, value: int):
+        self._current_clip = value
 
     def shoot(self):
         speed = self._bullet_speed
@@ -363,6 +382,7 @@ class ItemWeapon(Item):
         window = arcade.get_window()
         for player in window.scene[SCENE_NAME_BLUE_PLAYER]:
             player.add_bullet(bullet=bullet)
+        self._current_clip -= 1
 
     def aim(self, change_in_accuracy):
         """
@@ -384,6 +404,22 @@ class ItemWeapon(Item):
         self._current_inaccuracy = self._max_inaccuracy
         self._change_in_accuracy = 0.0
         self._aiming = False
+
+    def clip_empty(self):
+        """
+        :returns: True if clip is empty is over, Else False
+        :rtype: bool
+        """
+        if self._current_clip > 0:
+            return False
+        else:
+            return True
+
+    def reset_clip(self):
+        """
+        Resets the current clip to the clip size
+        """
+        self._current_clip = self._clip_size
 
     def on_update(self, delta_time: float = 1 / 60):
         super().on_update()
@@ -474,7 +510,7 @@ class Hammer(Item):
         :param float y: Y-Coord of click.
         """
         # This will not work if the player is red!
-        if self.can_attack() is True:
+        if self.cooldown_over() is True:
             window = arcade.get_window()
             x2, y2 = window.scene[SCENE_NAME_BLUE_PLAYER][0].position
             true_mouse_x = (window.mouse['x'] + x2 - 500)
@@ -507,7 +543,7 @@ class Hammer(Item):
         :param float x: X-Coord of click.
         :param float y: Y-Coord of click.
         """
-        if self.can_attack() is True:
+        if self.cooldown_over() is True:
             window = arcade.get_window()
 
             # This method is used, as the alternative is using get_sprites_at_point() with the background, and
@@ -551,7 +587,6 @@ class Hammer(Item):
                     window.scene.add_sprite(SCENE_NAME_BLUE_BUILDING, building)
                     self.reset_cooldown()
 
-
     def right_click_release(self, x: float, y: float):
         """
         Runs when the right click has stopped being pressed.
@@ -581,7 +616,8 @@ class Pistol(ItemWeapon):
                          bullet_speed=10,
                          bullet_damage=100,
                          bullet_range=500,
-                         max_inaccuracy=20
+                         max_inaccuracy=20,
+                         clip_size=10
                          )
 
     def left_click(self, x: float, y: float):
@@ -591,9 +627,11 @@ class Pistol(ItemWeapon):
         :param x: X-Coord of click.
         :param y: Y-Coord of click.
         """
-        if self.can_attack() is True:
-            self.reset_cooldown()
-            self.shoot()
+        if self.cooldown_over() is True:
+            if self.clip_empty() is not True:
+                if self._current_clip > 0:
+                    self.reset_cooldown()
+                    self.shoot()
 
     def left_click_release(self, x: float, y: float):
         """

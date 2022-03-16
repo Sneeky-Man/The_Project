@@ -28,11 +28,11 @@ class BeingBuilt(Entity):
                          starting_health=starting_health)
 
         # Once this reaches building_max, the building will become a actual Building
-        self.__built_status = 20
-        self.__built_max = 100
-        self.__building_variable_radius = radius
-        self.__building_variable_bullet_damage = bullet_damage
-        self.__building_variable_bullet_speed = bullet_speed
+        self._built_status = 20
+        self._built_max = 100
+        self._building_variable_radius = radius
+        self._building_variable_bullet_damage = bullet_damage
+        self._building_variable_bullet_speed = bullet_speed
 
     def __repr__(self):
         """
@@ -41,7 +41,7 @@ class BeingBuilt(Entity):
         :return: A basic report of the sprite
         :rtype: str
         """
-        return f"Building, Being Built. {self.get_name()}, {self.get_tier()}, {self.get_team()}. " \
+        return f"Building, Being Built. {self._name}, {self._tier}, {self._team}. " \
                f"({self.center_x},{self.center_y})."
 
     def longer_report(self):
@@ -51,12 +51,52 @@ class BeingBuilt(Entity):
         :return: A detailed report of the Building
         :rtype: str
         """
-        return_string = (f"Building, Being Built. {self.get_name()}, {self.get_tier()}, {self.get_team()}. "
-                         f"({self.center_x},{self.center_y}). {self.get_path()}. "
-                         f"Built Status: {((self.__built_status / self.__built_max) * 100)}. "
-                         f"Currently Targetted By: \n{self.get_targetted_by()!r}")
+        return_string = (f"Building, Being Built. {self._name}, {self._tier}, {self._team}. "
+                         f"({self.center_x},{self.center_y}). {self._path_to_texture}. "
+                         f"Built Status: {((self._built_status / self._built_max) * 100)}. "
+                         f"Currently Targetted By: \n{self._targetted_by!r}")
 
         return return_string
+    
+    @property
+    def built_status(self):
+        return self._built_status
+    
+    @built_status.setter
+    def built_status(self, value: int):
+        self._built_status = value
+        
+    @property
+    def build_max(self):
+        return self._built_max
+    
+    @build_max.setter
+    def build_max(self, value: int):
+        self._built_max = value
+        
+    @property
+    def building_variable_radius(self):
+        return self._building_variable_radius
+    
+    @building_variable_radius.setter
+    def building_variable_radius(self, value: int):
+        self._building_variable_radius = value
+        
+    @property
+    def building_variable_bullet_damage(self):
+        return self._building_variable_bullet_damage
+    
+    @building_variable_bullet_damage.setter
+    def building_variable_bullet_damage(self, value: int):
+        self._building_variable_bullet_damage = value
+        
+    @property
+    def building_variable_bullet_speed(self):
+        return self._building_variable_bullet_speed
+    
+    @building_variable_bullet_speed.setter
+    def building_variable_bullet_speed(self, value: float):
+        self._building_variable_bullet_speed = value
     
     def change_built_status(self, amount: int):
         """
@@ -64,29 +104,29 @@ class BeingBuilt(Entity):
         :param amount: The amount to change it by. Can be positive or negative.
         :rtype: bool
         """
-        if self.__built_status + amount >= self.__built_max:
+        if self._built_status + amount >= self._built_max:
             self.turn_into_building()
 
         else:
-            self.__built_status += amount
+            self._built_status += amount
 
     def turn_into_building(self):
         """
         Turns the BeingBuilt into an actual building.
         """
         window = arcade.get_window()
-        building = Building(name=self.get_name(),
-                            tier=self.get_tier(),
-                            team=self.get_team(),
-                            path=self.get_path(),
+        building = Building(name=self._name,
+                            tier=self._tier,
+                            team=self._team,
+                            path=self._path_to_texture,
                             x=self.center_x,
                             y=self.center_y,
-                            starting_health=self.get_max_health(),
-                            max_health=self.get_max_health(),
-                            radius=self.__building_variable_radius,
-                            bullet_damage=self.__building_variable_bullet_damage,
-                            bullet_speed=self.__building_variable_bullet_speed)
-        if self.get_team() == "Blue":
+                            starting_health=self._max_health,
+                            max_health=self._max_health,
+                            radius=self._building_variable_radius,
+                            bullet_damage=self._building_variable_bullet_damage,
+                            bullet_speed=self._building_variable_bullet_speed)
+        if self._team == "Blue":
             window.scene.add_sprite(SCENE_NAME_BLUE_BUILDING, building)
         else:
             window.scene.add_sprite(SCENE_NAME_RED_BUILDING, building)
@@ -101,7 +141,7 @@ class BeingBuilt(Entity):
 
     def kill(self):
         window = arcade.get_window()
-        if self.get_team() == "Blue":
+        if self._team == "Blue":
             window.scene[SCENE_NAME_BLUE_BUILDING].remove(self)
         else:
             window.scene[SCENE_NAME_RED_BUILDING].remove(self)
@@ -111,5 +151,5 @@ class BeingBuilt(Entity):
         """
         Draws the building.
         """
-        self.alpha = ((self.__built_status / self.__built_max) * 255)
+        self.alpha = ((self._built_status / self._built_max) * 255)
         super().draw()

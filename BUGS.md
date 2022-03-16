@@ -8,6 +8,8 @@
 ##### This bug is a big problem but is either not game breaking, or happens very irregularly
 * Grabbing the screen and moving it will cause the game to slow to about 30fps, causing bullets to fire faster
 * Using arcade.Text to draw text sometimes causes big red lines to appear. This is likely a bug within arcade.
+* When moving and aiming, the red line in not accurate to the cursor
+(probably because it's not taking into account the player movement)
 
 ### Minor
 ##### This bug is a minor problem, due to its lack of severity or extreme rarity

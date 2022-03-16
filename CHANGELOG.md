@@ -249,3 +249,11 @@ Removed the range detector technique, and replaced it with arcade.get_closest_sp
 * Added game_test_map_money_1.json. This is for testing the money system
 * Added a prototype non_building tile set (this is largely for resources.)
 * Added prototype_gold.png, a very temp gold picture to base the money system on.
+
+## 16/03/22 23:10
+* Changed more __variables into _ ones that I missed the first time (BeingBuilt)
+* Changed how the cooldown system on buildings work to match the cooldown system on the Items
+* Reworked how BuildingButtons work, to have one button always pressed (Radio Buttons). Code from  Eruvanos|Maic#8488 on discord.
+* Renamed can_attack to cooldown_over.
+* Added the Units layer to perf map 7, as it was missed last time.
+* Redone properties in the unfinished Resource class
