@@ -225,7 +225,6 @@ class GameWindow(arcade.Window):
         # Stolen from music_control_demo.py
         # This creates a "manager" for all our UI elements
         self.ui_manager = arcade.gui.UIManager(self)
-        self.ui_manager.enable()
 
         box = arcade.gui.UIBoxLayout(x=100, y=300)
 
@@ -245,6 +244,7 @@ class GameWindow(arcade.Window):
         box.add(button_1.with_space_around(bottom=10))
         box.add(button_2.with_space_around(bottom=10))
         self.ui_manager.add(arcade.gui.UIAnchorWidget(child=box, align_x=400, align_y=200))
+        self.ui_manager.disable()
 
         # Camera (MUST GO AFTER BUTTONS!)
         self.camera = arcade.Camera(self.width, self.height)
@@ -295,7 +295,8 @@ class GameWindow(arcade.Window):
         self.camera_gui.use()
 
         # This draws our UI elements
-        self.ui_manager.draw()
+        if self.ui_manager._enabled is True:
+            self.ui_manager.draw()
 
         for item in self.hotbar_items:
             if item is not None:
@@ -381,19 +382,35 @@ class GameWindow(arcade.Window):
             if num_key == self.hotbar_selected:
                 self.hotbar_background[num_key - 1].texture = arcade.load_texture(
                     f"assets/images/other_sprites/hotbar_background/hotbar_{num_key}.png")
+                if self.hotbar_items[self.hotbar_selected - 1] is not None:
+                    self.hotbar_items[self.hotbar_selected - 1].on_unequip()
                 self.hotbar_selected = 0
 
             # If the key that was pressed was not the selected one
             else:
+                # If the selected hotbar wasn't nothing
                 if self.hotbar_selected != 0:
+                    # Unselect the original
                     self.hotbar_background[self.hotbar_selected - 1].texture = arcade.load_texture(
                         f"assets/images/other_sprites/hotbar_background/hotbar_{self.hotbar_selected}.png")
+                    if self.hotbar_items[self.hotbar_selected - 1] is not None:
+                        self.hotbar_items[self.hotbar_selected - 1].on_unequip()
+
+                # Select the new one
                 self.hotbar_background[num_key - 1].texture = arcade.load_texture(
                     f"assets/images/other_sprites/hotbar_background/hotbar_selected_{num_key}.png")
+
                 self.hotbar_selected = num_key
+                if self.hotbar_items[self.hotbar_selected - 1] is not None:
+                    self.hotbar_items[self.hotbar_selected - 1].on_equip()
+
 
         elif key == arcade.key.SPACE and self.debug is True:
             self.debug_start = True
+
+        elif key == arcade.key.R:
+            if self.hotbar_items[self.hotbar_selected - 1] is not None:
+                self.hotbar_items[self.hotbar_selected - 1].on_key_press(key, modifiers)
 
     def on_key_release(self, key, modifiers):
         """

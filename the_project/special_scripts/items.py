@@ -118,17 +118,10 @@ class Item(arcade.Sprite):
         See :ref:`keyboard_modifiers`.
         """
         if button == 1:
-            try:
-                self.left_click(x=x, y=y)
-            except AttributeError as error:
-                logging.error(f"Item.on_click - In - 'Item'. Likely triggered due to self.left_click() not existing, "
-                              f"as it likely has not been implemented. {self.__repr__()} Error: {error}")
+            self.left_click(x=x, y=y)
+
         elif button == 4:
-            try:
-                self.right_click(x=x, y=y)
-            except AttributeError as error:
-                logging.error(f"Item.on_click - In - 'Item'. Likely triggered due to self.right_click() not existing, "
-                              f"as it likely has not been implemented. {self.__repr__()} Error: {error}")
+            self.right_click(x=x, y=y)
 
     def on_release(self, x: float, y: float, button: int, modifiers: int):
         """
@@ -141,17 +134,68 @@ class Item(arcade.Sprite):
         See :ref:`keyboard_modifiers`.
         """
         if button == 1:
-            try:
-                self.left_click_release(x=x, y=y)
-            except AttributeError as error:
-                logging.error(f"Item.on_release - In - 'Item'. Likely triggered due to self.left_click_release() not "
-                              f"existing, as it likely has not been implemented. {self.__repr__()} Error: {error}")
+            self.left_click_release(x=x, y=y)
+
         elif button == 4:
-            try:
-                self.right_click_release(x=x, y=y)
-            except AttributeError as error:
-                logging.error(f"Item.on_release - In - 'Item'. Likely triggered due to self.right_click_release() not "
-                              f"existing, as it likely has not been implemented. {self.__repr__()} Error: {error}")
+            self.right_click_release(x=x, y=y)
+
+    def left_click(self, x: float, y: float):
+        """
+        Runs when the left click is called.
+
+        :param float x: X-Coord of click.
+        :param float y: Y-Coord of click.
+        """
+        pass
+
+    def left_click_release(self, x: float, y: float):
+        """
+        Runs when the left click has stopped being pressed.
+
+        :param x: X-Coord of click.
+        :param y: Y-Coord of click.
+        """
+        pass
+
+    def right_click(self, x: float, y: float):
+        """
+        Runs when the right click is called.
+
+        :param float x: X-Coord of click.
+        :param float y: Y-Coord of click.
+        """
+        pass
+
+    def right_click_release(self, x: float, y: float):
+        """
+        Runs when the right click has stopped being pressed.
+
+        :param x: X-Coord of click.
+        :param y: Y-Coord of click.
+        """
+        pass
+
+    def on_key_press(self, key: int, modifiers: int):
+        """
+        Runs when the player presses a certain key on the keyboard (not WASD, Space Ect)
+
+        :param key: Number value of the key being pressed (For example, the R key is number 114)
+        :param modifiers: Bitwise 'and' of all modifiers (shift, ctrl, num lock) pressed during this event.
+        See :ref:`keyboard_modifiers`.
+        """
+        pass
+
+    def on_equip(self):
+        """
+        Runs when equipped from the hotbar (i.e your currently active tool).
+        """
+        pass
+
+    def on_unequip(self):
+        """
+        Runs when unequipped from the hotbar (i.e your currently active tool).
+        """
+        pass
 
     def update_position(self):
         """
@@ -231,7 +275,9 @@ class ItemWeapon(Item):
                  bullet_damage: int,
                  bullet_range: int,
                  max_inaccuracy: float,
-                 clip_size: int
+                 change_in_accuracy: float,
+                 clip_size: int,
+                 reload_time: float
                  ):
         """
         This is an advanced version of the item, specialising in guns like pistols and shotguns.
@@ -248,7 +294,9 @@ class ItemWeapon(Item):
         :param int bullet_damage: Damage of the Bullet
         :param int bullet_range: Range of the Bullet
         :param float max_inaccuracy: The maximum amount the weapons can vary
+        :param float change_in_accuracy: How much the weapon gets more accurate.
         :param int clip_size: The number of bullets the gun can fire before it needs ot reload.
+        :param float reload_time: Time it takes to reload the gun
         """
         super().__init__(name=name,
                          texture=texture,
@@ -264,10 +312,13 @@ class ItemWeapon(Item):
         self._bullet_range = bullet_range
         self._max_inaccuracy = max_inaccuracy
         self._current_inaccuracy = self._max_inaccuracy
-        self._change_in_accuracy = 0.0
+        self._change_in_accuracy = change_in_accuracy
         self._aiming = False
+        self._reloading = False
         self._clip_size = clip_size
         self._current_clip = self._clip_size
+        self._reload_time = reload_time
+        self._reload_current = 0
 
     @property
     def path_to_bullet(self):
@@ -326,12 +377,36 @@ class ItemWeapon(Item):
         self._change_in_accuracy = value
 
     @property
+    def reload_time(self):
+        return self._reload_time
+
+    @reload_time.setter
+    def reload_time(self, value: float):
+        self._reload_time = value
+
+    @property
+    def reload_current(self):
+        return self._reload_current
+
+    @reload_current.setter
+    def reload_current(self, value: float):
+        self._reload_current = value
+
+    @property
     def aiming(self):
         return self._aiming
 
     @aiming.setter
     def aiming(self, value: bool):
         self._aiming = value
+
+    @property
+    def reloading(self):
+        return self._reloading
+
+    @reloading.setter
+    def reloading(self, value: bool):
+        self._reloading = value
 
     @property
     def clip_size(self):
@@ -348,6 +423,21 @@ class ItemWeapon(Item):
     @current_clip.setter
     def current_clip(self, value: int):
         self._current_clip = value
+
+    def on_key_press(self, key: int, modifiers: int):
+        """
+        Runs when the player presses a certain key on the keyboard (not WASD, Space Ect)
+
+        :param key: Number value of the key being pressed (For example, the R key is number 114)
+        :param modifiers: Bitwise 'and' of all modifiers (shift, ctrl, num lock) pressed during this event.
+        See :ref:`keyboard_modifiers`.
+        """
+        super().on_key_press(key, modifiers)
+
+        # This extra reloading check is unnessary rn, but will stop alot of headache if i expand reloading
+        if key == arcade.key.R:
+            if self._reloading is False:
+                self.start_reload()
 
     def shoot(self):
         speed = self._bullet_speed
@@ -384,65 +474,78 @@ class ItemWeapon(Item):
             player.add_bullet(bullet=bullet)
         self._current_clip -= 1
 
-    def aim(self, change_in_accuracy):
+    def start_aiming(self):
         """
-        This aims the weapon, making it more accurate
-        :param change_in_accuracy: How quickly the weapon becomes accurate
+        This aims the weapon, making it more accurate.
         """
-        if self._current_inaccuracy - change_in_accuracy < 0:
-            self._current_inaccuracy = 0.0
-            self._change_in_accuracy = 0.0
-        else:
-            self._change_in_accuracy = change_in_accuracy
         self._aiming = True
 
     def stop_aiming(self):
         """
-        This stops aiming the weapon, and set the
-        :return:
+        This stops aiming the weapon. It also completely resets the inaccuracy!
         """
-        self._current_inaccuracy = self._max_inaccuracy
-        self._change_in_accuracy = 0.0
         self._aiming = False
+        self._current_inaccuracy = self._max_inaccuracy
 
-    def clip_empty(self):
+    def start_reload(self):
         """
-        :returns: True if clip is empty is over, Else False
-        :rtype: bool
+        This starts to reload the weapon.
         """
-        if self._current_clip > 0:
-            return False
-        else:
-            return True
+        self._reloading = True
 
-    def reset_clip(self):
+    def end_reload(self):
         """
-        Resets the current clip to the clip size
+        This actually reloads the weapon. It resets clip, inaccuracy, and reload timer.
         """
+        self._reloading = False
+        self.reload_current = 0
         self._current_clip = self._clip_size
+
+        if self._aiming is True:
+            self._current_inaccuracy = self._max_inaccuracy
+            self.start_aiming()
 
     def on_update(self, delta_time: float = 1 / 60):
         super().on_update()
-        if self._aiming is True:
-            if self._current_inaccuracy - self._change_in_accuracy < 0:
+        if self._reloading is True:
+            self._reload_current += delta_time
+            if self._reload_current >= self._reload_time:
+                self.end_reload()
+
+        elif self._aiming is True:
+            if (self._current_inaccuracy - self._change_in_accuracy) < 0:
                 self._current_inaccuracy = 0.0
-                self._change_in_accuracy = 0.0
             else:
                 self._current_inaccuracy -= self._change_in_accuracy
 
     def draw(self):
         super().draw()
         if self._aiming is True:
-            window = arcade.get_window()
+            if self._reloading is False:
+                window = arcade.get_window()
 
-            start_x = self.center_x
-            start_y = self.center_y
+                start_x = self.center_x
+                start_y = self.center_y
 
-            x1, y1 = self.get_end_point(start_x, start_y, self.angle - self._current_inaccuracy, self._bullet_range)
-            x2, y2 = self.get_end_point(start_x, start_y, self.angle + self._current_inaccuracy, self._bullet_range)
+                x1, y1 = self.get_end_point(start_x, start_y, self.angle - self._current_inaccuracy, self._bullet_range)
+                x2, y2 = self.get_end_point(start_x, start_y, self.angle + self._current_inaccuracy, self._bullet_range)
 
-            arcade.draw_line(start_x, start_y, x1, y1, (255, 0, 0, 75), 2)
-            arcade.draw_line(start_x, start_y, x2, y2, (255, 0, 0, 75), 2)
+                arcade.draw_line(start_x, start_y, x1, y1, (255, 0, 0, 75), 2)
+                arcade.draw_line(start_x, start_y, x2, y2, (255, 0, 0, 75), 2)
+
+    def draw_icon(self):
+        super().draw_icon()
+        if self._reloading is False:
+            text = f"{self._current_clip} : {self._clip_size}"
+        else:
+            text = f"Reloading!"
+
+        arcade.draw_text(text=text,
+                         start_x=self._icon.center_x,
+                         start_y=self._icon.center_y + 40,
+                         color=(0, 0, 0),
+                         font_size=16,
+                         anchor_x="center")
 
     def get_end_point(self, start_x: int, start_y: int, angle: float, distance: float):
         """
@@ -509,6 +612,7 @@ class Hammer(Item):
         :param float x: X-Coord of click.
         :param float y: Y-Coord of click.
         """
+        super().left_click(x, y)
         # This will not work if the player is red!
         if self.cooldown_over() is True:
             window = arcade.get_window()
@@ -534,7 +638,7 @@ class Hammer(Item):
         :param x: X-Coord of click.
         :param y: Y-Coord of click.
         """
-        pass
+        super().left_click(x, y)
 
     def right_click(self, x: float, y: float):
         """
@@ -543,6 +647,7 @@ class Hammer(Item):
         :param float x: X-Coord of click.
         :param float y: Y-Coord of click.
         """
+        super().right_click(x, y)
         if self.cooldown_over() is True:
             window = arcade.get_window()
 
@@ -594,7 +699,23 @@ class Hammer(Item):
         :param x: X-Coord of click.
         :param y: Y-Coord of click.
         """
-        pass
+        super().right_click_release(x, y)
+
+    def on_equip(self):
+        """
+        Runs when equipped from the hotbar (i.e your currently active tool).
+        """
+        super().on_unequip()
+        window = arcade.get_window()
+        window.ui_manager.enable()
+
+    def on_unequip(self):
+        """
+        Runs when unequipped from the hotbar (i.e your currently active tool).
+        """
+        super().on_unequip()
+        window = arcade.get_window()
+        window.ui_manager.disable()
 
 
 class Pistol(ItemWeapon):
@@ -610,14 +731,16 @@ class Pistol(ItemWeapon):
                          icon_texture="assets/images/other_sprites/hotbar_icons/hotbar_icon_pistol.png",
                          icon_x=icon_x,
                          icon_y=icon_y,
-                         cooldown_length=0.5,
+                         cooldown_length=0.2,
                          angle_correction=0,
                          bullet_texture="assets/images/game_sprites/non_building/bullet/bullet.png",
                          bullet_speed=10,
                          bullet_damage=100,
                          bullet_range=500,
                          max_inaccuracy=20,
-                         clip_size=10
+                         change_in_accuracy=0.5,
+                         clip_size=6,
+                         reload_time=1
                          )
 
     def left_click(self, x: float, y: float):
@@ -627,8 +750,9 @@ class Pistol(ItemWeapon):
         :param x: X-Coord of click.
         :param y: Y-Coord of click.
         """
+        super().left_click(x, y)
         if self.cooldown_over() is True:
-            if self.clip_empty() is not True:
+            if self._reloading is False:
                 if self._current_clip > 0:
                     self.reset_cooldown()
                     self.shoot()
@@ -640,7 +764,7 @@ class Pistol(ItemWeapon):
         :param x: X-Coord of click.
         :param y: Y-Coord of click.
         """
-        pass
+        super().left_click(x, y)
 
     def right_click(self, x: float, y: float):
         """
@@ -649,7 +773,8 @@ class Pistol(ItemWeapon):
         :param x: X-Coord of click.
         :param y: Y-Coord of click.
         """
-        self.aim(0.5)
+        super().right_click(x, y)
+        self.start_aiming()
 
     def right_click_release(self, x: float, y: float):
         """
@@ -658,4 +783,18 @@ class Pistol(ItemWeapon):
         :param x: X-Coord of click.
         :param y: Y-Coord of click.
         """
+        super().right_click_release(x, y)
         self.stop_aiming()
+
+    def on_equip(self):
+        """
+        Runs when equipped from the hotbar (i.e your currently active tool).
+        """
+        super().on_unequip()
+
+    def on_unequip(self):
+        """
+        Runs when unequipped from the hotbar (i.e your currently active tool).
+        """
+        super().on_unequip()
+

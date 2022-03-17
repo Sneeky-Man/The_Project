@@ -245,7 +245,7 @@ Removed the range detector technique, and replaced it with arcade.get_closest_sp
 * Updated buttons.py. Now, the "on_click" event will be done from within the class.
 * Renamed the tile layer "foreground" to "units"
 * Added a new tile layer called "foreground". This will be where stuff like resources will be placed
-* Updated all the maps to reflect the new layer changes.
+* Updated all the maps to reflect the new layerK changes.
 * Added game_test_map_money_1.json. This is for testing the money system
 * Added a prototype non_building tile set (this is largely for resources.)
 * Added prototype_gold.png, a very temp gold picture to base the money system on.
@@ -257,3 +257,10 @@ Removed the range detector technique, and replaced it with arcade.get_closest_sp
 * Renamed can_attack to cooldown_over.
 * Added the Units layer to perf map 7, as it was missed last time.
 * Redone properties in the unfinished Resource class
+
+## 17/03/22 03:41
+* Changed how the Item def system works. Instead of try, excepts, it now just calls the def, which will lead straight to a pass
+* Added on_equip and on_unequip to Item. This is run when the item is equipped or equipped.
+* Buttons now disable and re-enable themselves based on if the hammer is equipped.
+* Added reloading the clip of a weapon with the R key. This is done through start_reload() and end_reload()
+* Added text showing how much ammo the player has left in the clip. This text is changed to "Reloading!" when reloading.
