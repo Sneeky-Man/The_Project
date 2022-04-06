@@ -18,7 +18,7 @@ After accidentally deleting all my files, I decided to restart from the start to
 ## 09/12/21 17:55
 * Another attempt at getting pip install -e. to work 
 * Added prototype turret designs
-
+Pr
 ## 09/12/21 23:20
 * Installing the repo should now work
 * Added BUGS.md
@@ -264,3 +264,5 @@ Removed the range detector technique, and replaced it with arcade.get_closest_sp
 * Buttons now disable and re-enable themselves based on if the hammer is equipped.
 * Added reloading the clip of a weapon with the R key. This is done through start_reload() and end_reload()
 * Added text showing how much ammo the player has left in the clip. This text is changed to "Reloading!" when reloading.
+
+## From this point on, the project will be put on hold while I finish my documentation. This current version will be called the pre-alpha

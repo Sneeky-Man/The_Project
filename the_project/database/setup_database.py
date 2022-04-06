@@ -70,6 +70,7 @@ def check_length(conn):
     raise NotImplementedError("Check Length has not been implemented yet!")
     # cursor = conn.cursor()
     # cursor.execute("""SELECT SUM('pgsize') FROM 'dbstat' WHERE name='TABLENAME';""")
+    # cursor.execute("""SELECT SUM('pgsize') FROM 'dbstat' WHERE name='TABLENAME';""")
     # conn.commit()
     # print(cursor.fetchall())
 
@@ -236,7 +237,7 @@ def database_setup_entries():
     return entry_list
 
 
-def database_start():
+def database_start(make_new: bool):
     """
     This starts creating the database
 
@@ -245,11 +246,16 @@ def database_start():
     logging.info(" - - - - - ")
     logging.info("'database_start' - Start - 'setup_database'. Starting the database setup process.")
 
-    conn = database_connect()
+    # This is for Pre-Alpha Reasons. If make_new is true, it will make a new database, if not it will use the old one.
+    if make_new is True:
+        conn = database_connect()
+        entry_list = database_setup_entries()
 
-    entry_list = database_setup_entries()
+        database_add_info(conn, entry_list)
 
-    database_add_info(conn, entry_list)
+    else:
+        conn = sqlite3.connect("database/database.db")
+        print("Database not created")
 
     logging.info("'database_start' - End - 'setup_database'. The database setup process has ended.")
     logging.info(" - - - - - ")

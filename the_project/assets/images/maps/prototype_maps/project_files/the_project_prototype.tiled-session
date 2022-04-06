@@ -5,9 +5,9 @@
     },
     "activeFile": "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_7.json",
     "expandedProjectPaths": [
-        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps",
         "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content",
-        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps"
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -560,8 +560,8 @@
             "scale": 0.75,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 643.9999999999999,
-                "y": 686.6666666666666
+                "x": 1007.3333333333333,
+                "y": 527.3333333333334
             }
         },
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/game_tests/game_test_map_money_1.json": {

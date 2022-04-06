@@ -11,13 +11,6 @@ from the_project.entities.player import Player
 from the_project.special_scripts.items import Hammer, Pistol
 from the_project.special_scripts.buttons import BuildingButton, ButtonGroup
 
-"""
-Map Layers
-game_objects: This is the object layer, for example a player spawn
-foreground: This is where buildings will be placed
-background: This is ground (dirt, grass) ect.
-"""
-
 
 class GameWindow(arcade.Window):
     def __init__(self, width: int, height: int, title: str, conn: object):
@@ -84,6 +77,7 @@ class GameWindow(arcade.Window):
         # Debug
         self.debug = True
 
+        # This is an array for Pre-Alpha Reasons
         self.proto_map_list = ["prototype_map_battle",
                                "tests/game_tests/game_test_map_money_1",
                                "tests/game_tests/game_test_map_sparse_1",
@@ -511,7 +505,8 @@ def main():
     logging.basicConfig(filename="log_file.txt", level=level, format=fmt, filemode="w")
     logging.info("Logging Setup Complete")
 
-    conn = setup_database.database_start()
+    # Set to true to make new database, False will use the old database
+    conn = setup_database.database_start(False)
 
     # Runs the basic setup of the database
     window = GameWindow(width=1000, height=1000, title="The Project", conn=conn)
