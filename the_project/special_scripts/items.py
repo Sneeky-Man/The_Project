@@ -742,6 +742,8 @@ class Pistol(ItemWeapon):
                          clip_size=6,
                          reload_time=1
                          )
+        self.sfx = arcade.load_sound("assets/images/pre-alpha/laserLarge_000.ogg")
+        # Sound effect from kenny.nl (https://www.kenney.nl/assets/sci-fi-sounds)
 
     def left_click(self, x: float, y: float):
         """
@@ -756,6 +758,9 @@ class Pistol(ItemWeapon):
                 if self._current_clip > 0:
                     self.reset_cooldown()
                     self.shoot()
+                    window = arcade.get_window()
+                    self.sfx.play(window.volume)
+
 
     def left_click_release(self, x: float, y: float):
         """

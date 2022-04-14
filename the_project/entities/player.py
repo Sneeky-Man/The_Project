@@ -89,5 +89,39 @@ class Player(Entity):
             if window.hotbar_items[counter] is not None:
                 window.hotbar_items[counter] = None
         self._bullet_list.clear()
+
+        # !!!!!!!!!!!!!! This doesn't work in the correct position! Likely due to the True Position problem with items
+        explosion = Explosion(window.explosion_texture_list)
+
+        # Move it to the location of the coin
+        explosion.center_x = self.center_x
+        explosion.center_y = self.center_y
+
+        # Call update() because it sets which image we start on
+        explosion.update()
+
+        # Add to a list of sprites that are explosions
+        window.explosion_list.append(explosion)
         window.scene[SCENE_NAME_BLUE_PLAYER].remove(self)
         super().kill()
+
+
+# Taken from AAS V2
+class Explosion(arcade.Sprite):
+    """ This class creates an explosion animation """
+
+    def __init__(self, texture_list):
+        super().__init__()
+
+        # Start at the first frame
+        self.current_texture = 0
+        self.textures = texture_list
+
+    def update(self):
+        # Update to the next frame of the animation. If we are at the end
+        # of our frames, then delete this sprite.
+        self.current_texture += 1
+        if self.current_texture < len(self.textures):
+            self.set_texture(self.current_texture)
+        else:
+            self.remove_from_sprite_lists()

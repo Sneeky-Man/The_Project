@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="The_Project Gantt Chart" company="" webLink="http://" view-date="2022-03-28" view-index="0" gantt-divider-location="604" resource-divider-location="300" version="3.1.3100" locale="en_GB">
+    <description/>
+    <view zooming-state="default:5" id="gantt-chart">
+        <field id="tpd3" name="Name" width="455" order="0"/>
+        <field id="tpd4" name="Begin date" width="76" order="1"/>
+        <field id="tpd5" name="End date" width="69" order="2"/>
+        <timeline>
+            <![CDATA[89,128]]>
+        </timeline>
+        <option id="color.recent">
+            <![CDATA[#99ffcc #ffff66 #ffccff #cc00cc #ff99cc #ff33cc #330099 #ff3333 #009966 #00cccc]]>
+        </option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Name" width="210" order="0"/>
+        <field id="1" name="Default role" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars base-id="none">
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="0" mon="0" tue="0" wed="0" thu="0" fri="0" sat="0"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+        <date year="2022" month="5" date="6" type="HOLIDAY"/>
+        <date year="2022" month="5" date="20" type="HOLIDAY"/>
+        <date year="2022" month="5" date="30" type="HOLIDAY"/>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="122" name="Completion of Documentation" color="#ff3333" meeting="false" start="2022-04-03" duration="1" complete="0" thirdDate="2022-03-07" thirdDate-constraint="0" expand="true">
+            <depend id="89" type="2" difference="0" hardness="Strong"/>
+            <depend id="212" type="2" difference="0" hardness="Strong"/>
+            <depend id="308" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="308" name="Remove the SQL Database, replace with item like system" color="#99ffcc" meeting="false" start="2022-04-04" duration="1" complete="0" thirdDate="2022-03-28" thirdDate-constraint="0" expand="true">
+            <depend id="89" type="2" difference="0" hardness="Strong"/>
+            <depend id="212" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="212" name="Asset Design" color="#ff33cc" meeting="false" start="2022-04-05" duration="33" complete="0" thirdDate="2022-04-04" thirdDate-constraint="0" expand="false">
+            <task id="220" name="Player Weapon Assets" color="#ff99cc" meeting="false" start="2022-04-05" duration="14" complete="0" thirdDate="2022-03-28" thirdDate-constraint="0" expand="true">
+                <depend id="226" type="2" difference="0" hardness="Strong"/>
+                <task id="215" name="Sniper Asset" color="#8cb6ce" meeting="false" start="2022-04-05" duration="7" complete="0" thirdDate="2022-03-28" thirdDate-constraint="0" expand="true">
+                    <depend id="218" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="218" name="Shotgun Asset" meeting="false" start="2022-04-12" duration="7" complete="0" expand="true"/>
+            </task>
+            <task id="226" name="Building Assets" color="#ffccff" meeting="false" start="2022-04-19" duration="19" complete="0" thirdDate="2022-04-11" thirdDate-constraint="0" expand="true">
+                <task id="230" name="Redesign Turret Assets with Tiered Assets" color="#8cb6ce" meeting="false" start="2022-04-19" duration="7" complete="0" thirdDate="2022-04-25" thirdDate-constraint="0" expand="true">
+                    <depend id="259" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="259" name="Create New Tiered Building Assets" color="#8cb6ce" meeting="false" start="2022-04-28" duration="10" complete="0" thirdDate="2022-04-19" thirdDate-constraint="0" expand="true"/>
+            </task>
+        </task>
+        <task id="89" name="Economy System" color="#009966" meeting="false" start="2022-04-05" duration="18" complete="0" thirdDate="2022-02-14" thirdDate-constraint="0" expand="false">
+            <depend id="265" type="2" difference="0" hardness="Strong"/>
+            <task id="128" name="Resource" color="#ccffcc" meeting="false" start="2022-04-05" duration="5" complete="0" thirdDate="2022-04-11" thirdDate-constraint="0" expand="true">
+                <depend id="81" type="2" difference="0" hardness="Strong"/>
+                <task id="137" name="Add Resource Class from Map" color="#8cb6ce" meeting="false" start="2022-04-05" duration="3" complete="0" thirdDate="2022-04-11" thirdDate-constraint="0" expand="true">
+                    <depend id="145" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="145" name="Add Interaction between Resource and Buildings" color="#8cb6ce" meeting="false" start="2022-04-08" duration="2" complete="0" thirdDate="2022-04-11" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="81" name="Money System" color="#00ff33" meeting="false" start="2022-04-10" duration="4" complete="0" thirdDate="2022-02-14" thirdDate-constraint="0" expand="true">
+                <depend id="84" type="2" difference="0" hardness="Strong"/>
+                <task id="167" name="Add Money from Resource Buildings" color="#8cb6ce" meeting="false" start="2022-04-10" duration="2" complete="0" thirdDate="2022-04-16" thirdDate-constraint="0" expand="true">
+                    <depend id="172" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="172" name="Spending Money on Building Buildings" color="#8cb6ce" meeting="false" start="2022-04-12" duration="2" complete="0" thirdDate="2022-04-16" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="84" name="Tech System" color="#00cccc" meeting="false" start="2022-04-14" duration="9" complete="0" thirdDate="2022-02-14" thirdDate-constraint="0" expand="true">
+                <task id="187" name="Design Tech System" meeting="false" start="2022-04-14" duration="4" complete="0" expand="true">
+                    <depend id="190" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="190" name="Add Tech Resources" meeting="false" start="2022-04-18" duration="2" complete="0" expand="true">
+                    <depend id="194" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="194" name="Add Unlocking Tech" color="#8cb6ce" meeting="false" start="2022-04-20" duration="3" complete="0" thirdDate="2022-04-20" thirdDate-constraint="0" expand="true"/>
+            </task>
+        </task>
+        <task id="265" name="Implement Sniper and Shotgun" color="#ffff66" meeting="false" start="2022-04-23" duration="2" complete="0" thirdDate="2022-04-23" thirdDate-constraint="0" expand="true">
+            <depend id="203" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="203" name="Additional Building" color="#330099" meeting="false" start="2022-04-25" duration="8" complete="0" thirdDate="2022-04-29" thirdDate-constraint="0" expand="false">
+            <depend id="208" type="2" difference="0" hardness="Strong"/>
+            <task id="207" name="Add Respawning at Bases" color="#8cb6ce" meeting="false" start="2022-04-25" duration="3" complete="0" thirdDate="2022-04-29" thirdDate-constraint="0" expand="true"/>
+            <task id="233" name="Add Tiered Asset System" meeting="false" start="2022-04-27" duration="6" complete="0" expand="true"/>
+        </task>
+        <task id="205" name="Add More Building Prototypes, Unlocked Through Tech" color="#8cb6ce" meeting="false" start="2022-04-24" duration="13" complete="0" thirdDate="2022-04-04" thirdDate-constraint="0" expand="false">
+            <task id="301" name="Design New Buildings" meeting="false" start="2022-04-24" duration="4" complete="0" expand="true">
+                <depend id="259" type="2" difference="0" hardness="Strong"/>
+                <depend id="307" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="307" name="Implement New Buildings" color="#8cb6ce" meeting="false" start="2022-04-28" duration="9" complete="0" thirdDate="2022-04-11" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="208" name="AI" color="#8cb6ce" meeting="true" start="2022-05-03" duration="0" complete="0" thirdDate="2022-04-18" thirdDate-constraint="0" expand="true"/>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>

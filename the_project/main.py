@@ -118,6 +118,11 @@ class GameWindow(arcade.Window):
 
         self.cur_map = 0
 
+        # Music
+        self.volume = 0.1
+        self.music = None
+        self.music_player = None
+
         # Load the first map
         self.setup_map(self.proto_map_list[self.cur_map])
 
@@ -258,6 +263,21 @@ class GameWindow(arcade.Window):
             player_sprite=self.player_sprite,
             walls=[self.scene[SCENE_NAME_BLUE_BUILDING], self.scene[SCENE_NAME_RED_BUILDING]])
 
+        # Explosions
+        # This is a very lazy way to add this#
+        self.explosion_texture_list = arcade.load_spritesheet("assets/images/pre-alpha/explosion_spritesheet.png", 45, 45, 5, 21)
+        self.explosion_list = arcade.SpriteList()
+
+        # Music
+        if self.music_player is not None:
+            self.music.stop(self.music_player)
+        self.music = arcade.load_sound("assets/images/pre-alpha/tahtimohko.mp3")
+        self.music_player = self.music.play()
+        self.music_player.volume = self.volume
+
+        # Music is tähtimöhkö from Turbo. Permission given here. https://www.youtube.com/c/TurboA/about
+
+
         logging.info(f"'Game_Window.setup_map() - End - 'main'. Set up the map: {map_name!r}")
         logging.info(" - - - - - ")
 
@@ -303,8 +323,16 @@ class GameWindow(arcade.Window):
         arcade.draw_text(f"FPS: {fps:.0f}", 900, 950, arcade.color.BLUE, 18)
         length = (len(self.scene[SCENE_NAME_BLUE_BUILDING]) + len(self.scene[SCENE_NAME_RED_BUILDING]))
         arcade.draw_text(f"Length of Lists: {length}", 850, 900, arcade.color.BLUE, 12)
+        arcade.draw_text(f"Volume: {self.volume:.2f}", 900, 850, arcade.color.BLUE, 12)
+        seconds = self.music_player.time
+        minutes = int(seconds // 60)
+        seconds = int(seconds % 60)
+        arcade.draw_text(f"Time: {minutes}:{seconds:02}", 910, 825, arcade.color.BLUE, 12)
 
         # self.perf_graph.draw()
+
+        # Explosions
+        self.explosion_list.draw()
 
     def on_update(self, delta_time: float):
         """
@@ -357,6 +385,9 @@ class GameWindow(arcade.Window):
         self.camera.update()
         self.scroll_to_player()
 
+        # Explosions
+        self.explosion_list.update()
+
     def on_key_press(self, key, modifiers):
         """
         Called when a key is pressed.
@@ -405,6 +436,16 @@ class GameWindow(arcade.Window):
         elif key == arcade.key.R:
             if self.hotbar_items[self.hotbar_selected - 1] is not None:
                 self.hotbar_items[self.hotbar_selected - 1].on_key_press(key, modifiers)
+
+        elif key == 46:
+            if self.volume <= 0.96:
+                self.volume += 0.05
+            self.music_player.volume = self.volume
+
+        elif key == 44:
+            if self.volume >= 0.05:
+                self.volume -= 0.05
+            self.music_player.volume = self.volume
 
     def on_key_release(self, key, modifiers):
         """

@@ -3,11 +3,11 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_7.json",
+    "activeFile": "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tile_sheets/the_project_prototype_ground_tilesheet.json",
     "expandedProjectPaths": [
-        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps",
-        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps"
+        "E:/Files/School/Computing/Higher/Software Design and Development/Python/Pygame/Other/Tiled/Portable Download/Stardew Valley Maps/All Unpacked Content"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
@@ -560,16 +560,16 @@
             "scale": 0.75,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 1007.3333333333333,
-                "y": 527.3333333333334
+                "x": 510.66666666666674,
+                "y": 156
             }
         },
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/game_tests/game_test_map_money_1.json": {
             "scale": 1,
-            "selectedLayer": 2,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 1023.5,
-                "y": 511.5
+                "x": 1022,
+                "y": 510
             }
         },
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/game_tests/game_test_map_sparse_1.json": {
@@ -719,7 +719,8 @@
         },
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tile_sheets/the_project_prototype_ground_tilesheet.json": {
             "dynamicWrapping": false,
-            "scaleInDock": 1
+            "scaleInDock": 2,
+            "scaleInEditor": 4
         },
         "the_project_prototype_ground_tilesheet.json": {
             "dynamicWrapping": false,
@@ -811,7 +812,8 @@
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tile_sheets/non_building_tileset.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/game_tests/game_test_map_money_1.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/prototype_map_battle.json",
-        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_7.json"
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_7.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tile_sheets/the_project_prototype_ground_tilesheet.json"
     ],
     "project": "the_project_prototype.tiled-project",
     "property.type": "int",
@@ -822,12 +824,12 @@
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/game_tests/game_test_map_money_1.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/prototype_map_battle.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_7.json",
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tile_sheets/the_project_prototype_ground_tilesheet.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_6.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_3.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_5.json",
         "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_4.json",
-        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_2.json",
-        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_1.json"
+        "E:/Game Related Stuff/Python Games/Python Arcade/PyCharm Projects/The_Project/the_project/assets/images/maps/prototype_maps/tests/performance_tests/performance_map_2.json"
     ],
     "tileset.embedInMap": false,
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
