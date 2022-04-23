@@ -166,7 +166,7 @@ class GameWindow(arcade.Window):
                                     starting_health=result.starting_health, speed=3.0)
         blue_player_list.append(self.player_sprite)
 
-        # This converts all tiles on the foreground to a Building
+        # This converts all tiles on the unit to a Building
         for cur_tile in self.scene[LAYER_NAME_UNITS]:
             result = setup_database.database_search(self.conn, cur_tile.properties["name"], cur_tile.properties["tier"])
             if cur_tile.properties["team"] == "Blue":
@@ -289,7 +289,7 @@ class GameWindow(arcade.Window):
         # This starts drawing, never call finish_render()!
         arcade.start_render()
 
-        self.clear()
+        # self.clear() I don't think this is needed?
         self.camera.use()
 
         self.scene[LAYER_NAME_BACKGROUND].draw()
